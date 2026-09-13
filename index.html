@@ -246,6 +246,24 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
 .conf-hi{background:rgba(76,175,130,.15);color:var(--su);}
 .conf-med{background:rgba(240,160,48,.15);color:var(--wa);}
 .conf-lo{background:rgba(224,92,110,.15);color:var(--da);}
+
+/* MODAL (for profile drill-downs) */
+.modal-overlay{position:fixed;inset:0;background:rgba(58,20,32,.55);backdrop-filter:blur(3px);z-index:800;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;}
+.modal-overlay.show{opacity:1;pointer-events:all;}
+.modal-sheet{width:100%;max-width:430px;background:var(--dk);border-radius:22px 22px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom));max-height:78vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);border-top:1px solid var(--bo);}
+.modal-overlay.show .modal-sheet{transform:translateY(0);}
+.modal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.modal-ttl{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--tx);}
+.modal-x{width:30px;height:30px;border-radius:50%;background:rgba(139,32,53,.1);border:none;color:var(--mu);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-x:active{transform:scale(.9);}
+.modal-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--bo);font-size:13px;}
+.modal-row:last-child{border-bottom:none;}
+.modal-row-lft{display:flex;align-items:center;gap:10px;}
+.modal-sb{font-size:10px;color:var(--mu);margin-top:2px;}
+.tog-mini{width:38px;height:21px;border-radius:11px;background:rgba(139,32,53,.15);border:none;cursor:pointer;position:relative;flex-shrink:0;}
+.tog-mini.on{background:linear-gradient(135deg,var(--bu),var(--bl));}
+.tog-mini::after{content:'';position:absolute;width:15px;height:15px;border-radius:50%;background:white;top:3px;left:3px;transition:left .2s;}
+.tog-mini.on::after{left:20px;}
 </style>
 </head>
 <body>
@@ -406,7 +424,13 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
   <div class="ph"><div class="ph-title">Profile</div></div>
   <div class="content">
     <div class="prof-hero"><div class="prof-av">AV</div><div><div class="prof-nm">Arjun V.</div><div class="prof-rl">🏭 Seller · Velora Network</div><div class="prof-lc">📍 Calicut, Kerala</div></div></div>
-    <div class="card"><div class="set-row"><div class="set-lft"><span>📦</span><span>My SKUs (4 active)</span></div><span class="set-ar">›</span></div><div class="set-row"><div class="set-lft"><span>🚚</span><span>My Agents (3)</span></div><span class="set-ar">›</span></div><div class="set-row"><div class="set-lft"><span>🏪</span><span>My Stores (5)</span></div><span class="set-ar">›</span></div><div class="set-row"><div class="set-lft"><span>💳</span><span>Billing & Payouts</span></div><span class="set-ar">›</span></div><div class="set-row" onclick="logout()"><div class="set-lft"><span>🚪</span><span style="color:var(--da);">Sign Out</span></div><span class="set-ar">›</span></div></div>
+    <div class="card">
+      <div class="set-row" onclick="openModal('seller-skus')"><div class="set-lft"><span>📦</span><span>My SKUs (4 active)</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="openModal('seller-agents')"><div class="set-lft"><span>🚚</span><span>My Agents (3)</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="openModal('seller-stores')"><div class="set-lft"><span>🏪</span><span>My Stores (5)</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="openModal('seller-billing')"><div class="set-lft"><span>💳</span><span>Billing & Payouts</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="logout()"><div class="set-lft"><span>🚪</span><span style="color:var(--da);">Sign Out</span></div><span class="set-ar">›</span></div>
+    </div>
   </div>
 </div>
 
@@ -496,7 +520,11 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
   <div class="ph"><div class="ph-title">Profile</div></div>
   <div class="content">
     <div class="prof-hero"><div class="prof-av">RK</div><div><div class="prof-nm">Rajesh K.</div><div class="prof-rl">🚚 Delivery Agent</div><div class="prof-lc">📍 KL-07 AB 1234 · Calicut</div></div></div>
-    <div class="card"><div class="set-row"><div class="set-lft"><span>💰</span><span>Payout History</span></div><span class="set-ar">›</span></div><div class="set-row"><div class="set-lft"><span>🗺️</span><span>My Route Today</span></div><span class="set-ar">›</span></div><div class="set-row" onclick="logout()"><div class="set-lft"><span>🚪</span><span style="color:var(--da);">Sign Out</span></div><span class="set-ar">›</span></div></div>
+    <div class="card">
+      <div class="set-row" onclick="openModal('agent-payouts')"><div class="set-lft"><span>💰</span><span>Payout History</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="openModal('agent-route')"><div class="set-lft"><span>🗺️</span><span>My Route Today</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="logout()"><div class="set-lft"><span>🚪</span><span style="color:var(--da);">Sign Out</span></div><span class="set-ar">›</span></div>
+    </div>
   </div>
 </div>
 
@@ -596,7 +624,11 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
   <div class="ph"><div class="ph-title">Store Profile</div></div>
   <div class="content">
     <div class="prof-hero"><div class="prof-av">FB</div><div><div class="prof-nm">Focus Bakers</div><div class="prof-rl">🏪 Retailer · Palayam</div><div class="prof-lc">📍 Unit 4B, Palayam, Calicut</div></div></div>
-    <div class="card"><div class="set-row"><div class="set-lft"><span>📋</span><span>Order History</span></div><span class="set-ar">›</span></div><div class="set-row"><div class="set-lft"><span>📈</span><span>Sales Reports</span></div><span class="set-ar">›</span></div><div class="set-row" onclick="logout()"><div class="set-lft"><span>🚪</span><span style="color:var(--da);">Sign Out</span></div><span class="set-ar">›</span></div></div>
+    <div class="card">
+      <div class="set-row" onclick="openModal('store-orders')"><div class="set-lft"><span>📋</span><span>Order History</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="openModal('store-reports')"><div class="set-lft"><span>📈</span><span>Sales Reports</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="logout()"><div class="set-lft"><span>🚪</span><span style="color:var(--da);">Sign Out</span></div><span class="set-ar">›</span></div>
+    </div>
   </div>
 </div>
 
@@ -746,9 +778,9 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
   <div class="content">
     <div class="prof-hero"><div class="prof-av">PM</div><div><div class="prof-nm">Priya M.</div><div class="prof-rl">📊 Brand Analyst · HQ</div><div class="prof-lc">📍 Velora Intelligence Hub</div></div></div>
     <div class="card">
-      <div class="set-row"><div class="set-lft"><span>📤</span><span>Export Weekly Report</span></div><span class="set-ar">›</span></div>
-      <div class="set-row"><div class="set-lft"><span>🔔</span><span>Alert Settings</span></div><span class="set-ar">›</span></div>
-      <div class="set-row"><div class="set-lft"><span>🗂️</span><span>Historical Data (8 weeks)</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="openModal('analyst-export')"><div class="set-lft"><span>📤</span><span>Export Weekly Report</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="openModal('analyst-alerts')"><div class="set-lft"><span>🔔</span><span>Alert Settings</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="openModal('analyst-history')"><div class="set-lft"><span>🗂️</span><span>Historical Data (8 weeks)</span></div><span class="set-ar">›</span></div>
       <div class="set-row" onclick="logout()"><div class="set-lft"><span>🚪</span><span style="color:var(--da);">Sign Out</span></div><span class="set-ar">›</span></div>
     </div>
   </div>
@@ -756,6 +788,11 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
 
 <!-- TOAST -->
 <div class="toast-con" id="toastCon"></div>
+
+<!-- PROFILE DRILL-DOWN MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal-sheet" id="modalSheet"></div>
+</div>
 
 </div><!-- /screen-wrap -->
 
@@ -780,6 +817,7 @@ const SKU_NAMES  = { pb30:'Protein Bar 30g', pb60:'Protein Bar 60g', wpc:'Whey P
 const STORE_NAMES = { lulu:'Lulu Mart', focus:'Focus Bakers', kudumba:'Kudumbashree', nilgiris:'Nilgiris Express', heritage:'Heritage Foods' };
 let role=null, tab=0, qty=60, dq=60, shortageOn=false, chartsInit=false, jiyaHistory=[];
 let togState = { 'tog-intro':false, 'tog-disp':false, 'tog-prio':false };
+let modalTogState = { 'notif-orders':true, 'notif-agents':false, 'alert-critical':true, 'alert-weekly':true, 'alert-anomaly':true };
 
 // ═══ SPLASH / LOGIN ═══
 function showLogin(){ document.getElementById('splash').classList.add('out'); document.getElementById('loginPage').classList.remove('hidden'); }
@@ -801,6 +839,7 @@ function logout(){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('bnav').classList.add('hidden');
   chartsInit=false; jiyaHistory=[];
+  closeModal();
   ['_anaChart','_trendChart','_sellerChart','_forecastChart'].forEach(function(k){if(window[k]){window[k].destroy();window[k]=null;}});
   var jc=document.getElementById('jiya-chat');
   if(jc) jc.innerHTML='<div class="jb ai">Hi! I\'m Jiya. Sign in as Analyst to begin.</div>';
@@ -1075,9 +1114,6 @@ setInterval(function(){
 },6000);
 
 // ═══ ADVANCED ANALYTICS ENGINE ═══
-// Single source of truth: sell-in, sell-out and 4-week trend per store.
-// Every card below (gap %, health score, anomalies, segments) is computed
-// live from this data — update these numbers and everything recalculates.
 const STORE_ANALYTICS = [
   { name:'Lulu Mart',        sellin:240, sellout:198, trend:[85,80,78,82.5], color:'#A8324A' },
   { name:'Focus Bakers',     sellin:180, sellout:72,  trend:[72,65,55,40],   color:'#C23B4A' },
@@ -1205,6 +1241,104 @@ function renderSegments(){
     box.innerHTML='<div style="font-size:11px;font-weight:700;color:'+colors[g]+';margin-bottom:4px;">'+icons[g]+' '+g+' ('+groups[g].length+')</div><div style="font-size:10px;color:var(--mu);line-height:1.6;">'+(groups[g].join(', ')||'—')+'</div>';
     el.appendChild(box);
   });
+}
+
+// ═══ PROFILE DRILL-DOWN MODALS ═══
+const MODAL_CONTENT = {
+  'seller-skus': { title:'My SKUs', build:function(){
+    var skus=[
+      {ic:'🍫',nm:'Protein Bar 30g',sb:'₹30/pc · fastest mover',rt:'70% of volume'},
+      {ic:'🍫',nm:'Protein Bar 60g',sb:'₹55/pc · steady demand',rt:'20% of volume'},
+      {ic:'🥣',nm:'Oats Bar 40g',sb:'₹25/pc · growing',rt:'7% of volume'},
+      {ic:'🥤',nm:'Whey Protein 500g',sb:'₹899/unit · premium',rt:'3% of volume'}
+    ];
+    return skus.map(function(s){ return modalRow(s.ic,s.nm,s.sb,s.rt); }).join('');
+  }},
+  'seller-agents': { title:'My Agents', build:function(){
+    var agents=[
+      {ic:'🚚',nm:'Rajesh K.',sb:'KL-07 AB 1234 · 14 deliveries this week',rt:'100% on-time'},
+      {ic:'🚚',nm:'Anuj M.',sb:'KL-11 CD 5678 · 11 deliveries this week',rt:'96% on-time'},
+      {ic:'🚚',nm:'Mohammed S.',sb:'KL-14 EF 9012 · 9 deliveries this week',rt:'94% on-time'}
+    ];
+    return agents.map(function(a){ return modalRow(a.ic,a.nm,a.sb,a.rt); }).join('');
+  }},
+  'seller-stores': { title:'My Stores', build:function(){
+    var stores=[
+      {ic:'🛒',nm:'Lulu Mart',sb:'Calicut · 82.5% sell-through',rt:'Healthy'},
+      {ic:'🍞',nm:'Focus Bakers',sb:'Palayam · 40% sell-through',rt:'Hold'},
+      {ic:'🌿',nm:'Kudumbashree',sb:'Kannur · 80% sell-through',rt:'Stable'},
+      {ic:'🍃',nm:'Nilgiris Express',sb:'Kozhikode · 85% sell-through',rt:'Star'},
+      {ic:'🏠',nm:'Heritage Foods',sb:'Malappuram · not onboarded',rt:'New'}
+    ];
+    return stores.map(function(s){ return modalRow(s.ic,s.nm,s.sb,s.rt); }).join('');
+  }},
+  'seller-billing': { title:'Billing & Payouts', build:function(){
+    return modalRow('💳','This Week\'s Revenue','From 4 orders','₹12,900')
+      + modalRow('📤','Pending Payout Transfer','Processes every Friday','₹9,300')
+      + modalRow('✅','Last Payout','Transferred Sep 5','₹18,400');
+  }},
+  'agent-payouts': { title:'Payout History', build:function(){
+    return modalRow('📅','This Week','14 deliveries','₹2,100')
+      + modalRow('📅','Last Week','16 deliveries','₹2,400')
+      + modalRow('📅','2 Weeks Ago','12 deliveries','₹1,800')
+      + modalRow('💰','Total This Month','42 deliveries','₹6,300');
+  }},
+  'agent-route': { title:"Today's Route", build:function(){
+    return modalRow('🍞','Focus Bakers','Palayam · 2.1 km','En route')
+      + modalRow('🌿','Kudumbashree','Kannur Road · 8.4 km','2:00 PM')
+      + modalRow('🍃','Nilgiris Express','Kozhikode Beach Rd · 12 km','4:30 PM');
+  }},
+  'store-orders': { title:'Order History', build:function(){
+    return modalRow('✅','#V-1039','Protein Bar 30g × 100','Delivered')
+      + modalRow('🚚','#V-1041','Protein Bar 60g × 60','In Transit')
+      + modalRow('⏳','#V-1040','Oats Bar 40g × 80','Pending');
+  }},
+  'store-reports': { title:'Sales Reports', build:function(){
+    return modalRow('📈','This Week','84 units sold','40% avg sell-through')
+      + modalRow('📉','Last Week','96 units sold','55% avg sell-through')
+      + modalRow('📊','4-Week Trend','Declining','72%→65%→55%→40%');
+  }},
+  'analyst-export': { title:'Export Weekly Report', build:function(){
+    return modalRow('📄','Full Brand Report','PDF · Sell-in, sell-out, trends','Ready')
+      + modalRow('📊','Store Rankings','CSV · all 5 stores','Ready')
+      + modalRow('🔮','Forecast Summary','PDF · next 7 days','Ready');
+  }, actionLabel:'Export All', action:function(){ showToast('📤','Weekly report exported — check your downloads.'); closeModal(); } },
+  'analyst-alerts': { title:'Alert Settings', build:function(){
+    return modalToggleRow('alert-critical','Critical Sell-through Drops','Notify when a store falls below 50%')
+      + modalToggleRow('alert-weekly','Weekly Summary','Every Monday at 9 AM')
+      + modalToggleRow('alert-anomaly','Anomaly Detection','Sharp single-week declines');
+  }},
+  'analyst-history': { title:'Historical Data (8 Weeks)', build:function(){
+    return modalRow('📅','Week 1-4','Baseline period','Archived')
+      + modalRow('📅','Week 5-8','Current tracking window','Active')
+      + modalRow('📥','Full Export','All 8 weeks, all stores','CSV / JSON');
+  }, actionLabel:'Download Full History', action:function(){ showToast('🗂️','Historical dataset (8 weeks) downloading...'); closeModal(); } }
+};
+
+function modalRow(icon,name,sub,right){
+  return '<div class="modal-row"><div class="modal-row-lft"><span>'+icon+'</span><div><div>'+name+'</div><div class="modal-sb">'+sub+'</div></div></div><strong style="font-family:\'Syne\',sans-serif;font-size:12px;">'+right+'</strong></div>';
+}
+function modalToggleRow(key,name,sub){
+  var on=!!modalTogState[key];
+  return '<div class="modal-row"><div class="modal-row-lft"><div><div>'+name+'</div><div class="modal-sb">'+sub+'</div></div></div><button class="tog-mini'+(on?' on':'')+'" onclick="toggleModalTog(this,\''+key+'\')"></button></div>';
+}
+function toggleModalTog(el,key){
+  modalTogState[key]=!modalTogState[key];
+  el.classList.toggle('on',modalTogState[key]);
+}
+
+function openModal(key){
+  var cfg=MODAL_CONTENT[key];
+  if(!cfg) return;
+  var sheet=document.getElementById('modalSheet');
+  var actionBtn = cfg.action ? '<button class="big-btn" onclick="MODAL_CONTENT[\''+key+'\'].action()">'+(cfg.actionLabel||'Confirm')+'</button>' : '';
+  sheet.innerHTML = '<div class="modal-hd"><div class="modal-ttl">'+cfg.title+'</div><button class="modal-x" onclick="closeModal()">✕</button></div>'
+    + '<div class="card" style="background:transparent;border:none;padding:0;margin-bottom:'+(cfg.action?'14px':'0')+';">'+cfg.build()+'</div>'
+    + actionBtn;
+  document.getElementById('modalOverlay').classList.add('show');
+}
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('show');
 }
 
 // ═══ INIT ═══
