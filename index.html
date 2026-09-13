@@ -3,168 +3,210 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>VELORA</title>
+<title>VELORA · Brand Intelligence</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
-:root{--bu:#8B2035;--bu2:#6B1A2B;--bl:#A8324A;--bg:#9C2F47;--cr:#FDF6EC;--cm:#F0E0C0;--am:#9C7A2E;--da:#C23B4A;--su:#2E8B5B;--wa:#B8721F;--dk:#FAF3E3;--cd:rgba(139,32,53,.08);--bo:rgba(139,32,53,.22);--tx:rgba(58,20,32,.88);--mu:rgba(107,26,43,.52);}
+:root {
+  --bu:#8B2035; --bu2:#6B1A2B; --bl:#A8293E; --blh:#C4405C; --bgl:#F5E0E6;
+  --page:#FAF5EE; --cw:#FFFFFF; --c2:#FDF8F2;
+  --cr:#FDF6EC; --cm:#F0E0C0;
+  --tx:rgba(28,10,15,.88); --tx2:rgba(28,10,15,.6); --mu:rgba(28,10,15,.4);
+  --bo:rgba(139,32,53,.13); --bo2:rgba(139,32,53,.25);
+  --am:#C4901A; --su:#1E6B3C; --wa:#9A6B10; --da:#C42A3E;
+  --sp:#0D0408;
+}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{background:var(--dk);font-family:'Inter',sans-serif;color:var(--tx);overflow:hidden;}
+body{background:var(--page);font-family:'Inter',sans-serif;color:var(--tx);overflow:hidden;}
 ::-webkit-scrollbar{width:0;}
 .shell{width:100vw;height:100dvh;display:flex;flex-direction:column;max-width:430px;margin:0 auto;position:relative;overflow:hidden;}
 
-/* SPLASH */
-#splash{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(139,32,53,.38),transparent 60%),radial-gradient(ellipse at 78% 78%,rgba(212,168,83,.1),transparent 50%),var(--dk);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:500;transition:opacity .4s;}
+/* ── SPLASH (stays dark) ── */
+#splash{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(139,32,53,.45),transparent 58%),radial-gradient(ellipse at 75% 75%,rgba(212,168,83,.1),transparent 48%),#0D0408;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;z-index:500;transition:opacity .4s;}
 #splash.out{opacity:0;pointer-events:none;}
-.sp-logo{font-family:'Syne',sans-serif;font-size:54px;font-weight:800;background:linear-gradient(140deg,var(--bu),var(--bl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-2px;}
-.sp-tag{font-size:11px;color:var(--mu);letter-spacing:3px;text-transform:uppercase;text-align:center;line-height:1.8;}
+.sp-logo{font-family:'Syne',sans-serif;font-size:52px;font-weight:800;background:linear-gradient(140deg,#C4405C,#F0E0C0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-2px;}
+.sp-tag{font-size:11px;color:rgba(212,168,83,.65);letter-spacing:3px;text-transform:uppercase;text-align:center;}
+.sp-sub{font-size:10px;color:rgba(212,168,83,.38);letter-spacing:2px;text-align:center;margin-top:-6px;}
 .sp-dots{display:flex;gap:6px;margin-top:4px;}
-.sp-dot{width:5px;height:5px;border-radius:50%;background:var(--bl);opacity:.4;}
-.sp-dot:nth-child(2){opacity:.65;}
-.sp-dot:nth-child(3){opacity:1;}
-.sp-btn{margin-top:28px;padding:15px 46px;border-radius:50px;border:none;background:linear-gradient(135deg,var(--bu),var(--bl));color:var(--cr);font-family:'Syne',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:transform .15s;letter-spacing:.3px;}
+.sp-dot{width:6px;height:6px;border-radius:50%;background:#C4405C;}
+@keyframes spP{0%,100%{opacity:.22;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
+.sp-btn{margin-top:28px;padding:15px 48px;border-radius:50px;border:none;background:linear-gradient(135deg,#8B2035,#C4405C);color:#FDF6EC;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:transform .15s;letter-spacing:.3px;}
 .sp-btn:active{transform:scale(.95);}
+.sp-foot{position:absolute;bottom:28px;font-size:10px;color:rgba(212,168,83,.28);letter-spacing:1.5px;}
 
-/* LOGIN */
-#loginPage{position:absolute;inset:0;background:radial-gradient(ellipse at 35% 35%,rgba(139,32,53,.28),transparent 58%),var(--dk);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;z-index:400;transition:opacity .3s;}
+/* ── LOGIN (cream textured) ── */
+#loginPage{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;
+  background:
+    radial-gradient(ellipse at 15% 8%,rgba(139,32,53,.07),transparent 52%),
+    radial-gradient(ellipse at 88% 85%,rgba(196,144,26,.08),transparent 50%),
+    linear-gradient(160deg,#FBF3E4 0%,#F5E9D2 50%,#EFDFC0 100%);
+  display:flex;flex-direction:column;align-items:center;padding:36px 22px 40px;z-index:400;transition:opacity .3s;}
+#loginPage::before{content:'';position:absolute;inset:0;pointer-events:none;opacity:.55;mix-blend-mode:multiply;
+  background-image:
+    repeating-linear-gradient(45deg,rgba(139,32,53,.025) 0px,rgba(139,32,53,.025) 1px,transparent 1px,transparent 3px),
+    repeating-linear-gradient(-45deg,rgba(139,32,53,.018) 0px,rgba(139,32,53,.018) 1px,transparent 1px,transparent 4px),
+    radial-gradient(circle at 30% 20%,rgba(255,255,255,.5),transparent 60%);
+}
 #loginPage.hidden{opacity:0;pointer-events:none;}
-.lg-logo{font-family:'Syne',sans-serif;font-size:40px;font-weight:800;background:linear-gradient(135deg,var(--bu),var(--bl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;}
-.lg-sub{font-size:11px;color:var(--mu);letter-spacing:2.2px;text-transform:uppercase;margin-bottom:28px;}
-.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:360px;}
-.rc{background:rgba(139,32,53,.09);border:1px solid var(--bo);border-radius:18px;padding:22px 14px;text-align:center;cursor:pointer;transition:all .2s;}
-.rc:active{transform:scale(.93);background:rgba(196,64,92,.18);}
-.rc-ic{font-size:34px;margin-bottom:10px;}
-.rc-nm{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--tx);}
+#loginPage > *{position:relative;z-index:1;}
+.lg-logo{font-family:'Syne',sans-serif;font-size:38px;font-weight:800;background:linear-gradient(135deg,#8B2035,#C4405C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px;margin-top:6px;}
+.lg-sub{font-size:11px;color:rgba(139,32,53,.5);letter-spacing:2.2px;text-transform:uppercase;margin-bottom:22px;}
+
+/* Demo auth card */
+.auth-card{width:100%;max-width:360px;background:rgba(255,255,255,.6);border:1px solid rgba(139,32,53,.18);border-radius:20px;padding:18px;margin-bottom:24px;backdrop-filter:blur(6px);box-shadow:0 4px 18px rgba(139,32,53,.06);}
+.auth-tabs{display:flex;background:rgba(139,32,53,.07);border-radius:12px;padding:4px;margin-bottom:16px;}
+.auth-tab{flex:1;text-align:center;padding:9px 0;border-radius:9px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--mu);cursor:pointer;transition:all .2s;}
+.auth-tab.on{background:var(--bu);color:#FDF6EC;box-shadow:0 2px 8px rgba(139,32,53,.25);}
+.auth-fg{margin-bottom:11px;}
+.auth-lbl{font-size:9px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.7px;margin-bottom:5px;display:block;}
+.auth-inp{width:100%;background:rgba(255,255,255,.85);border:1px solid rgba(139,32,53,.2);border-radius:11px;padding:11px 13px;color:var(--tx);font-family:'Inter',sans-serif;font-size:13px;outline:none;}
+.auth-inp:focus{border-color:var(--bu);box-shadow:0 0 0 3px rgba(139,32,53,.08);}
+.auth-demo-note{font-size:10px;color:var(--mu);text-align:center;margin-top:10px;line-height:1.5;}
+.auth-demo-note b{color:var(--bu);}
+.lg-or{display:flex;align-items:center;gap:10px;width:100%;max-width:360px;margin-bottom:18px;}
+.lg-or::before,.lg-or::after{content:'';flex:1;height:1px;background:rgba(139,32,53,.15);}
+.lg-or span{font-size:10px;color:var(--mu);letter-spacing:1px;text-transform:uppercase;font-weight:600;}
+.lg-sub2{font-size:10px;color:var(--mu);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px;font-weight:700;}
+
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:360px;padding-bottom:8px;}
+.rc{background:rgba(255,255,255,.7);border:1px solid rgba(139,32,53,.16);border-radius:18px;padding:20px 14px;text-align:center;cursor:pointer;transition:all .2s;box-shadow:0 2px 10px rgba(139,32,53,.05);}
+.rc:active{transform:scale(.93);background:rgba(139,32,53,.1);}
+.rc-ic{font-size:32px;margin-bottom:8px;}
+.rc-nm{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--bu2);}
 .rc-ds{font-size:10px;color:var(--mu);margin-top:3px;}
 
-/* SCREEN WRAP + PAGES */
+/* ── PAGES ── */
 .screen-wrap{flex:1;overflow:hidden;position:relative;}
-.page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;background:radial-gradient(ellipse at 20% 12%,rgba(107,26,43,.18),transparent 52%),var(--dk);display:none;}
+.page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;background:var(--page);display:none;}
 .page.active{display:block;}
-
-/* HEADER */
-.ph{position:sticky;top:0;z-index:100;background:rgba(250,243,227,.96);backdrop-filter:blur(14px);padding:14px 18px 11px;border-bottom:1px solid var(--bo);}
+.ph{position:sticky;top:0;z-index:100;background:rgba(250,245,238,.97);backdrop-filter:blur(14px);padding:14px 18px 11px;border-bottom:1px solid var(--bo);}
 .ph-greet{font-size:11px;color:var(--mu);margin-bottom:2px;}
-.ph-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--tx);}
+.ph-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--bu2);}
 .ph-sub{font-size:11px;color:var(--mu);margin-top:2px;}
-.back{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--bl);cursor:pointer;margin-bottom:6px;}
+.back{display:inline-flex;align-items:center;gap:5px;font-size:13px;color:var(--bl);cursor:pointer;margin-bottom:6px;font-weight:500;}
 .content{padding:16px;padding-bottom:100px;}
 
-/* BOTTOM NAV */
-.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(250,243,227,.97);border-top:1px solid var(--bo);box-shadow:0 -4px 24px rgba(107,26,43,.22);display:flex;z-index:200;}
+/* ── NAV ── */
+.bnav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(250,245,238,.98);border-top:1px solid var(--bo);box-shadow:0 -2px 20px rgba(139,32,53,.1);display:flex;z-index:200;}
 .bnav.hidden{display:none;}
 .ni{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 4px 14px;gap:3px;cursor:pointer;border:none;background:none;color:var(--mu);font-family:'Inter',sans-serif;font-size:9px;font-weight:500;transition:all .2s;}
-.ni.active{color:var(--bl);background:rgba(196,64,92,.1);}
+.ni.active{color:var(--bu);background:rgba(139,32,53,.07);}
 .ni-ic{font-size:20px;line-height:1;}
 
-/* KPI ROW */
+/* ── KPI ── */
 .kpi-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
-.kpi{background:var(--cd);border:1px solid var(--bo);border-radius:14px;padding:14px;}
+.kpi{background:var(--cw);border:1px solid var(--bo);border-radius:14px;padding:14px;box-shadow:0 1px 8px rgba(139,32,53,.05);}
 .kpi-lbl{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;}
-.kpi-val{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--bu),var(--bl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.kpi-val{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;background:linear-gradient(135deg,var(--bu),var(--bu2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .kpi-ch{font-size:10px;margin-top:4px;}
 .up{color:var(--su);} .dn{color:var(--da);} .nt{color:var(--mu);}
 
-/* CARD */
-.card{background:var(--cd);border:1px solid var(--bo);border-radius:16px;padding:14px;margin-bottom:12px;}
-.ct{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--cr);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;}
+/* ── CARD ── */
+.card{background:var(--cw);border:1px solid var(--bo);border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 1px 10px rgba(139,32,53,.05);}
+.ct{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--bu2);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;}
 .ct span{font-family:'Inter',sans-serif;font-size:10px;font-weight:500;color:var(--mu);}
 
-/* BADGES */
+/* ── BADGES ── */
 .badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:20px;font-size:10px;font-weight:600;}
-.b-pend{background:rgba(240,160,48,.15);color:var(--wa);border:1px solid rgba(240,160,48,.3);}
-.b-tran{background:rgba(196,64,92,.15);color:var(--bg);border:1px solid rgba(196,64,92,.3);}
-.b-done{background:rgba(76,175,130,.15);color:var(--su);border:1px solid rgba(76,175,130,.3);}
-.b-hold{background:rgba(224,92,110,.15);color:var(--da);border:1px solid rgba(224,92,110,.3);}
+.b-pend{background:rgba(154,107,16,.1);color:var(--wa);border:1px solid rgba(154,107,16,.25);}
+.b-tran{background:rgba(139,32,53,.1);color:var(--bu);border:1px solid rgba(139,32,53,.25);}
+.b-done{background:rgba(30,107,60,.1);color:var(--su);border:1px solid rgba(30,107,60,.25);}
+.b-hold{background:rgba(196,42,62,.1);color:var(--da);border:1px solid rgba(196,42,62,.25);}
+.b-dmg{background:rgba(196,42,62,.12);color:var(--da);border:1px solid rgba(196,42,62,.3);}
 
-/* SEC TITLE */
+/* ── SECTION TITLE ── */
 .st{font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:10px;margin-top:6px;}
 
-/* FORM */
+/* ── FORM ── */
 .fg{margin-bottom:14px;}
 .fl{font-size:10px;color:var(--mu);font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;display:block;}
-select.fsel,input.finp{width:100%;background:rgba(107,26,43,.12);border:1px solid var(--bo);border-radius:12px;padding:12px 14px;color:var(--tx);font-family:'Inter',sans-serif;font-size:14px;outline:none;-webkit-appearance:none;}
-select.fsel:focus,input.finp:focus{border-color:var(--bl);}
-select.fsel option{background:#FAF3E3;color:#3A1420;}
+select.fsel,input.finp,textarea.ftxt{width:100%;background:rgba(139,32,53,.04);border:1px solid var(--bo2);border-radius:12px;padding:12px 14px;color:var(--tx);font-family:'Inter',sans-serif;font-size:14px;outline:none;-webkit-appearance:none;}
+select.fsel:focus,input.finp:focus,textarea.ftxt:focus{border-color:var(--bu);box-shadow:0 0 0 3px rgba(139,32,53,.08);}
+select.fsel option{background:#fff;color:#1C0A0F;}
+textarea.ftxt{resize:none;min-height:80px;line-height:1.5;}
 
-/* STEPPER */
-.stepper{display:flex;align-items:center;gap:12px;background:rgba(107,26,43,.12);border:1px solid var(--bo);border-radius:12px;padding:6px 10px;width:fit-content;}
-.sbtn{width:34px;height:34px;border-radius:9px;border:none;background:rgba(196,64,92,.22);color:var(--cr);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.sval{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--cr);min-width:36px;text-align:center;}
+/* ── STEPPER ── */
+.stepper{display:flex;align-items:center;gap:12px;background:rgba(139,32,53,.04);border:1px solid var(--bo2);border-radius:12px;padding:6px 10px;width:fit-content;}
+.sbtn{width:34px;height:34px;border-radius:9px;border:none;background:var(--bu);color:#FDF6EC;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s;}
+.sbtn:active{transform:scale(.88);}
+.sval{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--bu2);min-width:36px;text-align:center;}
 
-/* TOGGLE */
+/* ── TOGGLE ── */
 .tog-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--bo);}
 .tog-row:last-child{border-bottom:none;}
 .tog-nm{font-size:13px;color:var(--tx);}
 .tog-sb{font-size:10px;color:var(--mu);margin-top:2px;}
-.tog{width:44px;height:24px;border-radius:12px;background:rgba(139,32,53,.15);border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0;}
-.tog.on{background:linear-gradient(135deg,var(--bu),var(--bl));}
-.tog::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:white;box-shadow:0 1px 3px rgba(58,20,32,.3);top:3px;left:3px;transition:left .2s;}
+.tog{width:44px;height:24px;border-radius:12px;background:rgba(0,0,0,.1);border:none;cursor:pointer;position:relative;transition:background .2s;flex-shrink:0;}
+.tog.on{background:var(--bu);}
+.tog::after{content:'';position:absolute;width:18px;height:18px;border-radius:50%;background:white;top:3px;left:3px;transition:left .2s;box-shadow:0 1px 4px rgba(0,0,0,.2);}
 .tog.on::after{left:23px;}
 
-/* BUTTONS */
-.big-btn{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--bu),var(--bl));color:var(--cr);font-family:'Syne',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:6px;transition:transform .15s;}
-.big-btn:active{transform:scale(.97);}
-.btn-sec{background:rgba(196,64,92,.12);border:1px solid var(--bo);color:var(--bl);}
-.btn-suc{background:rgba(76,175,130,.18);border:1px solid rgba(76,175,130,.3);color:var(--su);}
-.btn-dan{background:rgba(224,92,110,.12);border:1px solid rgba(224,92,110,.25);color:var(--da);}
+/* ── BUTTONS ── */
+.big-btn{width:100%;padding:15px;border-radius:14px;border:none;background:var(--bu);color:#FDF6EC;font-family:'Syne',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:6px;transition:all .15s;letter-spacing:.2px;}
+.big-btn:active{transform:scale(.97);opacity:.9;}
+.btn-sec{background:rgba(139,32,53,.07);border:1px solid var(--bo2);color:var(--bu);}
+.btn-suc{background:rgba(30,107,60,.12);border:1px solid rgba(30,107,60,.28);color:var(--su);}
+.btn-dan{background:rgba(196,42,62,.09);border:1px solid rgba(196,42,62,.28);color:var(--da);}
 
-/* ORDER ITEM */
-.oi{background:var(--cd);border:1px solid var(--bo);border-radius:14px;padding:14px;margin-bottom:10px;}
+/* ── ORDER ITEM ── */
+.oi{background:var(--cw);border:1px solid var(--bo);border-radius:14px;padding:14px;margin-bottom:10px;box-shadow:0 1px 6px rgba(139,32,53,.04);}
 .oi-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.oi-id{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;}
+.oi-id{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--bu2);}
 .oi-row{display:flex;justify-content:space-between;font-size:12px;color:var(--mu);margin-bottom:3px;}
 .oi-row strong{color:var(--tx);}
-.oi-amt{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;background:linear-gradient(135deg,var(--bu),var(--bl));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.oi-amt{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--bu);}
+.oi-ft{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--bo);}
 
-/* TIMELINE */
+/* ── TIMELINE ── */
 .tl-step{display:flex;align-items:flex-start;gap:12px;padding:8px 0;position:relative;}
 .tl-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0;margin-top:3px;}
-.dot-done{background:var(--su);} .dot-act{background:var(--bl);box-shadow:0 0 0 4px rgba(196,64,92,.2);} .dot-wait{background:rgba(139,32,53,.15);border:1px solid var(--bo);}
+.dot-done{background:var(--su);} .dot-act{background:var(--bu);box-shadow:0 0 0 4px rgba(139,32,53,.15);} .dot-wait{background:rgba(28,10,15,.1);border:1px solid var(--bo);}
 .tl-line{position:absolute;left:5px;top:20px;width:1.5px;height:100%;background:linear-gradient(var(--bo),transparent);}
 .tl-lbl{font-size:12px;font-weight:600;color:var(--tx);}
 .tl-tm{font-size:10px;color:var(--mu);margin-top:2px;}
 
-/* PICKUP CARD */
-.pc{background:var(--cd);border:1px solid var(--bo);border-radius:16px;padding:14px;margin-bottom:12px;}
+/* ── PICKUP CARD ── */
+.pc{background:var(--cw);border:1px solid var(--bo);border-radius:16px;padding:14px;margin-bottom:12px;box-shadow:0 1px 8px rgba(139,32,53,.05);}
 .pc-hd{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
-.sto-ic{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--bu),var(--bl));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.pc-nm{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;}
+.sto-ic{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--bu),var(--blh));display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.pc-nm{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--bu2);}
 .pc-lc{font-size:11px;color:var(--mu);margin-top:1px;}
-.pc-det{background:rgba(107,26,43,.15);border-radius:10px;padding:10px 12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
-.pc-sku{font-size:13px;}
-.pc-qty{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--bl);}
+.pc-det{background:rgba(139,32,53,.05);border-radius:10px;padding:10px 12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;border:1px solid var(--bo);}
+.pc-sku{font-size:13px;color:var(--tx);}
+.pc-qty{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--bu);}
 
-/* PROFILE */
-.prof-hero{display:flex;align-items:center;gap:14px;padding:16px;background:var(--cd);border:1px solid var(--bo);border-radius:16px;margin-bottom:14px;}
-.prof-av{width:56px;height:56px;border-radius:18px;background:linear-gradient(135deg,var(--bu),var(--bl));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--cr);flex-shrink:0;}
-.prof-nm{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;}
-.prof-rl{font-size:11px;color:var(--bl);margin-top:2px;}
+/* ── PROFILE ── */
+.prof-hero{display:flex;align-items:center;gap:14px;padding:16px;background:linear-gradient(135deg,rgba(139,32,53,.08),rgba(196,64,92,.05));border:1px solid var(--bo);border-radius:16px;margin-bottom:14px;}
+.prof-av{width:56px;height:56px;border-radius:18px;background:linear-gradient(135deg,var(--bu),var(--blh));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#FDF6EC;flex-shrink:0;}
+.prof-nm{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--bu2);}
+.prof-rl{font-size:11px;color:var(--bu);margin-top:2px;font-weight:600;}
 .prof-lc{font-size:11px;color:var(--mu);margin-top:2px;}
 .set-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--bo);cursor:pointer;}
 .set-row:last-child{border-bottom:none;}
-.set-lft{display:flex;align-items:center;gap:10px;font-size:14px;}
+.set-lft{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--tx);}
 .set-ar{color:var(--mu);font-size:18px;}
 
-/* CHART */
-.chart-wrap{position:relative;margin-bottom:16px;}
-.ch-legend{display:flex;gap:16px;margin-bottom:10px;flex-wrap:wrap;}
+/* ── CHART ── */
+.chart-wrap{position:relative;margin-bottom:10px;}
+.ch-leg{display:flex;gap:16px;margin-bottom:10px;flex-wrap:wrap;}
 .leg-i{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--mu);}
 .leg-dot{width:10px;height:10px;border-radius:2px;}
 
-/* RANK */
+/* ── RANKINGS ── */
 .rk-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bo);}
 .rk-row:last-child{border-bottom:none;}
-.rk-n{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--bo);width:18px;text-align:center;flex-shrink:0;}
+.rk-n{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--bo2);width:18px;text-align:center;flex-shrink:0;}
 .rk-info{flex:1;}
-.rk-nm{font-size:13px;font-weight:500;}
+.rk-nm{font-size:13px;font-weight:500;color:var(--tx);}
 .rk-sb{font-size:10px;color:var(--mu);margin-top:1px;}
 .rk-rt{text-align:right;}
 .rk-pct{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;}
-.rk-bar{height:4px;border-radius:2px;margin-top:4px;}
+.rk-bar{height:4px;border-radius:2px;margin-top:4px;background:rgba(139,32,53,.08);overflow:hidden;}
+.rk-bar-f{height:100%;border-radius:2px;}
 
-/* REC */
-.rec{background:var(--cd);border:1px solid var(--bo);border-radius:14px;padding:14px;margin-bottom:10px;transition:all .3s;}
+/* ── RECOMMENDATIONS ── */
+.rec{background:var(--cw);border:1px solid var(--bo);border-radius:14px;padding:14px;margin-bottom:10px;transition:all .3s;box-shadow:0 1px 6px rgba(139,32,53,.04);}
+.rec.gone{opacity:.18;pointer-events:none;transform:scale(.97);}
 .rec-hd{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;}
 .rec-ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
 .rec-ttl{font-size:13px;font-weight:600;color:var(--tx);line-height:1.4;}
@@ -172,98 +214,123 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
 .rec-acts{display:flex;gap:8px;margin-top:10px;}
 .rec-btn{flex:1;padding:9px;border-radius:10px;border:1px solid var(--bo);background:none;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;}
 .rec-btn:active{transform:scale(.95);}
-.ra{background:rgba(76,175,130,.15);border-color:rgba(76,175,130,.3);color:var(--su);}
-.rd{background:rgba(224,92,110,.1);border-color:rgba(224,92,110,.2);color:var(--da);}
+.ra{background:rgba(30,107,60,.1);border-color:rgba(30,107,60,.28);color:var(--su);}
+.rd{background:rgba(196,42,62,.07);border-color:rgba(196,42,62,.2);color:var(--da);}
 
-/* JIYA AI */
+/* ── JIYA AI ── */
 .jiya-hd{display:flex;align-items:center;gap:10px;padding:12px 0;margin-bottom:10px;border-bottom:1px solid var(--bo);}
-.jiya-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--bu),var(--bl));display:flex;align-items:center;justify-content:center;font-size:18px;}
-.jiya-nm{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;}
-.jiya-st{font-size:10px;color:var(--su);margin-top:1px;}
+.jiya-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--bu),var(--blh));display:flex;align-items:center;justify-content:center;font-size:18px;}
+.jiya-nm{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--bu2);}
+.jiya-st{font-size:10px;color:var(--su);margin-top:1px;font-weight:600;}
 .jiya-chat{display:flex;flex-direction:column;gap:10px;margin-bottom:12px;min-height:200px;}
 .jb{padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.62;max-width:90%;}
-.jb.ai{background:rgba(107,26,43,.22);border:1px solid var(--bo);color:var(--tx);align-self:flex-start;border-bottom-left-radius:4px;}
-.jb.usr{background:linear-gradient(135deg,rgba(139,32,53,.75),rgba(196,64,92,.62));color:var(--cr);align-self:flex-end;border-bottom-right-radius:4px;}
-.jb.think{color:var(--mu);font-style:italic;align-self:flex-start;}
+.jb.ai{background:#FFF;border:1px solid var(--bo);color:var(--tx);align-self:flex-start;border-bottom-left-radius:4px;box-shadow:0 1px 6px rgba(139,32,53,.06);}
+.jb.usr{background:var(--bu);color:#FDF6EC;align-self:flex-end;border-bottom-right-radius:4px;}
+.jb.think{color:var(--mu);font-style:italic;align-self:flex-start;background:rgba(139,32,53,.05);border:1px solid var(--bo);}
 .jiya-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
-.jc{background:rgba(107,26,43,.15);border:1px solid var(--bo);border-radius:20px;padding:6px 12px;font-size:11px;color:var(--mu);cursor:pointer;white-space:nowrap;transition:all .2s;}
-.jc:active{background:rgba(196,64,92,.22);color:var(--bg);}
+.jc{background:var(--cw);border:1px solid var(--bo);border-radius:20px;padding:6px 12px;font-size:11px;color:var(--bu);cursor:pointer;white-space:nowrap;transition:all .2s;font-weight:500;}
+.jc:active{background:rgba(139,32,53,.08);}
 .jiya-ir{display:flex;gap:8px;}
-.ji{flex:1;background:rgba(107,26,43,.12);border:1px solid var(--bo);border-radius:12px;padding:10px 14px;color:var(--tx);font-family:'Inter',sans-serif;font-size:13px;outline:none;}
-.ji:focus{border-color:var(--bl);}
-.jsend{width:40px;height:40px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--bu),var(--bl));color:white;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.jsend:active{transform:scale(.9);}
+.ji{flex:1;background:var(--cw);border:1px solid var(--bo2);border-radius:12px;padding:10px 14px;color:var(--tx);font-family:'Inter',sans-serif;font-size:13px;outline:none;}
+.ji:focus{border-color:var(--bu);box-shadow:0 0 0 3px rgba(139,32,53,.08);}
+.jsend{width:40px;height:40px;border-radius:12px;border:none;background:var(--bu);color:white;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .15s;}
+.jsend:active{transform:scale(.88);}
 
-/* INV ROWS */
+/* ── INVENTORY ── */
 .inv-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bo);}
 .inv-row:last-child{border-bottom:none;}
 .inv-info{flex:1;}
-.inv-nm{font-size:13px;font-weight:500;}
+.inv-nm{font-size:13px;font-weight:500;color:var(--tx);}
 .inv-pr{font-size:10px;color:var(--mu);margin-top:1px;}
-.inv-bar-w{width:56px;}
-.inv-bar{height:5px;border-radius:3px;background:rgba(139,32,53,.1);overflow:hidden;margin-bottom:3px;}
-.inv-bar-f{height:100%;border-radius:3px;}
-.inv-q{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;min-width:30px;text-align:right;}
-.log-inp{width:60px;background:rgba(107,26,43,.12);border:1px solid var(--bo);border-radius:10px;padding:8px;color:var(--cr);font-family:'Syne',sans-serif;font-size:15px;font-weight:700;text-align:center;outline:none;}
-.log-inp:focus{border-color:var(--bl);}
-/* splash pulse anim */
-@keyframes spPulse{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
-/* rec card dismissed */
-.rec.gone{opacity:.18;pointer-events:none;transform:scale(.97);transition:all .35s;}
-/* shimmer for in-transit */
-@keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
-.b-tran{background-image:linear-gradient(90deg,rgba(196,64,92,.15) 25%,rgba(196,64,92,.28) 50%,rgba(196,64,92,.15) 75%);background-size:400px 100%;animation:shimmer 2s infinite;}
-/* store card hover */
-.store-tap{cursor:pointer;transition:border-color .2s,background .2s;}
-.store-tap:active{background:rgba(139,32,53,.14);border-color:rgba(196,64,92,.4);}
+.inv-bw{width:56px;}
+.inv-bar{height:5px;border-radius:3px;background:rgba(139,32,53,.08);overflow:hidden;margin-bottom:2px;}
+.inv-bf{height:100%;border-radius:3px;}
+.inv-q{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;min-width:30px;text-align:right;color:var(--bu2);}
+.log-inp{width:60px;background:var(--cw);border:1px solid var(--bo2);border-radius:10px;padding:8px;color:var(--bu);font-family:'Syne',sans-serif;font-size:15px;font-weight:700;text-align:center;outline:none;}
+.log-inp:focus{border-color:var(--bu);}
 
-/* TOAST */
-.toast-con{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:999;width:calc(100% - 32px);max-width:398px;pointer-events:none;}
-.toast{background:rgba(250,243,227,.98);border:1px solid var(--bo);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:8px;backdrop-filter:blur(14px);box-shadow:0 8px 32px rgba(107,26,43,.22);transform:translateY(-10px);opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);pointer-events:all;}
-.toast.show{transform:translateY(0);opacity:1;}
-.ti{font-size:18px;flex-shrink:0;}
-.tm{font-size:13px;color:var(--tx);flex:1;line-height:1.4;}
-
-/* SHORTAGE */
-.shortage-row{display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(224,92,110,.08);border:1px solid rgba(224,92,110,.22);border-radius:10px;margin-top:8px;cursor:pointer;}
-.sch{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--da);background:none;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:white;}
-.sch.on{background:var(--da);}
-
-/* STORE INCOMING */
-.inc-card{background:var(--cd);border:1px solid var(--bo);border-radius:14px;padding:14px;margin-bottom:10px;}
+/* ── INCOMING CARDS ── */
+.inc-card{background:var(--cw);border:1px solid var(--bo);border-radius:14px;padding:14px;margin-bottom:10px;box-shadow:0 1px 6px rgba(139,32,53,.04);}
 .inc-hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
-.inc-id{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;}
-.inc-eta{font-size:11px;color:var(--am);font-weight:600;}
+.inc-id{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--bu2);}
+.inc-eta{font-size:11px;color:var(--am);font-weight:700;}
 .inc-row{font-size:12px;color:var(--mu);margin-bottom:3px;}
 .inc-row strong{color:var(--tx);}
 
-/* LIVE DEMAND FORECAST */
-.live-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;color:var(--su);text-transform:uppercase;letter-spacing:.5px;}
-.live-pulse{width:7px;height:7px;border-radius:50%;background:var(--su);display:inline-block;animation:spPulse 1.4s ease-in-out infinite;}
-.fc-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--bo);}
-.fc-row:last-child{border-bottom:none;}
-.fc-conf{display:inline-block;font-size:9px;padding:2px 8px;border-radius:10px;font-weight:700;margin-top:3px;}
-.conf-hi{background:rgba(76,175,130,.15);color:var(--su);}
-.conf-med{background:rgba(240,160,48,.15);color:var(--wa);}
-.conf-lo{background:rgba(224,92,110,.15);color:var(--da);}
+/* ── AI AGENT PICKER ── */
+.agent-picker{display:flex;flex-direction:column;gap:8px;}
+.ap-card{background:var(--cw);border:1.5px solid var(--bo);border-radius:12px;padding:12px;cursor:pointer;transition:all .2s;position:relative;}
+.ap-card:active{transform:scale(.98);}
+.ap-card.ap-sel{border-color:var(--bu);background:rgba(139,32,53,.04);}
+.ap-card.ap-rec{border-color:rgba(139,32,53,.35);}
+.ap-ai-badge{display:inline-flex;align-items:center;gap:4px;background:linear-gradient(135deg,var(--bu),var(--blh));color:#FDF6EC;font-size:9px;font-weight:700;padding:3px 8px;border-radius:20px;margin-bottom:8px;letter-spacing:.3px;}
+.ap-main{display:flex;align-items:center;gap:10px;}
+.ap-info{flex:1;}
+.ap-name{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--bu2);}
+.ap-det{font-size:11px;color:var(--mu);margin-top:2px;}
+.ap-stars{font-size:10px;color:var(--am);margin-top:2px;font-weight:600;}
+.ap-price{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:var(--bu);}
+.ap-chk{width:18px;height:18px;border-radius:50%;border:2px solid var(--bo2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:white;}
+.ap-card.ap-sel .ap-chk{background:var(--bu);border-color:var(--bu);}
 
-/* MODAL (for profile drill-downs) */
-.modal-overlay{position:fixed;inset:0;background:rgba(58,20,32,.55);backdrop-filter:blur(3px);z-index:800;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;}
-.modal-overlay.show{opacity:1;pointer-events:all;}
-.modal-sheet{width:100%;max-width:430px;background:var(--dk);border-radius:22px 22px 0 0;padding:20px 18px calc(20px + env(safe-area-inset-bottom));max-height:78vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);border-top:1px solid var(--bo);}
-.modal-overlay.show .modal-sheet{transform:translateY(0);}
-.modal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.modal-ttl{font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:var(--tx);}
-.modal-x{width:30px;height:30px;border-radius:50%;background:rgba(139,32,53,.1);border:none;color:var(--mu);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.modal-x:active{transform:scale(.9);}
-.modal-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--bo);font-size:13px;}
-.modal-row:last-child{border-bottom:none;}
-.modal-row-lft{display:flex;align-items:center;gap:10px;}
-.modal-sb{font-size:10px;color:var(--mu);margin-top:2px;}
-.tog-mini{width:38px;height:21px;border-radius:11px;background:rgba(139,32,53,.15);border:none;cursor:pointer;position:relative;flex-shrink:0;}
-.tog-mini.on{background:linear-gradient(135deg,var(--bu),var(--bl));}
-.tog-mini::after{content:'';position:absolute;width:15px;height:15px;border-radius:50%;background:white;top:3px;left:3px;transition:left .2s;}
-.tog-mini.on::after{left:20px;}
+/* ── SKU HEATMAP ── */
+.heatmap-wrap{overflow-x:auto;margin-bottom:4px;}
+.heatmap{width:100%;border-collapse:collapse;}
+.hm-th{font-size:9px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.6px;padding:6px 8px;text-align:center;}
+.hm-th:first-child{text-align:left;}
+.hm-store{font-size:11px;font-weight:600;color:var(--tx2);padding:6px 8px;white-space:nowrap;}
+.hm-cell{padding:8px 6px;text-align:center;border-radius:8px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;transition:all .2s;cursor:default;}
+.hm-empty{color:var(--mu);font-size:11px;font-style:italic;}
+
+/* ── GPS MAP ── */
+.gps-map{position:relative;width:100%;height:240px;background:linear-gradient(145deg,#F5EDDD,#EDE0C8);border-radius:16px;overflow:hidden;margin-bottom:14px;border:1px solid rgba(139,32,53,.1);}
+.gps-road-h{position:absolute;left:0;right:0;height:7px;background:rgba(210,195,175,.8);border-top:1px solid rgba(190,175,155,.5);border-bottom:1px solid rgba(190,175,155,.5);}
+.gps-road-v{position:absolute;top:0;bottom:0;width:7px;background:rgba(210,195,175,.8);border-left:1px solid rgba(190,175,155,.5);border-right:1px solid rgba(190,175,155,.5);}
+.gps-label{position:absolute;top:10px;left:12px;font-size:9px;font-weight:700;color:rgba(107,26,43,.5);letter-spacing:1px;text-transform:uppercase;}
+.map-pin{position:absolute;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center;}
+.mp-marker{width:28px;height:28px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.2);}
+.mp-inner{transform:rotate(45deg);font-size:14px;}
+.mp-lbl{font-size:8px;font-weight:700;color:var(--bu2);background:rgba(255,255,255,.92);padding:2px 5px;border-radius:4px;margin-top:3px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.12);}
+.map-agent{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:2px;}
+@keyframes agPulse{0%,100%{transform:translate(-50%,-50%) scale(1);opacity:.5}50%{transform:translate(-50%,-50%) scale(1.6);opacity:0}}
+.ag-pulse{position:absolute;top:50%;left:50%;width:30px;height:30px;border-radius:50%;border:2px solid var(--bu);animation:agPulse 2s ease-in-out infinite;}
+.ag-dot{width:26px;height:26px;border-radius:50%;background:var(--bu);display:flex;align-items:center;justify-content:center;font-size:14px;z-index:1;box-shadow:0 2px 10px rgba(139,32,53,.4);}
+.ag-lbl{font-size:8px;font-weight:700;color:var(--bu);background:rgba(255,255,255,.95);padding:2px 5px;border-radius:4px;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.1);}
+.ag-idle .ag-dot{background:var(--mu);}
+.ag-idle .ag-pulse{border-color:var(--mu);}
+.ag-done .ag-dot{background:var(--su);}
+.ag-done .ag-pulse{border-color:var(--su);}
+.gps-card{background:var(--cw);border:1px solid var(--bo);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 6px rgba(139,32,53,.04);}
+.gps-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.gps-info{flex:1;}
+.gps-name{font-size:13px;font-weight:600;color:var(--tx);}
+.gps-det{font-size:11px;color:var(--mu);margin-top:2px;}
+.gps-eta{font-size:11px;font-weight:700;text-align:right;}
+
+/* ── DEMAND FORECAST ── */
+.fc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+.fc-card{background:rgba(139,32,53,.04);border:1px solid var(--bo);border-radius:12px;padding:10px 12px;}
+.fc-store{font-size:10px;font-weight:700;color:var(--mu);text-transform:uppercase;letter-spacing:.7px;margin-bottom:4px;}
+.fc-pct{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;}
+.fc-dir{font-size:10px;margin-top:3px;font-weight:600;}
+.fc-conf{font-size:9px;color:var(--mu);margin-top:2px;}
+
+/* ── DAMAGE ── */
+.dmg-alert{background:rgba(196,42,62,.05);border:1px solid rgba(196,42,62,.28);border-radius:14px;padding:14px;margin-bottom:12px;}
+.dmg-hd{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.dmg-row{font-size:12px;color:var(--tx2);padding:6px 0;border-bottom:1px solid rgba(196,42,62,.1);}
+.dmg-row:last-child{border-bottom:none;}
+.dmg-row strong{color:var(--da);}
+
+/* ── TOAST ── */
+.toast-con{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:999;width:calc(100% - 32px);max-width:398px;pointer-events:none;}
+.toast{background:rgba(28,10,15,.97);border:1px solid rgba(139,32,53,.3);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:8px;backdrop-filter:blur(14px);box-shadow:0 8px 32px rgba(139,32,53,.25);transform:translateY(-10px);opacity:0;transition:all .3s cubic-bezier(.4,0,.2,1);pointer-events:all;}
+.toast.show{transform:translateY(0);opacity:1;}
+.ti{font-size:18px;flex-shrink:0;}
+.tm{font-size:13px;color:#FDF6EC;flex:1;line-height:1.4;}
+
+/* ── MISC ── */
+@keyframes spP{0%,100%{opacity:.22;transform:scale(.8)}50%{opacity:1;transform:scale(1.15)}}
 </style>
 </head>
 <body>
@@ -271,23 +338,52 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
 
 <!-- SPLASH -->
 <div id="splash">
-  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(139,32,53,.42),transparent 58%),radial-gradient(ellipse at 72% 72%,rgba(212,168,83,.1),transparent 50%);pointer-events:none;"></div>
   <div class="sp-logo">VELORA</div>
   <div class="sp-tag">Brand Distribution Intelligence</div>
-  <div style="font-size:10px;color:var(--mu);letter-spacing:2px;margin-top:-6px;">Sell-in · Sell-out · Jiya AI</div>
+  <div class="sp-sub">Sell-in · Sell-out · Jiya AI</div>
   <div class="sp-dots">
-    <div class="sp-dot" style="animation:spPulse 1.4s ease-in-out .0s infinite;"></div>
-    <div class="sp-dot" style="animation:spPulse 1.4s ease-in-out .2s infinite;"></div>
-    <div class="sp-dot" style="animation:spPulse 1.4s ease-in-out .4s infinite;"></div>
+    <div class="sp-dot" style="animation:spP 1.4s ease-in-out 0s infinite;"></div>
+    <div class="sp-dot" style="animation:spP 1.4s ease-in-out .22s infinite;"></div>
+    <div class="sp-dot" style="animation:spP 1.4s ease-in-out .44s infinite;"></div>
   </div>
-  <button class="sp-btn" onclick="showLogin()">Enter platform →</button>
-  <div style="position:absolute;bottom:32px;font-size:10px;color:rgba(139,32,53,.4);letter-spacing:1.5px;">POWERED BY JIYA AI</div>
+  <button class="sp-btn" onclick="showLogin()">Enter Platform →</button>
+  <div class="sp-foot">POWERED BY JIYA AI</div>
 </div>
 
 <!-- LOGIN -->
 <div id="loginPage" class="hidden">
   <div class="lg-logo">VELORA</div>
-  <div class="lg-sub">Sign in as</div>
+  <div class="lg-sub">Brand Distribution Intelligence</div>
+
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <div class="auth-tab on" id="tab-signin" onclick="setAuthMode('signin')">Sign In</div>
+      <div class="auth-tab" id="tab-signup" onclick="setAuthMode('signup')">Sign Up</div>
+    </div>
+    <div id="authFields">
+      <div class="auth-fg" id="fg-name" style="display:none;">
+        <label class="auth-lbl">Full Name</label>
+        <input class="auth-inp" id="auth-name" type="text" placeholder="e.g. Arjun Venugopal">
+      </div>
+      <div class="auth-fg">
+        <label class="auth-lbl">Email</label>
+        <input class="auth-inp" id="auth-email" type="email" placeholder="you@velora.demo">
+      </div>
+      <div class="auth-fg">
+        <label class="auth-lbl">Password</label>
+        <input class="auth-inp" id="auth-pass" type="password" placeholder="••••••••">
+      </div>
+      <div class="auth-fg" id="fg-confirm" style="display:none;">
+        <label class="auth-lbl">Confirm Password</label>
+        <input class="auth-inp" id="auth-pass2" type="password" placeholder="••••••••">
+      </div>
+    </div>
+    <button class="big-btn" style="margin-top:2px;" id="auth-submit-btn" onclick="submitAuth()">Sign In →</button>
+    <div class="auth-demo-note">🔒 <b>Demo mode</b> — no real account is created. Pick a role below to explore the platform.</div>
+  </div>
+
+  <div class="lg-or"><span>or continue as</span></div>
+  <div class="lg-sub2">Choose a demo role</div>
   <div class="role-grid">
     <div class="rc" onclick="login('seller')"><div class="rc-ic">🏭</div><div class="rc-nm">Seller</div><div class="rc-ds">Brand / Distributor</div></div>
     <div class="rc" onclick="login('agent')"><div class="rc-ic">🚚</div><div class="rc-nm">Agent</div><div class="rc-ds">Delivery Partner</div></div>
@@ -299,9 +395,9 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
 <!-- SCREEN WRAP -->
 <div class="screen-wrap" id="screenWrap">
 
-<!-- ═══ SELLER PAGES ═══ -->
+<!-- ═══════════════ SELLER ═══════════════ -->
 <div class="page" id="seller-home">
-  <div class="ph"><div class="ph-greet" id="s-greet">Good morning, Arjun 👋</div><div class="ph-title">Overview</div><div class="ph-sub">Today · Calicut Distribution</div></div>
+  <div class="ph"><div class="ph-greet">Good morning, Arjun 👋</div><div class="ph-title">Overview</div><div class="ph-sub">Today · Calicut Distribution</div></div>
   <div class="content">
     <div class="kpi-row">
       <div class="kpi"><div class="kpi-lbl">Orders Today</div><div class="kpi-val">4</div><div class="kpi-ch up">↑ 2 vs yesterday</div></div>
@@ -309,50 +405,28 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
       <div class="kpi"><div class="kpi-lbl">In Transit</div><div class="kpi-val">1</div><div class="kpi-ch nt">Focus Bakers</div></div>
       <div class="kpi"><div class="kpi-lbl">Sell-through</div><div class="kpi-val">71.7%</div><div class="kpi-ch dn">↓ 8% vs target</div></div>
     </div>
+    <!-- GPS QUICK ACCESS -->
+    <div class="card" style="background:linear-gradient(135deg,rgba(139,32,53,.07),rgba(196,64,92,.04));border-color:rgba(139,32,53,.22);cursor:pointer;" onclick="openGPS()">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:40px;height:40px;border-radius:12px;background:var(--bu);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🗺️</div>
+        <div style="flex:1;"><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--bu2);">Live Agent Tracking</div><div style="font-size:11px;color:var(--mu);margin-top:2px;">Rajesh K. en route · ETA 12:30 PM · 1.2 km</div></div>
+        <div style="font-size:18px;color:var(--mu);">›</div>
+      </div>
+    </div>
+    <!-- DAMAGE ALERT -->
+    <div class="dmg-alert" id="dmg-alert-seller" style="display:none;">
+      <div class="dmg-hd"><span style="font-size:18px;">⚠️</span><span style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--da);">Damage Reports</span></div>
+      <div id="dmg-list-seller"></div>
+    </div>
+    <div class="card" style="background:linear-gradient(135deg,rgba(196,42,62,.06),rgba(154,107,16,.04));border-color:rgba(196,42,62,.28);">
+      <div class="ct" style="margin-bottom:8px;">⚠️ Alert<span style="color:var(--da);">Focus Bakers</span></div>
+      <div style="font-size:13px;line-height:1.6;color:var(--tx2);">Focus Bakers at <strong style="color:var(--da);">40% sell-through</strong> — 108 units unsold, declining 4 weeks. <span style="color:var(--bu);cursor:pointer;font-weight:600;" onclick="navTo(2)">View Analytics →</span></div>
+    </div>
     <div class="st">Recent Orders</div>
-    <div class="oi" onclick="goTo('seller-order-detail','#V-1042')">
-      <div class="oi-hd"><span class="oi-id">#V-1042</span><span class="badge b-done">Delivered</span></div>
-      <div class="oi-row"><span>Store</span><strong>Lulu Mart, Calicut</strong></div>
-      <div class="oi-row"><span>SKU</span><strong>Protein Bar 30g × 120 units</strong></div>
-      <div class="oi-row"><span>Agent</span><strong>Rajesh K.</strong></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--bo);">
-        <span style="font-size:11px;color:var(--mu);">Today, 9:30 AM</span>
-        <span class="oi-amt">₹3,600</span>
-      </div>
-    </div>
-    <div class="oi" onclick="goTo('seller-order-detail','#V-1041')">
-      <div class="oi-hd"><span class="oi-id">#V-1041</span><span class="badge b-tran">In Transit</span></div>
-      <div class="oi-row"><span>Store</span><strong>Focus Bakers, Palayam</strong></div>
-      <div class="oi-row"><span>SKU</span><strong>Protein Bar 60g × 60 units</strong></div>
-      <div class="oi-row"><span>Agent</span><strong>Anuj M.</strong></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--bo);">
-        <span style="font-size:11px;color:var(--mu);">Today, 11:00 AM</span>
-        <span class="oi-amt">₹3,300</span>
-      </div>
-    </div>
-    <div class="oi" onclick="goTo('seller-order-detail','#V-1040')">
-      <div class="oi-hd"><span class="oi-id">#V-1040</span><span class="badge b-pend">Pending</span></div>
-      <div class="oi-row"><span>Store</span><strong>Kudumbashree, Kannur</strong></div>
-      <div class="oi-row"><span>SKU</span><strong>Oats Bar 40g × 80 units</strong></div>
-      <div class="oi-row"><span>Agent</span><strong>Rajesh K.</strong></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--bo);">
-        <span style="font-size:11px;color:var(--mu);">Today, 2:00 PM</span>
-        <span class="oi-amt">₹2,000</span>
-      </div>
-    </div>
-    <div class="oi">
-      <div class="oi-hd"><span class="oi-id">#V-1039</span><span class="badge b-done">Delivered</span></div>
-      <div class="oi-row"><span>Store</span><strong>Nilgiris Express, Kozhikode</strong></div>
-      <div class="oi-row"><span>SKU</span><strong>Protein Bar 30g × 100 units</strong></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid var(--bo);">
-        <span style="font-size:11px;color:var(--mu);">Yesterday</span>
-        <span class="oi-amt">₹3,000</span>
-      </div>
-    </div>
-    <div class="card" style="background:linear-gradient(135deg,rgba(139,32,53,.18),rgba(212,168,83,.08));border-color:rgba(212,168,83,.25);">
-      <div class="ct">⚠️ Alert <span>Focus Bakers</span></div>
-      <div style="font-size:13px;line-height:1.6;color:rgba(58,20,32,.78);">Focus Bakers is at <strong style="color:var(--da);">40% sell-through</strong> — 108 units unsold. Consider pausing new shipments. <span style="color:var(--bl);cursor:pointer;" onclick="navTo(2)">View in Analytics →</span></div>
-    </div>
+    <div class="oi"><div class="oi-hd"><span class="oi-id">#V-1042</span><span class="badge b-done">Delivered</span></div><div class="oi-row"><span>Store</span><strong>Lulu Mart, Calicut</strong></div><div class="oi-row"><span>SKU</span><strong>Protein Bar 30g × 120 units</strong></div><div class="oi-ft"><span style="font-size:11px;color:var(--mu);">Today, 9:30 AM</span><span class="oi-amt">₹3,600</span></div></div>
+    <div class="oi"><div class="oi-hd"><span class="oi-id">#V-1041</span><span class="badge b-tran">In Transit</span></div><div class="oi-row"><span>Store</span><strong>Focus Bakers, Palayam</strong></div><div class="oi-row"><span>SKU</span><strong>Protein Bar 60g × 60 units</strong></div><div class="oi-ft"><span style="font-size:11px;color:var(--mu);">Today, 11:00 AM</span><span class="oi-amt">₹3,300</span></div></div>
+    <div class="oi"><div class="oi-hd"><span class="oi-id">#V-1040</span><span class="badge b-pend">Pending</span></div><div class="oi-row"><span>Store</span><strong>Kudumbashree, Kannur</strong></div><div class="oi-row"><span>SKU</span><strong>Oats Bar 40g × 80 units</strong></div><div class="oi-ft"><span style="font-size:11px;color:var(--mu);">Today, 2:00 PM</span><span class="oi-amt">₹2,000</span></div></div>
+    <div class="oi"><div class="oi-hd"><span class="oi-id">#V-1039</span><span class="badge b-done">Delivered</span></div><div class="oi-row"><span>Store</span><strong>Nilgiris Express, Kozhikode</strong></div><div class="oi-row"><span>SKU</span><strong>Protein Bar 30g × 100 units</strong></div><div class="oi-ft"><span style="font-size:11px;color:var(--mu);">Yesterday</span><span class="oi-amt">₹3,000</span></div></div>
   </div>
 </div>
 
@@ -360,29 +434,42 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
   <div class="ph"><div class="ph-title">Place Order</div><div class="ph-sub">New distribution order</div></div>
   <div class="content">
     <div class="fg"><label class="fl">Store</label>
-      <select class="fsel" id="ord-store"><option value="lulu">Lulu Mart — Calicut</option><option value="focus">Focus Bakers — Palayam</option><option value="kudumba">Kudumbashree — Kannur</option><option value="nilgiris">Nilgiris Express — Kozhikode</option><option value="heritage">Heritage Foods — Malappuram</option></select>
+      <select class="fsel" id="ord-store" onchange="onStoreChange()">
+        <option value="lulu">Lulu Mart — Calicut</option>
+        <option value="focus">Focus Bakers — Palayam</option>
+        <option value="kudumba">Kudumbashree — Kannur</option>
+        <option value="nilgiris">Nilgiris Express — Kozhikode</option>
+        <option value="heritage">Heritage Foods — Malappuram</option>
+      </select>
     </div>
     <div class="fg"><label class="fl">SKU</label>
-      <select class="fsel" id="ord-sku"><option value="pb30">Protein Bar 30g — ₹30/pc</option><option value="pb60">Protein Bar 60g — ₹55/pc</option><option value="wpc">Whey Protein 500g — ₹899/unit</option><option value="oats">Oats Bar 40g — ₹25/pc</option></select>
+      <select class="fsel" id="ord-sku" onchange="updateSummary()">
+        <option value="pb30">Protein Bar 30g — ₹30/pc</option>
+        <option value="pb60">Protein Bar 60g — ₹55/pc</option>
+        <option value="wpc">Whey Protein 500g — ₹899/unit</option>
+        <option value="oats">Oats Bar 40g — ₹25/pc</option>
+      </select>
     </div>
     <div class="fg"><label class="fl">Quantity</label>
       <div class="stepper"><button class="sbtn" onclick="adjQty(-10)">−</button><div class="sval" id="qty-disp">60</div><button class="sbtn" onclick="adjQty(10)">+</button></div>
     </div>
-    <div class="fg"><label class="fl">Delivery Agent</label>
-      <select class="fsel" id="ord-agent"><option value="raj">Rajesh K. — Bike KL-07 AB 1234</option><option value="anu">Anuj M. — Bike KL-11 CD 5678</option><option value="moh">Mohammed S. — Bike KL-14 EF 9012</option></select>
+    <div class="fg">
+      <label class="fl">Delivery Agent <span style="color:var(--bu);font-size:9px;font-weight:700;letter-spacing:.3px;"> 🤖 AI Sorted · Best Value</span></label>
+      <div class="agent-picker" id="agentPicker"></div>
     </div>
     <div class="card" style="margin-top:4px;">
       <div class="ct">Promotions</div>
-      <div class="tog-row"><div><div class="tog-nm">Introductory Offer</div><div class="tog-sb">10% extra units on orders ≥100</div></div><button class="tog" id="tog-intro" onclick="toggleTog('tog-intro')"></button></div>
+      <div class="tog-row"><div><div class="tog-nm">Introductory Offer</div><div class="tog-sb">10% extra units on orders ≥ 100</div></div><button class="tog" id="tog-intro" onclick="toggleTog('tog-intro')"></button></div>
       <div class="tog-row"><div><div class="tog-nm">Display Stand</div><div class="tog-sb">Request branded display unit</div></div><button class="tog" id="tog-disp" onclick="toggleTog('tog-disp')"></button></div>
       <div class="tog-row"><div><div class="tog-nm">Priority Delivery</div><div class="tog-sb">Deliver before 12:00 PM</div></div><button class="tog" id="tog-prio" onclick="toggleTog('tog-prio')"></button></div>
     </div>
-    <div class="card" style="background:rgba(139,32,53,.06);">
+    <div class="card" style="background:rgba(139,32,53,.03);">
       <div class="ct">Order Summary</div>
       <div class="oi-row" style="margin-bottom:6px;"><span>Store</span><strong id="summ-store">Lulu Mart</strong></div>
       <div class="oi-row" style="margin-bottom:6px;"><span>SKU</span><strong id="summ-sku">Protein Bar 30g</strong></div>
-      <div class="oi-row" style="margin-bottom:6px;"><span>Quantity</span><strong id="summ-qty">60 units</strong></div>
-      <div class="oi-row" style="margin-bottom:0;padding-top:8px;border-top:1px solid var(--bo);"><span>Total Value</span><strong class="oi-amt" id="summ-val" style="font-size:18px;">₹1,800</strong></div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>Qty</span><strong id="summ-qty">60 units</strong></div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>Agent</span><strong id="summ-agent">Rajesh K.</strong></div>
+      <div class="oi-row" style="padding-top:8px;border-top:1px solid var(--bo);margin-bottom:0;"><span>Total Value</span><strong class="oi-amt" id="summ-val" style="font-size:18px;">₹1,800</strong></div>
     </div>
     <button class="big-btn" onclick="placeOrder()">Confirm Order ✓</button>
   </div>
@@ -395,28 +482,15 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
       <div class="kpi"><div class="kpi-lbl">Total Sell-in</div><div class="kpi-val">700</div><div class="kpi-ch nt">units dispatched</div></div>
       <div class="kpi"><div class="kpi-lbl">Total Sell-out</div><div class="kpi-val">502</div><div class="kpi-ch dn">71.7% sell-through</div></div>
     </div>
+    <div class="card"><div class="ct">Store Sell-through % <span>This week</span></div><div style="height:170px;position:relative;"><canvas id="sellerChart"></canvas></div></div>
     <div class="card">
-      <div class="ct">Store Sell-through <span>This week</span></div>
-      <div style="height:180px;position:relative;"><canvas id="sellerChart" role="img" aria-label="Sell-through by store"></canvas></div>
+      <div class="ct">Store Rankings</div>
+      <div class="rk-row"><div class="rk-n">1</div><div class="rk-info"><div class="rk-nm">Nilgiris Express</div><div class="rk-sb">Kozhikode · 160 in</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--su);">85%</div><div class="rk-bar"><div class="rk-bar-f" style="width:85%;background:var(--su);"></div></div></div></div>
+      <div class="rk-row"><div class="rk-n">2</div><div class="rk-info"><div class="rk-nm">Lulu Mart</div><div class="rk-sb">Calicut · 240 in</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--su);">82.5%</div><div class="rk-bar"><div class="rk-bar-f" style="width:82.5%;background:var(--su);opacity:.8;"></div></div></div></div>
+      <div class="rk-row"><div class="rk-n">3</div><div class="rk-info"><div class="rk-nm">Kudumbashree</div><div class="rk-sb">Kannur · 120 in</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--am);">80%</div><div class="rk-bar"><div class="rk-bar-f" style="width:80%;background:var(--am);"></div></div></div></div>
+      <div class="rk-row"><div class="rk-n">⚠</div><div class="rk-info"><div class="rk-nm" style="color:var(--da);">Focus Bakers</div><div class="rk-sb">Palayam · HOLD</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--da);">40%</div><div class="rk-bar"><div class="rk-bar-f" style="width:40%;background:var(--da);"></div></div></div></div>
     </div>
-    <div class="card">
-      <div class="ct">Store Ranking</div>
-      <div class="rk-row"><div class="rk-n">1</div><div class="rk-info"><div class="rk-nm">Nilgiris Express</div><div class="rk-sb">Kozhikode · 160 units in</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--su);">85%</div><div class="rk-bar" style="width:68px;background:rgba(76,175,130,.15);"><div class="rk-bar" style="width:85%;background:var(--su);margin:0;"></div></div></div></div>
-      <div class="rk-row"><div class="rk-n">2</div><div class="rk-info"><div class="rk-nm">Lulu Mart</div><div class="rk-sb">Calicut · 240 units in</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--su);">82.5%</div><div class="rk-bar" style="width:68px;background:rgba(76,175,130,.12);"><div class="rk-bar" style="width:82.5%;background:var(--su);opacity:.8;margin:0;"></div></div></div></div>
-      <div class="rk-row"><div class="rk-n">3</div><div class="rk-info"><div class="rk-nm">Kudumbashree</div><div class="rk-sb">Kannur · 120 units in</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--am);">80%</div><div class="rk-bar" style="width:68px;background:rgba(212,168,83,.12);"><div class="rk-bar" style="width:80%;background:var(--am);margin:0;"></div></div></div></div>
-      <div class="rk-row"><div class="rk-n">4</div><div class="rk-info"><div class="rk-nm">Focus Bakers</div><div class="rk-sb">Palayam · 180 units in ⚠️</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--da);">40%</div><div class="rk-bar" style="width:68px;background:rgba(224,92,110,.12);"><div class="rk-bar" style="width:40%;background:var(--da);margin:0;"></div></div></div></div>
-      <div class="rk-row"><div class="rk-n">5</div><div class="rk-info"><div class="rk-nm">Heritage Foods</div><div class="rk-sb">Malappuram · New store</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--mu);">—</div></div></div>
-    </div>
-    <div class="card">
-      <div class="ct">AI Insights <span style="color:var(--bl);">Jiya</span></div>
-      <div style="font-size:12px;line-height:1.65;color:rgba(58,20,32,.75);">📌 Focus Bakers is 4 weeks into a declining sell-through trend (72% → 65% → 55% → <strong style="color:var(--da);">40%</strong>). Pause shipments.<br><br>📈 Nilgiris Express is your fastest-growing outlet — sell-through up from 80% → 85% in 4 weeks. <strong style="color:var(--su);">Increase allocation 20-30%.</strong><br><br>💡 Kudumbashree is stable at 80%. A promo could push it to 90%+.</div>
-      <button class="big-btn btn-sec" style="margin-top:12px;" onclick="navTo(2);setTimeout(()=>navTo(3),50);">Ask Jiya AI →</button>
-    </div>
-    <div class="card">
-      <div class="ct">🔮 Live Demand Forecast <span class="live-badge"><span class="live-pulse"></span>LIVE</span></div>
-      <div style="font-size:10px;color:var(--mu);margin-bottom:8px;" id="forecastUpdatedSeller">Updated just now</div>
-      <div id="forecastListSeller"></div>
-    </div>
+    <div class="card"><div class="ct" style="margin-bottom:8px;">🧠 AI Insights <span style="color:var(--bu);">Jiya</span></div><div style="font-size:12px;line-height:1.65;color:var(--tx2);">📌 Focus Bakers: 4-week declining trend → <strong style="color:var(--da);">Pause shipments</strong>.<br><br>📈 Nilgiris Express growing weekly — <strong style="color:var(--su);">Increase allocation +25%</strong>.<br><br>💡 Kudumbashree stable at 80% — a BOGO promo could push to 90%+.</div><button class="big-btn btn-sec" style="margin-top:12px;" onclick="navTo(3);setTimeout(()=>navTo(2),100);">Ask Jiya AI →</button></div>
   </div>
 </div>
 
@@ -424,51 +498,58 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
   <div class="ph"><div class="ph-title">Profile</div></div>
   <div class="content">
     <div class="prof-hero"><div class="prof-av">AV</div><div><div class="prof-nm">Arjun V.</div><div class="prof-rl">🏭 Seller · Velora Network</div><div class="prof-lc">📍 Calicut, Kerala</div></div></div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-lbl">Member Since</div><div class="kpi-val" style="font-size:15px;">Mar 2024</div><div class="kpi-ch nt">18 months</div></div>
+      <div class="kpi"><div class="kpi-lbl">Trust Score</div><div class="kpi-val">4.7★</div><div class="kpi-ch up">Top 12% sellers</div></div>
+    </div>
     <div class="card">
-      <div class="set-row" onclick="openModal('seller-skus')"><div class="set-lft"><span>📦</span><span>My SKUs (4 active)</span></div><span class="set-ar">›</span></div>
-      <div class="set-row" onclick="openModal('seller-agents')"><div class="set-lft"><span>🚚</span><span>My Agents (3)</span></div><span class="set-ar">›</span></div>
-      <div class="set-row" onclick="openModal('seller-stores')"><div class="set-lft"><span>🏪</span><span>My Stores (5)</span></div><span class="set-ar">›</span></div>
-      <div class="set-row" onclick="openModal('seller-billing')"><div class="set-lft"><span>💳</span><span>Billing & Payouts</span></div><span class="set-ar">›</span></div>
+      <div class="ct">Business Details</div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>Company</span><strong>Arjun Nutrition Co.</strong></div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>GSTIN</span><strong>32ABCDE1234F1Z5</strong></div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>Email</span><strong>arjun.v@velora.demo</strong></div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>Phone</span><strong>+91 98470 XXXXX</strong></div>
+      <div class="oi-row"><span>Warehouse</span><strong>Kannur Rd, Calicut</strong></div>
+    </div>
+    <div class="card">
+      <div class="set-row" onclick="showToast('📦','My SKUs: Protein Bar 30g, Protein Bar 60g, Oats Bar 40g, Whey Protein 500g — 4 active SKUs.')"><div class="set-lft"><span>📦</span><span>My SKUs (4)</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="showToast('🚚','Agents: Rajesh K. (4.8★), Anuj M. (4.6★), Mohammed S. (4.9★) — 3 active on your network.')"><div class="set-lft"><span>🚚</span><span>My Agents (3)</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="showToast('🏪','Stores: Lulu Mart, Focus Bakers, Kudumbashree, Nilgiris Express, Heritage Foods (pilot).')"><div class="set-lft"><span>🏪</span><span>My Stores (5)</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="openDamageReports()"><div class="set-lft"><span>⚠️</span><span>Damage Reports</span></div><span class="set-ar">›</span></div>
       <div class="set-row" onclick="logout()"><div class="set-lft"><span>🚪</span><span style="color:var(--da);">Sign Out</span></div><span class="set-ar">›</span></div>
     </div>
   </div>
 </div>
 
-<!-- ═══ AGENT PAGES ═══ -->
+<!-- ═══════════════ AGENT ═══════════════ -->
 <div class="page" id="agent-pickups">
   <div class="ph"><div class="ph-greet">Good morning, Rajesh 🚚</div><div class="ph-title">Today's Pickups</div><div class="ph-sub">3 assigned · 0 completed</div></div>
   <div class="content">
     <div class="kpi-row">
       <div class="kpi"><div class="kpi-lbl">Assigned</div><div class="kpi-val">3</div><div class="kpi-ch nt">Today</div></div>
-      <div class="kpi"><div class="kpi-lbl">Est. Earnings</div><div class="kpi-val">₹450</div><div class="kpi-ch nt">₹150 / delivery</div></div>
+      <div class="kpi"><div class="kpi-lbl">Est. Earnings</div><div class="kpi-val">₹450</div><div class="kpi-ch nt">₹150/delivery</div></div>
     </div>
-    <div class="st">Ready for Pickup</div>
+    <div class="card" style="background:rgba(139,32,53,.04);border-color:rgba(139,32,53,.22);cursor:pointer;" onclick="openGPS()">
+      <div style="display:flex;align-items:center;gap:10px;"><div style="font-size:24px;">🗺️</div><div><div style="font-size:13px;font-weight:600;color:var(--bu2);">View My Location on Map</div><div style="font-size:11px;color:var(--mu);margin-top:2px;">Share live position with seller</div></div><div style="margin-left:auto;font-size:18px;color:var(--mu);">›</div></div>
+    </div>
+    <div class="st">Pickup Ready</div>
     <div class="pc">
-      <div class="pc-hd"><div class="sto-ic">🍞</div><div><div class="pc-nm">Focus Bakers</div><div class="pc-lc">📍 Palayam, Calicut · 2.1 km</div></div><span class="badge b-tran">Pickup Ready</span></div>
+      <div class="pc-hd"><div class="sto-ic">🍞</div><div><div class="pc-nm">Focus Bakers</div><div class="pc-lc">📍 Palayam, Calicut · 2.1 km</div></div><span class="badge b-tran">Ready</span></div>
       <div class="pc-det"><span class="pc-sku">Protein Bar 60g</span><span class="pc-qty">60 units</span></div>
-      <div class="pc-det" style="margin-bottom:10px;"><span class="pc-sku">Order #V-1041</span><span style="font-size:12px;color:var(--am);">₹3,300 value</span></div>
+      <div class="pc-det" style="margin-bottom:10px;"><span class="pc-sku">Order #V-1041</span><span style="font-size:12px;color:var(--am);font-weight:600;">₹3,300 value</span></div>
       <button class="big-btn" onclick="confirmPickup('#V-1041','Focus Bakers')">Confirm Pickup ✓</button>
     </div>
-    <div class="st" style="margin-top:4px;">Pending Dispatch</div>
-    <div class="pc">
-      <div class="pc-hd"><div class="sto-ic">🌿</div><div><div class="pc-nm">Kudumbashree</div><div class="pc-lc">📍 Kannur Road · 8.4 km</div></div><span class="badge b-pend">Pending</span></div>
-      <div class="pc-det"><span class="pc-sku">Oats Bar 40g</span><span class="pc-qty">80 units</span></div>
-      <div style="font-size:11px;color:var(--mu);padding:4px 0;">Scheduled for 2:00 PM</div>
-    </div>
-    <div class="pc">
-      <div class="pc-hd"><div class="sto-ic">🍃</div><div><div class="pc-nm">Nilgiris Express</div><div class="pc-lc">📍 Kozhikode Beach Rd · 12 km</div></div><span class="badge b-pend">Pending</span></div>
-      <div class="pc-det"><span class="pc-sku">Protein Bar 30g</span><span class="pc-qty">60 units</span></div>
-      <div style="font-size:11px;color:var(--mu);padding:4px 0;">Scheduled for 4:30 PM</div>
-    </div>
+    <div class="st">Pending Dispatch</div>
+    <div class="pc"><div class="pc-hd"><div class="sto-ic">🌿</div><div><div class="pc-nm">Kudumbashree</div><div class="pc-lc">📍 Kannur Road · 8.4 km</div></div><span class="badge b-pend">Pending</span></div><div class="pc-det"><span class="pc-sku">Oats Bar 40g</span><span class="pc-qty">80 units</span></div><div style="font-size:11px;color:var(--mu);padding:4px 0;">Scheduled 2:00 PM</div></div>
+    <div class="pc"><div class="pc-hd"><div class="sto-ic">🍃</div><div><div class="pc-nm">Nilgiris Express</div><div class="pc-lc">📍 Kozhikode Beach Rd · 12 km</div></div><span class="badge b-pend">Pending</span></div><div class="pc-det"><span class="pc-sku">Protein Bar 30g</span><span class="pc-qty">60 units</span></div><div style="font-size:11px;color:var(--mu);padding:4px 0;">Scheduled 4:30 PM</div></div>
   </div>
 </div>
 
 <div class="page" id="agent-dropoff">
   <div class="ph"><div class="ph-title">Dropoff</div><div class="ph-sub">Active delivery · #V-1041</div></div>
   <div class="content">
-    <div class="card" style="background:linear-gradient(135deg,rgba(196,64,92,.14),rgba(139,32,53,.08));border-color:rgba(196,64,92,.3);">
+    <div class="card" style="background:rgba(139,32,53,.05);border-color:rgba(139,32,53,.28);">
       <div class="ct">Active Delivery</div>
-      <div class="oi-row" style="margin-bottom:6px;"><span>Store</span><strong id="do-store">Focus Bakers</strong></div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>Store</span><strong>Focus Bakers</strong></div>
       <div class="oi-row" style="margin-bottom:6px;"><span>Address</span><strong>Palayam, Calicut — Unit 4B</strong></div>
       <div class="oi-row"><span>Order Value</span><strong class="oi-amt">₹3,300</strong></div>
     </div>
@@ -477,9 +558,9 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
       <div class="oi-row" style="margin-bottom:6px;"><span>SKU</span><strong>Protein Bar 60g</strong></div>
       <div class="oi-row" style="margin-bottom:10px;"><span>Ordered Qty</span><strong>60 units</strong></div>
       <label class="fl">Actual Qty Delivered</label>
-      <div class="stepper" id="dqstepper"><button class="sbtn" onclick="adjDQ(-5)">−</button><div class="sval" id="dq-disp">60</div><button class="sbtn" onclick="adjDQ(5)">+</button></div>
-      <div class="shortage-row" id="short-row" onclick="toggleShortage()" style="margin-top:14px;">
-        <div class="sch" id="sch-box"></div>
+      <div class="stepper"><button class="sbtn" onclick="adjDQ(-5)">−</button><div class="sval" id="dq-disp">60</div><button class="sbtn" onclick="adjDQ(5)">+</button></div>
+      <div class="shortage-row" id="short-row" onclick="toggleShortage()" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(196,42,62,.06);border:1px solid rgba(196,42,62,.2);border-radius:10px;margin-top:14px;cursor:pointer;">
+        <div id="sch-box" style="width:20px;height:20px;border-radius:6px;border:1.5px solid var(--da);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:white;"></div>
         <div><div style="font-size:13px;font-weight:600;color:var(--da);">Flag Shortage</div><div style="font-size:10px;color:var(--mu);margin-top:2px;">Actual qty less than ordered</div></div>
       </div>
     </div>
@@ -495,24 +576,16 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
 </div>
 
 <div class="page" id="agent-summary">
-  <div class="ph"><div class="ph-title">Day Summary</div><div class="ph-sub">Wednesday · Performance</div></div>
+  <div class="ph"><div class="ph-title">Day Summary</div><div class="ph-sub">Performance Overview</div></div>
   <div class="content">
     <div class="kpi-row">
       <div class="kpi"><div class="kpi-lbl">Delivered</div><div class="kpi-val">1</div><div class="kpi-ch nt">of 3 today</div></div>
       <div class="kpi"><div class="kpi-lbl">Earnings</div><div class="kpi-val">₹150</div><div class="kpi-ch up">₹450 target</div></div>
       <div class="kpi"><div class="kpi-lbl">Distance</div><div class="kpi-val">2.1 km</div><div class="kpi-ch nt">Today</div></div>
-      <div class="kpi"><div class="kpi-lbl">On-Time Rate</div><div class="kpi-val">100%</div><div class="kpi-ch up">↑ This week</div></div>
+      <div class="kpi"><div class="kpi-lbl">On-Time</div><div class="kpi-val">100%</div><div class="kpi-ch up">↑ This week</div></div>
     </div>
-    <div class="card"><div class="ct">This Week</div>
-      <div class="oi-row" style="margin-bottom:6px;"><span>Total Deliveries</span><strong>14</strong></div>
-      <div class="oi-row" style="margin-bottom:6px;"><span>Shortages Flagged</span><strong style="color:var(--da);">1</strong></div>
-      <div class="oi-row" style="margin-bottom:6px;"><span>Total Distance</span><strong>86 km</strong></div>
-      <div class="oi-row"><span>Weekly Payout</span><strong class="oi-amt">₹2,100</strong></div>
-    </div>
-    <div class="card"><div class="ct">Completed Today</div>
-      <div class="oi-row" style="padding:8px 0;border-bottom:1px solid var(--bo);"><span>Lulu Mart #V-1042</span><strong style="color:var(--su);">✓ Delivered 9:30 AM</strong></div>
-      <div class="oi-row" style="padding:8px 0;color:var(--mu);font-size:12px;">Focus Bakers — In progress…</div>
-    </div>
+    <div class="card"><div class="ct">This Week</div><div class="oi-row" style="margin-bottom:6px;"><span>Total Deliveries</span><strong>14</strong></div><div class="oi-row" style="margin-bottom:6px;"><span>Shortages Flagged</span><strong style="color:var(--da);">1</strong></div><div class="oi-row" style="margin-bottom:6px;"><span>Total Distance</span><strong>86 km</strong></div><div class="oi-row"><span>Weekly Payout</span><strong class="oi-amt">₹2,100</strong></div></div>
+    <div class="card"><div class="ct">Completed Today</div><div class="oi-row" style="padding:8px 0;border-bottom:1px solid var(--bo);"><span>Lulu Mart #V-1042</span><strong style="color:var(--su);">✓ 9:30 AM</strong></div><div class="oi-row" style="padding:8px 0;color:var(--mu);font-size:12px;">Focus Bakers — In progress…</div></div>
   </div>
 </div>
 
@@ -520,15 +593,26 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
   <div class="ph"><div class="ph-title">Profile</div></div>
   <div class="content">
     <div class="prof-hero"><div class="prof-av">RK</div><div><div class="prof-nm">Rajesh K.</div><div class="prof-rl">🚚 Delivery Agent</div><div class="prof-lc">📍 KL-07 AB 1234 · Calicut</div></div></div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-lbl">Rating</div><div class="kpi-val">4.8★</div><div class="kpi-ch up">312 deliveries</div></div>
+      <div class="kpi"><div class="kpi-lbl">On Fleet Since</div><div class="kpi-val" style="font-size:15px;">Jan 2025</div><div class="kpi-ch nt">8 months</div></div>
+    </div>
     <div class="card">
-      <div class="set-row" onclick="openModal('agent-payouts')"><div class="set-lft"><span>💰</span><span>Payout History</span></div><span class="set-ar">›</span></div>
-      <div class="set-row" onclick="openModal('agent-route')"><div class="set-lft"><span>🗺️</span><span>My Route Today</span></div><span class="set-ar">›</span></div>
+      <div class="ct">Agent Details</div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>Phone</span><strong>+91 94950 XXXXX</strong></div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>Vehicle</span><strong>Bike · KL-07 AB 1234</strong></div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>Home Zone</span><strong>Palayam, Calicut</strong></div>
+      <div class="oi-row"><span>Lifetime Earnings</span><strong class="oi-amt">₹46,200</strong></div>
+    </div>
+    <div class="card">
+      <div class="set-row" onclick="showToast('💰','This week: ₹2,100 · Last week: ₹1,950 · This month: ₹8,640.')"><div class="set-lft"><span>💰</span><span>Payout History</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="openGPS()"><div class="set-lft"><span>🗺️</span><span>My Live Position</span></div><span class="set-ar">›</span></div>
       <div class="set-row" onclick="logout()"><div class="set-lft"><span>🚪</span><span style="color:var(--da);">Sign Out</span></div><span class="set-ar">›</span></div>
     </div>
   </div>
 </div>
 
-<!-- ═══ STORE PAGES ═══ -->
+<!-- ═══════════════ STORE ═══════════════ -->
 <div class="page" id="store-incoming">
   <div class="ph"><div class="ph-greet">Welcome, Focus Bakers 🏪</div><div class="ph-title">Incoming Deliveries</div><div class="ph-sub">Today · 2 scheduled</div></div>
   <div class="content">
@@ -536,87 +620,77 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
     <div class="inc-card">
       <div class="inc-hd"><span class="inc-id">#V-1041</span><span class="inc-eta">ETA 12:30 PM</span></div>
       <div class="inc-row">SKU: <strong>Protein Bar 60g</strong></div>
-      <div class="inc-row">Quantity: <strong>60 units</strong></div>
+      <div class="inc-row">Qty: <strong>60 units</strong></div>
       <div class="inc-row">Agent: <strong>Anuj M. · KL-11 CD 5678</strong></div>
       <div class="inc-row">Value: <strong>₹3,300</strong></div>
       <div style="display:flex;gap:8px;margin-top:10px;">
-        <button class="big-btn btn-sec" style="margin:0;" onclick="showToast('📞','Calling Anuj M...')">Call Agent</button>
-        <button class="big-btn btn-suc" style="margin:0;" onclick="showToast('✓','Delivery received — stock updated!')">Received ✓</button>
+        <button class="big-btn btn-sec" style="margin:0;flex:1;" onclick="showToast('📞','Calling Anuj M…')">Call Agent</button>
+        <button class="big-btn btn-suc" style="margin:0;flex:1;" onclick="showToast('✓','Stock received — inventory updated!')">Received ✓</button>
       </div>
+      <button class="big-btn btn-dan" style="margin-top:8px;" onclick="goTo('store-report-damage')">⚠️ Report Damage</button>
     </div>
     <div class="st">Scheduled Later</div>
     <div class="inc-card">
       <div class="inc-hd"><span class="inc-id">#V-1044</span><span class="inc-eta">ETA 4:00 PM</span></div>
       <div class="inc-row">SKU: <strong>Whey Protein 500g</strong></div>
-      <div class="inc-row">Quantity: <strong>12 units</strong></div>
-      <div class="inc-row">Agent: <strong>Rajesh K. · KL-07 AB 1234</strong></div>
+      <div class="inc-row">Qty: <strong>12 units</strong></div>
+      <div class="inc-row">Agent: <strong>Rajesh K.</strong></div>
       <div class="inc-row">Value: <strong>₹10,788</strong></div>
+      <button class="big-btn btn-dan" style="margin-top:10px;" onclick="goTo('store-report-damage')">⚠️ Report Damage</button>
     </div>
-    <div class="card" style="background:rgba(139,32,53,.06);margin-top:4px;">
-      <div class="ct" style="margin-bottom:8px;">Request Reorder</div>
-      <div style="font-size:12px;color:var(--mu);margin-bottom:10px;line-height:1.55;">Running low on Protein Bar 30g. Current stock: 72 units. Recommended reorder: 120 units.</div>
+    <div class="card" style="background:rgba(139,32,53,.04);margin-top:4px;">
+      <div class="ct" style="margin-bottom:8px;">Request Restock</div>
+      <div style="font-size:12px;color:var(--mu);margin-bottom:10px;line-height:1.55;">Protein Bar 30g running low — 72 units. Suggested reorder: 120 units.</div>
       <button class="big-btn" onclick="showToast('📦','Reorder request sent to Arjun V!')">Request Restock</button>
     </div>
   </div>
 </div>
 
-<div class="page" id="store-stock">
-  <div class="ph"><div class="ph-title">Stock on Hand</div><div class="ph-sub">Current inventory · Focus Bakers</div></div>
+<div class="page" id="store-report-damage">
+  <div class="ph"><div class="back" onclick="goTo('store-incoming')">← Back</div><div class="ph-title">Report Damage</div><div class="ph-sub">Order #V-1041 · Focus Bakers</div></div>
   <div class="content">
-    <div class="card">
-      <div class="ct">Live Inventory</div>
-      <div class="inv-row">
-        <div class="inv-info"><div class="inv-nm">Protein Bar 30g</div><div class="inv-pr">₹30/pc · 30g</div></div>
-        <div class="inv-bar-w"><div class="inv-bar"><div class="inv-bar-f" style="width:60%;background:var(--su);"></div></div><div style="font-size:9px;color:var(--mu);">60% full</div></div>
-        <div class="inv-q" style="color:var(--am);">72</div>
-      </div>
-      <div class="inv-row">
-        <div class="inv-info"><div class="inv-nm">Protein Bar 60g</div><div class="inv-pr">₹55/pc · 60g</div></div>
-        <div class="inv-bar-w"><div class="inv-bar"><div class="inv-bar-f" style="width:100%;background:var(--bl);"></div></div><div style="font-size:9px;color:var(--mu);">Arriving</div></div>
-        <div class="inv-q" style="color:var(--mu);">0</div>
-      </div>
-      <div class="inv-row">
-        <div class="inv-info"><div class="inv-nm">Oats Bar 40g</div><div class="inv-pr">₹25/pc · 40g</div></div>
-        <div class="inv-bar-w"><div class="inv-bar"><div class="inv-bar-f" style="width:60%;background:var(--am);"></div></div><div style="font-size:9px;color:var(--mu);">60% full</div></div>
-        <div class="inv-q" style="color:var(--su);">48</div>
-      </div>
-      <div class="inv-row">
-        <div class="inv-info"><div class="inv-nm">Whey Protein 500g</div><div class="inv-pr">₹899/unit · 500g</div></div>
-        <div class="inv-bar-w"><div class="inv-bar"><div class="inv-bar-f" style="width:67%;background:var(--su);"></div></div><div style="font-size:9px;color:var(--mu);">67% full</div></div>
-        <div class="inv-q" style="color:var(--su);">8</div>
-      </div>
+    <div class="card" style="background:rgba(196,42,62,.05);border-color:rgba(196,42,62,.3);">
+      <div style="display:flex;align-items:center;gap:12px;"><div style="font-size:36px;">⚠️</div><div><div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--da);">Damage Report</div><div style="font-size:12px;color:var(--mu);margin-top:3px;line-height:1.5;">Filing this report alerts the seller immediately and pauses billing for the damaged units.</div></div></div>
     </div>
-    <div class="card">
-      <div class="ct">This Week's Sell-out</div>
-      <div class="oi-row" style="margin-bottom:5px;"><span>Protein Bar 30g</span><strong>48 units sold (40%)</strong></div>
-      <div class="oi-row" style="margin-bottom:5px;"><span>Oats Bar 40g</span><strong>32 units sold (40%)</strong></div>
-      <div class="oi-row"><span>Whey Protein</span><strong>4 units sold (33%)</strong></div>
-      <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--bo);font-size:11px;color:var(--mu);line-height:1.5;">📊 Sell-through below 50% on all SKUs. Consider shelf repositioning or promo activation.</div>
+    <div class="fg"><label class="fl">Damaged SKU</label>
+      <select class="fsel" id="dmg-sku"><option>Protein Bar 60g</option><option>Protein Bar 30g</option><option>Oats Bar 40g</option><option>Whey Protein 500g</option></select>
     </div>
-    <div class="card">
-      <div class="ct">🔮 Live Demand Forecast <span class="live-badge"><span class="live-pulse"></span>LIVE</span></div>
-      <div style="font-size:10px;color:var(--mu);margin-bottom:8px;">Projected stockouts based on current sell-out rate</div>
-      <div id="storeForecastList"></div>
+    <div class="fg"><label class="fl">Damaged Quantity</label>
+      <div class="stepper"><button class="sbtn" onclick="adjDmgQty(-1)">−</button><div class="sval" id="dmg-qty-disp">5</div><button class="sbtn" onclick="adjDmgQty(1)">+</button></div>
+    </div>
+    <div class="fg"><label class="fl">Reason</label>
+      <select class="fsel" id="dmg-reason"><option>Packaging Damaged in Transit</option><option>Wrong Product Delivered</option><option>Near-Expiry / Expired</option><option>Temperature Damage</option><option>Units Crushed / Broken</option><option>Other</option></select>
+    </div>
+    <div class="fg"><label class="fl">Additional Notes</label>
+      <textarea class="ftxt" id="dmg-notes" placeholder="Describe the damage — photos can be attached later…"></textarea>
+    </div>
+    <button class="big-btn btn-dan" onclick="submitDamage()">Submit Damage Report ⚠️</button>
+    <button class="big-btn btn-sec" style="margin-top:8px;" onclick="goTo('store-incoming')">Cancel</button>
+  </div>
+</div>
+
+<div class="page" id="store-stock">
+  <div class="ph"><div class="ph-title">Stock on Hand</div><div class="ph-sub">Focus Bakers · Live Inventory</div></div>
+  <div class="content">
+    <div class="card"><div class="ct">Live Inventory</div>
+      <div class="inv-row"><div class="inv-info"><div class="inv-nm">Protein Bar 30g</div><div class="inv-pr">₹30/pc</div></div><div class="inv-bw"><div class="inv-bar"><div class="inv-bf" style="width:60%;background:var(--su);"></div></div><div style="font-size:9px;color:var(--mu);">60%</div></div><div class="inv-q">72</div></div>
+      <div class="inv-row"><div class="inv-info"><div class="inv-nm">Protein Bar 60g</div><div class="inv-pr">₹55/pc</div></div><div class="inv-bw"><div class="inv-bar"><div class="inv-bf" style="width:100%;background:var(--bu);"></div></div><div style="font-size:9px;color:var(--mu);">Arriving</div></div><div class="inv-q" style="color:var(--mu);">0</div></div>
+      <div class="inv-row"><div class="inv-info"><div class="inv-nm">Oats Bar 40g</div><div class="inv-pr">₹25/pc</div></div><div class="inv-bw"><div class="inv-bar"><div class="inv-bf" style="width:60%;background:var(--am);"></div></div><div style="font-size:9px;color:var(--mu);">60%</div></div><div class="inv-q">48</div></div>
+      <div class="inv-row"><div class="inv-info"><div class="inv-nm">Whey Protein 500g</div><div class="inv-pr">₹899/unit</div></div><div class="inv-bw"><div class="inv-bar"><div class="inv-bf" style="width:67%;background:var(--su);"></div></div><div style="font-size:9px;color:var(--mu);">67%</div></div><div class="inv-q">8</div></div>
     </div>
   </div>
 </div>
 
 <div class="page" id="store-logsales">
-  <div class="ph"><div class="ph-title">Log Sales</div><div class="ph-sub">Record today's sell-out</div></div>
+  <div class="ph"><div class="ph-title">Log Sales</div><div class="ph-sub">Today's sell-out</div></div>
   <div class="content">
-    <div class="card">
-      <div class="ct">Units Sold Today <span>Focus Bakers</span></div>
-      <div class="inv-row"><div class="inv-info"><div class="inv-nm">Protein Bar 30g</div><div class="inv-pr">Stock: 72 units</div></div><input class="log-inp" type="number" value="0" min="0" id="log-pb30" oninput="updateLogTotal()"></div>
-      <div class="inv-row"><div class="inv-info"><div class="inv-nm">Protein Bar 60g</div><div class="inv-pr">Stock: 0 units</div></div><input class="log-inp" type="number" value="0" min="0" id="log-pb60" disabled style="opacity:.4;"></div>
-      <div class="inv-row"><div class="inv-info"><div class="inv-nm">Oats Bar 40g</div><div class="inv-pr">Stock: 48 units</div></div><input class="log-inp" type="number" value="0" min="0" id="log-oats" oninput="updateLogTotal()"></div>
-      <div class="inv-row"><div class="inv-info"><div class="inv-nm">Whey Protein 500g</div><div class="inv-pr">Stock: 8 units</div></div><input class="log-inp" type="number" value="0" min="0" id="log-wpc" oninput="updateLogTotal()"></div>
-      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--bo);margin-top:4px;">
-        <span style="font-size:12px;color:var(--mu);">Today's Revenue</span>
-        <span class="oi-amt" style="font-size:20px;" id="log-total">₹0</span>
-      </div>
+    <div class="card"><div class="ct">Units Sold Today <span>Focus Bakers</span></div>
+      <div class="inv-row"><div class="inv-info"><div class="inv-nm">Protein Bar 30g</div><div class="inv-pr">Stock: 72</div></div><input class="log-inp" type="number" value="0" min="0" id="log-pb30" oninput="updateLogTotal()"></div>
+      <div class="inv-row"><div class="inv-info"><div class="inv-nm">Oats Bar 40g</div><div class="inv-pr">Stock: 48</div></div><input class="log-inp" type="number" value="0" min="0" id="log-oats" oninput="updateLogTotal()"></div>
+      <div class="inv-row"><div class="inv-info"><div class="inv-nm">Whey Protein 500g</div><div class="inv-pr">Stock: 8</div></div><input class="log-inp" type="number" value="0" min="0" id="log-wpc" oninput="updateLogTotal()"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--bo);margin-top:4px;"><span style="font-size:12px;color:var(--mu);">Today's Revenue</span><span class="oi-amt" style="font-size:20px;" id="log-total">₹0</span></div>
     </div>
-    <button class="big-btn" onclick="submitSales()">Submit Sales Report ✓</button>
-    <button class="big-btn btn-sec" style="margin-top:8px;" onclick="showToast('📊','Weekly summary shared with Arjun V.')">Share Weekly Summary</button>
+    <button class="big-btn" onclick="showToast('🧾','Sales logged! Data synced to Velora dashboard.')">Submit Sales Report ✓</button>
   </div>
 </div>
 
@@ -624,126 +698,132 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
   <div class="ph"><div class="ph-title">Store Profile</div></div>
   <div class="content">
     <div class="prof-hero"><div class="prof-av">FB</div><div><div class="prof-nm">Focus Bakers</div><div class="prof-rl">🏪 Retailer · Palayam</div><div class="prof-lc">📍 Unit 4B, Palayam, Calicut</div></div></div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-lbl">Sell-through</div><div class="kpi-val" style="color:var(--da);">40%</div><div class="kpi-ch dn">On hold</div></div>
+      <div class="kpi"><div class="kpi-lbl">Partner Since</div><div class="kpi-val" style="font-size:15px;">Aug 2024</div><div class="kpi-ch nt">13 months</div></div>
+    </div>
     <div class="card">
-      <div class="set-row" onclick="openModal('store-orders')"><div class="set-lft"><span>📋</span><span>Order History</span></div><span class="set-ar">›</span></div>
-      <div class="set-row" onclick="openModal('store-reports')"><div class="set-lft"><span>📈</span><span>Sales Reports</span></div><span class="set-ar">›</span></div>
+      <div class="ct">Store Details</div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>Manager</span><strong>Suresh Nair</strong></div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>GSTIN</span><strong>32FBAKR5678K1Z2</strong></div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>Phone</span><strong>+91 89430 XXXXX</strong></div>
+      <div class="oi-row"><span>Store Type</span><strong>Bakery & Snacks</strong></div>
+    </div>
+    <div class="card">
+      <div class="set-row" onclick="showToast('📋','Order history: 12 orders this quarter · ₹28,400 total value.')"><div class="set-lft"><span>📋</span><span>Order History</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="navTo(2)"><div class="set-lft"><span>📈</span><span>Sales Reports</span></div><span class="set-ar">›</span></div>
       <div class="set-row" onclick="logout()"><div class="set-lft"><span>🚪</span><span style="color:var(--da);">Sign Out</span></div><span class="set-ar">›</span></div>
     </div>
   </div>
 </div>
 
-<!-- ═══ ANALYST PAGES ═══ -->
+<!-- ═══════════════ ANALYST ═══════════════ -->
 <div class="page" id="analyst-dashboard">
   <div class="ph"><div class="ph-greet">Hi Priya 📊</div><div class="ph-title">Brand Dashboard</div><div class="ph-sub">Velora Intelligence · This Week</div></div>
   <div class="content">
     <div class="kpi-row">
-      <div class="kpi"><div class="kpi-lbl">Total Sell-in</div><div class="kpi-val">700</div><div class="kpi-ch nt">units · 4 stores</div></div>
-      <div class="kpi"><div class="kpi-lbl">Total Sell-out</div><div class="kpi-val">502</div><div class="kpi-ch nt">units sold</div></div>
+      <div class="kpi"><div class="kpi-lbl">Total Sell-in</div><div class="kpi-val">700</div><div class="kpi-ch nt">4 stores</div></div>
+      <div class="kpi"><div class="kpi-lbl">Total Sell-out</div><div class="kpi-val">502</div><div class="kpi-ch dn">71.7% rate</div></div>
       <div class="kpi"><div class="kpi-lbl">Sell-through</div><div class="kpi-val">71.7%</div><div class="kpi-ch dn">↓ vs 80% target</div></div>
-      <div class="kpi"><div class="kpi-lbl">Deadstock Risk</div><div class="kpi-val">198</div><div class="kpi-ch dn">units unsold</div></div>
+      <div class="kpi"><div class="kpi-lbl">Deadstock</div><div class="kpi-val">198</div><div class="kpi-ch dn">units at risk</div></div>
     </div>
-    <div class="card">
-      <div class="ct">Sell-in vs Sell-out <span>By store</span></div>
-      <div class="ch-legend"><div class="leg-i"><div class="leg-dot" style="background:var(--bu);"></div>Sell-in</div><div class="leg-i"><div class="leg-dot" style="background:var(--am);"></div>Sell-out</div></div>
-      <div class="chart-wrap" style="height:200px;"><canvas id="anaChart" role="img" aria-label="Sell-in vs sell-out grouped bar chart by store"></canvas></div>
-    </div>
-    <div class="card">
-      <div class="ct">4-Week Sell-through Trend <span>%</span></div>
-      <div class="ch-legend" id="trend-leg"></div>
-      <div class="chart-wrap" style="height:180px;"><canvas id="trendChart" role="img" aria-label="4-week sell-through trend by store"></canvas></div>
-    </div>
-    <div class="card">
-      <div class="ct">🔮 Live Demand Forecast <span class="live-badge"><span class="live-pulse"></span>LIVE</span></div>
-      <div style="font-size:10px;color:var(--mu);margin-bottom:10px;" id="forecastUpdated">Updated just now · Next 7 days</div>
-      <div class="chart-wrap" style="height:180px;"><canvas id="forecastChart" role="img" aria-label="Next week demand forecast projection by store"></canvas></div>
-      <div id="forecastList"></div>
-    </div>
-    <div class="card">
-      <div class="ct">Store Rankings <span>Sell-through %</span></div>
-      <div class="rk-row"><div class="rk-n">1</div><div class="rk-info"><div class="rk-nm">Nilgiris Express</div><div class="rk-sb">Kozhikode · 136/160 sold</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--su);">85%</div><div class="rk-bar" style="width:72px;background:rgba(76,175,130,.12);"><div style="height:4px;width:85%;background:var(--su);border-radius:2px;"></div></div></div></div>
-      <div class="rk-row"><div class="rk-n">2</div><div class="rk-info"><div class="rk-nm">Lulu Mart</div><div class="rk-sb">Calicut · 198/240 sold</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--su);">82.5%</div><div class="rk-bar" style="width:72px;background:rgba(76,175,130,.1);"><div style="height:4px;width:82.5%;background:var(--su);opacity:.8;border-radius:2px;"></div></div></div></div>
-      <div class="rk-row"><div class="rk-n">3</div><div class="rk-info"><div class="rk-nm">Kudumbashree</div><div class="rk-sb">Kannur · 96/120 sold</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--am);">80%</div><div class="rk-bar" style="width:72px;background:rgba(212,168,83,.1);"><div style="height:4px;width:80%;background:var(--am);border-radius:2px;"></div></div></div></div>
-      <div class="rk-row"><div class="rk-n">4</div><div class="rk-info"><div class="rk-nm">Heritage Foods</div><div class="rk-sb">Malappuram · New store</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--mu);">—</div></div></div>
-      <div class="rk-row"><div class="rk-n">⚠</div><div class="rk-info"><div class="rk-nm" style="color:var(--da);">Focus Bakers</div><div class="rk-sb">Palayam · 72/180 sold · HOLD</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--da);">40%</div><div class="rk-bar" style="width:72px;background:rgba(224,92,110,.1);"><div style="height:4px;width:40%;background:var(--da);border-radius:2px;"></div></div></div></div>
-    </div>
-    <div class="card">
-      <div class="ct">📉 Sell-in vs Sell-out Gap <span>% unsold / deadstock risk</span></div>
-      <div class="chart-wrap" style="height:160px;"><canvas id="gapChart" role="img" aria-label="Percent of stock unsold by store"></canvas></div>
-    </div>
-    <div class="card">
-      <div class="ct">🩺 Store Health Score <span>Composite 0-100</span></div>
-      <div style="font-size:10px;color:var(--mu);margin-bottom:4px;">Blends current sell-through, 4-week momentum &amp; deadstock risk</div>
-      <div id="healthScoreList"></div>
-    </div>
-    <div class="card">
-      <div class="ct">🚨 Anomaly Detection <span>Auto-flagged this week</span></div>
-      <div id="anomalyList"></div>
-    </div>
-    <div class="card">
-      <div class="ct">🧩 Retailer Segmentation <span>RFM-lite</span></div>
-      <div id="segmentGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:8px;"></div>
-    </div>
-    <div class="card">
-      <div class="ct">🗺️ Market Coverage <span>Calicut region</span></div>
-      <div style="display:flex;align-items:center;gap:14px;">
-        <div style="font-family:'Syne',sans-serif;font-size:28px;font-weight:800;color:var(--su);">80%</div>
-        <div style="font-size:11px;color:var(--mu);line-height:1.5;">4 of 5 mapped stores actively distributing. <strong style="color:var(--tx);">Malappuram</strong> (Heritage Foods) is the one open gap — see AI Recommendations below.</div>
+    <!-- GPS LINK -->
+    <div class="card" style="background:rgba(139,32,53,.05);border-color:rgba(139,32,53,.22);cursor:pointer;margin-bottom:12px;" onclick="openGPS()">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:40px;height:40px;border-radius:12px;background:var(--bu);display:flex;align-items:center;justify-content:center;font-size:20px;">🗺️</div>
+        <div style="flex:1;"><div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--bu2);">Live Fleet Map</div><div style="font-size:11px;color:var(--mu);margin-top:2px;">Rajesh K. · Anuj M. · Mohammed S. — 3 agents active</div></div>
+        <span style="font-size:18px;color:var(--mu);">›</span>
       </div>
     </div>
+    <!-- SELL-IN VS SELL-OUT CHART -->
+    <div class="card">
+      <div class="ct">Sell-in vs Sell-out <span>By store</span></div>
+      <div class="ch-leg"><div class="leg-i"><div class="leg-dot" style="background:var(--bu);"></div>Sell-in</div><div class="leg-i"><div class="leg-dot" style="background:var(--am);"></div>Sell-out</div></div>
+      <div class="chart-wrap" style="height:190px;"><canvas id="anaChart"></canvas></div>
+    </div>
+    <!-- DEMAND FORECAST -->
+    <div class="card">
+      <div class="ct">Demand Forecast <span>Week 5 · AI Predicted</span></div>
+      <div class="ch-leg" id="fc-leg"></div>
+      <div class="chart-wrap" style="height:180px;"><canvas id="forecastChart"></canvas></div>
+      <div class="fc-grid" id="fc-grid">
+        <div class="fc-card"><div class="fc-store">Lulu Mart</div><div class="fc-pct" style="color:var(--su);">84%</div><div class="fc-dir" style="color:var(--su);">↑ Recovering</div><div class="fc-conf">Confidence: High</div></div>
+        <div class="fc-card" style="border-color:rgba(196,42,62,.3);background:rgba(196,42,62,.04);"><div class="fc-store">Focus Bakers</div><div class="fc-pct" style="color:var(--da);">30%</div><div class="fc-dir" style="color:var(--da);">↓↓ Critical</div><div class="fc-conf">Hold shipments</div></div>
+        <div class="fc-card"><div class="fc-store">Kudumbashree</div><div class="fc-pct" style="color:var(--am);">82%</div><div class="fc-dir" style="color:var(--su);">→ Stable</div><div class="fc-conf">Confidence: High</div></div>
+        <div class="fc-card"><div class="fc-store">Nilgiris</div><div class="fc-pct" style="color:var(--su);">88%</div><div class="fc-dir" style="color:var(--su);">↑↑ Growing</div><div class="fc-conf">Increase stock</div></div>
+      </div>
+    </div>
+    <!-- SKU VELOCITY HEATMAP -->
+    <div class="card">
+      <div class="ct">SKU Velocity Heatmap <span>Sell-through %</span></div>
+      <div style="display:flex;gap:10px;margin-bottom:10px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--mu);"><div style="width:12px;height:12px;border-radius:3px;background:rgba(30,107,60,.18);"></div>80%+</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--mu);"><div style="width:12px;height:12px;border-radius:3px;background:rgba(196,144,26,.18);"></div>60–79%</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--mu);"><div style="width:12px;height:12px;border-radius:3px;background:rgba(196,100,20,.18);"></div>40–59%</div>
+        <div style="display:flex;align-items:center;gap:4px;font-size:10px;color:var(--mu);"><div style="width:12px;height:12px;border-radius:3px;background:rgba(196,42,62,.18);"></div>&lt;40%</div>
+      </div>
+      <div class="heatmap-wrap"><table class="heatmap" id="heatmapTable" style="width:100%;border-collapse:separate;border-spacing:3px;">
+        <thead><tr>
+          <th class="hm-th" style="text-align:left;width:90px;">Store</th>
+          <th class="hm-th">PB 30g</th><th class="hm-th">PB 60g</th><th class="hm-th">Oats</th><th class="hm-th">Whey</th>
+        </tr></thead>
+        <tbody id="heatmapBody"></tbody>
+      </table></div>
+    </div>
+    <!-- 4-WEEK TREND -->
+    <div class="card">
+      <div class="ct">4-Week Sell-through Trend <span>%</span></div>
+      <div class="ch-leg" id="trend-leg"></div>
+      <div class="chart-wrap" style="height:175px;"><canvas id="trendChart"></canvas></div>
+    </div>
+    <!-- STORE RANKINGS -->
+    <div class="card">
+      <div class="ct">Store Rankings <span>Sell-through %</span></div>
+      <div class="rk-row"><div class="rk-n">1</div><div class="rk-info"><div class="rk-nm">Nilgiris Express</div><div class="rk-sb">Kozhikode · 136/160</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--su);">85%</div><div class="rk-bar"><div class="rk-bar-f" style="width:85%;background:var(--su);"></div></div></div></div>
+      <div class="rk-row"><div class="rk-n">2</div><div class="rk-info"><div class="rk-nm">Lulu Mart</div><div class="rk-sb">Calicut · 198/240</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--su);">82.5%</div><div class="rk-bar"><div class="rk-bar-f" style="width:82.5%;background:var(--su);opacity:.8;"></div></div></div></div>
+      <div class="rk-row"><div class="rk-n">3</div><div class="rk-info"><div class="rk-nm">Kudumbashree</div><div class="rk-sb">Kannur · 96/120</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--am);">80%</div><div class="rk-bar"><div class="rk-bar-f" style="width:80%;background:var(--am);"></div></div></div></div>
+      <div class="rk-row"><div class="rk-n">4</div><div class="rk-info"><div class="rk-nm">Heritage Foods</div><div class="rk-sb">Malappuram · New</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--mu);">—</div></div></div>
+      <div class="rk-row"><div class="rk-n" style="color:var(--da);">⚠</div><div class="rk-info"><div class="rk-nm" style="color:var(--da);">Focus Bakers</div><div class="rk-sb">Palayam · 72/180 · HOLD</div></div><div class="rk-rt"><div class="rk-pct" style="color:var(--da);">40%</div><div class="rk-bar"><div class="rk-bar-f" style="width:40%;background:var(--da);"></div></div></div></div>
+    </div>
+    <!-- RECOMMENDATIONS -->
     <div class="st">AI Recommendations</div>
-    <div class="rec" id="rec1">
-      <div class="rec-hd"><div class="rec-ic" style="background:rgba(224,92,110,.15);">⚠️</div><div><div class="rec-ttl">Hold Focus Bakers shipments</div><div class="rec-sb">40% sell-through · 4-week declining trend · 108 units unsold. Pause until recovery above 65%.</div></div></div>
-      <div class="rec-acts"><button class="rec-btn ra" onclick="approveRec('rec1','Hold approved — shipments paused for Focus Bakers')">✓ Approve</button><button class="rec-btn rd" onclick="dismissRec('rec1')">✕ Dismiss</button></div>
-    </div>
-    <div class="rec" id="rec2">
-      <div class="rec-hd"><div class="rec-ic" style="background:rgba(76,175,130,.12);">📈</div><div><div class="rec-ttl">Increase Nilgiris allocation +25%</div><div class="rec-sb">85% sell-through · growing 4 weeks straight · highest ROI store in network.</div></div></div>
-      <div class="rec-acts"><button class="rec-btn ra" onclick="approveRec('rec2','Allocation increase approved for Nilgiris Express')">✓ Approve</button><button class="rec-btn rd" onclick="dismissRec('rec2')">✕ Dismiss</button></div>
-    </div>
-    <div class="rec" id="rec3">
-      <div class="rec-hd"><div class="rec-ic" style="background:rgba(212,168,83,.12);">💡</div><div><div class="rec-ttl">Run promo at Kudumbashree</div><div class="rec-sb">Stable at 80% for 3 weeks. A BOGO or shelf display upgrade could push sell-through to 90%+.</div></div></div>
-      <div class="rec-acts"><button class="rec-btn ra" onclick="approveRec('rec3','Promo approved for Kudumbashree')">✓ Approve</button><button class="rec-btn rd" onclick="dismissRec('rec3')">✕ Dismiss</button></div>
-    </div>
-    <div class="rec" id="rec4">
-      <div class="rec-hd"><div class="rec-ic" style="background:rgba(196,64,92,.12);">🆕</div><div><div class="rec-ttl">Onboard Heritage Foods</div><div class="rec-sb">Malappuram market gap — no VELORA-distributed brand present. Pilot with 60 units Protein Bar 30g.</div></div></div>
-      <div class="rec-acts"><button class="rec-btn ra" onclick="approveRec('rec4','Heritage Foods pilot approved')">✓ Approve</button><button class="rec-btn rd" onclick="dismissRec('rec4')">✕ Dismiss</button></div>
-    </div>
+    <div class="rec" id="rec1"><div class="rec-hd"><div class="rec-ic" style="background:rgba(196,42,62,.1);">⚠️</div><div><div class="rec-ttl">Hold Focus Bakers shipments</div><div class="rec-sb">40% sell-through · 4-week declining trend · 108 units unsold. Pause until recovery above 65%.</div></div></div><div class="rec-acts"><button class="rec-btn ra" onclick="approveRec('rec1','Hold approved — shipments paused for Focus Bakers')">✓ Approve</button><button class="rec-btn rd" onclick="dismissRec('rec1')">✕ Dismiss</button></div></div>
+    <div class="rec" id="rec2"><div class="rec-hd"><div class="rec-ic" style="background:rgba(30,107,60,.1);">📈</div><div><div class="rec-ttl">Increase Nilgiris allocation +25%</div><div class="rec-sb">85% sell-through · growing 4 weeks · highest ROI store in network.</div></div></div><div class="rec-acts"><button class="rec-btn ra" onclick="approveRec('rec2','Allocation increased for Nilgiris Express')">✓ Approve</button><button class="rec-btn rd" onclick="dismissRec('rec2')">✕ Dismiss</button></div></div>
+    <div class="rec" id="rec3"><div class="rec-hd"><div class="rec-ic" style="background:rgba(196,144,26,.1);">💡</div><div><div class="rec-ttl">Run promo at Kudumbashree</div><div class="rec-sb">Stable at 80% for 3 weeks. BOGO or shelf display upgrade could push to 90%+.</div></div></div><div class="rec-acts"><button class="rec-btn ra" onclick="approveRec('rec3','Promo approved for Kudumbashree')">✓ Approve</button><button class="rec-btn rd" onclick="dismissRec('rec3')">✕ Dismiss</button></div></div>
+    <div class="rec" id="rec4"><div class="rec-hd"><div class="rec-ic" style="background:rgba(139,32,53,.08);">🆕</div><div><div class="rec-ttl">Onboard Heritage Foods</div><div class="rec-sb">Malappuram market gap — pilot 60 units Protein Bar 30g.</div></div></div><div class="rec-acts"><button class="rec-btn ra" onclick="approveRec('rec4','Heritage Foods pilot approved')">✓ Approve</button><button class="rec-btn rd" onclick="dismissRec('rec4')">✕ Dismiss</button></div></div>
   </div>
 </div>
 
 <div class="page" id="analyst-stores">
   <div class="ph"><div class="ph-title">Store Explorer</div><div class="ph-sub">Drill into store performance</div></div>
   <div class="content">
-    <div class="card" style="cursor:pointer;border-color:rgba(224,92,110,.35);" onclick="showToast('📊','Focus Bakers: 40% sell-through · 108 units deadstock · Hold recommended')">
+    <div class="oi" style="border-color:rgba(196,42,62,.3);cursor:pointer;" onclick="showToast('📊','Focus Bakers: 40% sell-through · ₹3,240 deadstock · Hold recommended')">
       <div class="oi-hd"><span class="oi-id" style="color:var(--da);">⚠️ Focus Bakers</span><span class="badge b-hold">HOLD</span></div>
-      <div class="oi-row"><span>Location</span><strong>Palayam, Calicut</strong></div>
       <div class="oi-row"><span>Sell-in / Sell-out</span><strong>180 / 72 units</strong></div>
       <div class="oi-row"><span>Sell-through</span><strong style="color:var(--da);">40% ↓ 4 weeks</strong></div>
-      <div class="oi-row"><span>Deadstock Risk</span><strong style="color:var(--da);">108 units = ₹3,240</strong></div>
-      <div style="font-size:11px;color:var(--mu);margin-top:8px;padding-top:8px;border-top:1px solid var(--bo);">Trend: 72% → 65% → 55% → 40% — investigate shelf placement &amp; competitor activity</div>
+      <div class="oi-row"><span>Deadstock Risk</span><strong style="color:var(--da);">108 units · ₹3,240</strong></div>
+      <div style="font-size:11px;color:var(--mu);margin-top:8px;padding-top:8px;border-top:1px solid var(--bo);">Trend: 72% → 65% → 55% → 40%</div>
     </div>
-    <div class="card" style="cursor:pointer;" onclick="showToast('📊','Nilgiris Express: 85% sell-through · Star performer · Increase allocation')">
-      <div class="oi-hd"><span class="oi-id">🍃 Nilgiris Express</span><span class="badge b-done">STAR</span></div>
-      <div class="oi-row"><span>Location</span><strong>Kozhikode Beach Rd</strong></div>
+    <div class="oi" style="cursor:pointer;" onclick="showToast('📊','Nilgiris Express: 85% sell-through · Star performer · Increase allocation')">
+      <div class="oi-hd"><span class="oi-id">🍃 Nilgiris Express</span><span class="badge b-done">STAR ⭐</span></div>
       <div class="oi-row"><span>Sell-in / Sell-out</span><strong>160 / 136 units</strong></div>
-      <div class="oi-row"><span>Sell-through</span><strong style="color:var(--su);">85% ↑ 4 weeks</strong></div>
-      <div style="font-size:11px;color:var(--mu);margin-top:8px;padding-top:8px;border-top:1px solid var(--bo);">Trend: 80% → 82% → 84% → 85% — best trajectory in network</div>
+      <div class="oi-row"><span>Sell-through</span><strong style="color:var(--su);">85% ↑ growing</strong></div>
+      <div style="font-size:11px;color:var(--mu);margin-top:8px;padding-top:8px;border-top:1px solid var(--bo);">Trend: 80% → 82% → 84% → 85% — best in network</div>
     </div>
-    <div class="card" style="cursor:pointer;" onclick="showToast('📊','Lulu Mart: 82.5% sell-through · Stable · Minor W3 dip recovered')">
+    <div class="oi" style="cursor:pointer;" onclick="showToast('📊','Lulu Mart: 82.5% sell-through · Stable · W3 dip recovered')">
       <div class="oi-hd"><span class="oi-id">🛒 Lulu Mart</span><span class="badge b-done">HEALTHY</span></div>
-      <div class="oi-row"><span>Location</span><strong>Calicut City</strong></div>
       <div class="oi-row"><span>Sell-in / Sell-out</span><strong>240 / 198 units</strong></div>
       <div class="oi-row"><span>Sell-through</span><strong style="color:var(--su);">82.5%</strong></div>
     </div>
-    <div class="card" style="cursor:pointer;" onclick="showToast('📊','Kudumbashree: 80% sell-through · Stable · Promo recommended')">
+    <div class="oi" style="cursor:pointer;" onclick="showToast('📊','Kudumbashree: 80% sell-through · Stable · Promo recommended')">
       <div class="oi-hd"><span class="oi-id">🌿 Kudumbashree</span><span class="badge b-pend">PROMO?</span></div>
-      <div class="oi-row"><span>Location</span><strong>Kannur Road</strong></div>
       <div class="oi-row"><span>Sell-in / Sell-out</span><strong>120 / 96 units</strong></div>
       <div class="oi-row"><span>Sell-through</span><strong style="color:var(--am);">80%</strong></div>
     </div>
-    <div class="card" style="cursor:pointer;border-style:dashed;" onclick="showToast('🆕','Heritage Foods — onboarding pending. Tap Recommend to approve pilot.')">
-      <div class="oi-hd"><span class="oi-id" style="color:var(--mu);">🏠 Heritage Foods</span><span class="badge" style="background:rgba(139,32,53,.08);color:var(--mu);border-color:var(--bo);">NEW</span></div>
+    <div class="oi" style="border-style:dashed;cursor:pointer;" onclick="showToast('🆕','Heritage Foods — tap Approve on Dashboard to start pilot')">
+      <div class="oi-hd"><span class="oi-id" style="color:var(--mu);">🏠 Heritage Foods</span><span class="badge" style="background:rgba(139,32,53,.06);color:var(--mu);border-color:var(--bo);">NEW</span></div>
       <div class="oi-row"><span>Location</span><strong>Malappuram</strong></div>
-      <div style="font-size:11px;color:var(--mu);margin-top:6px;">Not yet onboarded · Tap to start pilot →</div>
+      <div style="font-size:11px;color:var(--mu);margin-top:6px;">Not yet onboarded · Approve pilot on Dashboard →</div>
     </div>
   </div>
 </div>
@@ -756,18 +836,18 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
       <div><div class="jiya-nm">Jiya · Brand Analyst AI</div><div class="jiya-st">● Online · Velora Data Connected</div></div>
     </div>
     <div class="jiya-chips">
-      <div class="jc" onclick="askJiya('Why is Focus Bakers underperforming?')">Why is Focus Bakers underperforming?</div>
-      <div class="jc" onclick="askJiya('Which store should I increase shipments to?')">Which store to ship more to?</div>
-      <div class="jc" onclick="askJiya('What is our overall sell-through this week and what does it mean?')">Overall sell-through analysis</div>
-      <div class="jc" onclick="askJiya('Give me a promo strategy for Kudumbashree store to push sell-through above 90%')">Promo strategy for Kudumbashree</div>
-      <div class="jc" onclick="askJiya('What is the deadstock risk in rupees across all stores?')">Deadstock risk in ₹</div>
-      <div class="jc" onclick="askJiya('Summarise the 4-week trend and predict next week sell-through for each store')">4-week trend & prediction</div>
+      <div class="jc" onclick="askJiya('Why is Focus Bakers underperforming and what should we do?')">Why is Focus Bakers failing?</div>
+      <div class="jc" onclick="askJiya('Which store should I increase shipments to and by how much?')">Where to ship more?</div>
+      <div class="jc" onclick="askJiya('What is the total deadstock risk in rupees across all stores this week?')">Deadstock risk in ₹</div>
+      <div class="jc" onclick="askJiya('Give me a promo strategy for Kudumbashree to push sell-through above 90%')">Promo for Kudumbashree</div>
+      <div class="jc" onclick="askJiya('Summarise the 4-week trend for all stores and predict next week sell-through')">4-week trend & forecast</div>
+      <div class="jc" onclick="askJiya('Should we onboard Heritage Foods in Malappuram? What pilot quantity do you recommend?')">Heritage Foods pilot?</div>
     </div>
     <div class="jiya-chat" id="jiya-chat">
-      <div class="jb ai">Hi Priya! I'm Jiya, your brand intelligence layer. I have real-time access to all Velora sell-in and sell-out data this week.<br><br>I've spotted one critical alert: <strong>Focus Bakers is at 40% sell-through</strong> — declining for 4 consecutive weeks. Ask me anything about your distribution network.</div>
+      <div class="jb ai">Hi Priya! I'm Jiya, your brand intelligence layer — connected to all Velora sell-in and sell-out data.<br><br>🚨 Critical alert: <strong>Focus Bakers is at 40% sell-through</strong>, declining for 4 consecutive weeks. I recommend pausing all new shipments there immediately.<br><br>Ask me anything about your distribution network.</div>
     </div>
     <div class="jiya-ir">
-      <input class="ji" id="jiya-inp" placeholder="Ask about sell-through, stores, trends…" onkeydown="if(event.key==='Enter')sendJiya()">
+      <input class="ji" id="jiya-inp" placeholder="Ask about stores, trends, forecasts…" onkeydown="if(event.key==='Enter')sendJiya()">
       <button class="jsend" onclick="sendJiya()">↑</button>
     </div>
   </div>
@@ -777,22 +857,113 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
   <div class="ph"><div class="ph-title">Profile</div></div>
   <div class="content">
     <div class="prof-hero"><div class="prof-av">PM</div><div><div class="prof-nm">Priya M.</div><div class="prof-rl">📊 Brand Analyst · HQ</div><div class="prof-lc">📍 Velora Intelligence Hub</div></div></div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-lbl">Employee ID</div><div class="kpi-val" style="font-size:15px;">VLR-0231</div><div class="kpi-ch nt">HQ · Calicut</div></div>
+      <div class="kpi"><div class="kpi-lbl">Reports Filed</div><div class="kpi-val">37</div><div class="kpi-ch up">This year</div></div>
+    </div>
     <div class="card">
-      <div class="set-row" onclick="openModal('analyst-export')"><div class="set-lft"><span>📤</span><span>Export Weekly Report</span></div><span class="set-ar">›</span></div>
-      <div class="set-row" onclick="openModal('analyst-alerts')"><div class="set-lft"><span>🔔</span><span>Alert Settings</span></div><span class="set-ar">›</span></div>
-      <div class="set-row" onclick="openModal('analyst-history')"><div class="set-lft"><span>🗂️</span><span>Historical Data (8 weeks)</span></div><span class="set-ar">›</span></div>
+      <div class="ct">Account Details</div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>Department</span><strong>Brand Intelligence</strong></div>
+      <div class="oi-row" style="margin-bottom:6px;"><span>Email</span><strong>priya.m@velora.demo</strong></div>
+      <div class="oi-row"><span>Access Level</span><strong>Full Analytics + Jiya AI</strong></div>
+    </div>
+    <div class="card">
+      <div class="set-row" onclick="showToast('📤','Weekly report exported — Sept 8–14, 71.7% sell-through, sent to your inbox.')"><div class="set-lft"><span>📤</span><span>Export Weekly Report</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="showToast('🔔','Alerts on: sell-through < 50%, deadstock > ₹5,000, new store onboarding.')"><div class="set-lft"><span>🔔</span><span>Alert Settings</span></div><span class="set-ar">›</span></div>
+      <div class="set-row" onclick="showToast('🗂️','8-week history loaded — sell-in 5,120 units, sell-out 3,760 units network-wide.')"><div class="set-lft"><span>🗂️</span><span>Historical Data (8 weeks)</span></div><span class="set-ar">›</span></div>
       <div class="set-row" onclick="logout()"><div class="set-lft"><span>🚪</span><span style="color:var(--da);">Sign Out</span></div><span class="set-ar">›</span></div>
     </div>
   </div>
 </div>
 
+<!-- ═══════════════ GPS TRACKING ═══════════════ -->
+<div class="page" id="gps-tracking">
+  <div class="ph">
+    <div class="back" onclick="backFromGPS()" id="gps-back">← Back</div>
+    <div class="ph-title">Live Agent Tracking</div>
+    <div class="ph-sub">3 agents · Calicut region · Updated now</div>
+  </div>
+  <div class="content">
+    <!-- MAP -->
+    <div class="gps-map">
+      <div class="gps-label">CALICUT REGION</div>
+      <!-- Roads -->
+      <div class="gps-road-h" style="top:38%;"></div>
+      <div class="gps-road-h" style="top:68%;"></div>
+      <div class="gps-road-v" style="left:28%;"></div>
+      <div class="gps-road-v" style="left:62%;"></div>
+      <!-- Store pins -->
+      <div class="map-pin" style="left:26%;top:22%;">
+        <div class="mp-marker" style="background:var(--su);"><div class="mp-inner">🛒</div></div>
+        <div class="mp-lbl">Lulu Mart</div>
+      </div>
+      <div class="map-pin" style="left:62%;top:38%;">
+        <div class="mp-marker" style="background:var(--da);"><div class="mp-inner">🍞</div></div>
+        <div class="mp-lbl">Focus Bakers</div>
+      </div>
+      <div class="map-pin" style="left:72%;top:70%;">
+        <div class="mp-marker" style="background:var(--am);"><div class="mp-inner">🌿</div></div>
+        <div class="mp-lbl">Kudumbashree</div>
+      </div>
+      <div class="map-pin" style="left:30%;top:76%;">
+        <div class="mp-marker" style="background:var(--bu);"><div class="mp-inner">🍃</div></div>
+        <div class="mp-lbl">Nilgiris</div>
+      </div>
+      <div class="map-pin" style="left:14%;top:50%;">
+        <div class="mp-marker" style="background:#666;"><div class="mp-inner">🏭</div></div>
+        <div class="mp-lbl">Warehouse</div>
+      </div>
+      <!-- Agent: Rajesh — en route to Focus Bakers -->
+      <div class="map-agent" style="left:46%;top:37%;" id="agent-raj">
+        <div class="ag-pulse"></div>
+        <div class="ag-dot">🚚</div>
+        <div class="ag-lbl">Rajesh K.</div>
+      </div>
+      <!-- Agent: Anuj — at Lulu Mart (delivered) -->
+      <div class="map-agent ag-done" style="left:26%;top:20%;" id="agent-anu">
+        <div class="ag-pulse"></div>
+        <div class="ag-dot">✅</div>
+        <div class="ag-lbl">Anuj M.</div>
+      </div>
+      <!-- Agent: Mohammed — at warehouse (idle) -->
+      <div class="map-agent ag-idle" style="left:14%;top:48%;" id="agent-moh">
+        <div class="ag-pulse"></div>
+        <div class="ag-dot">😴</div>
+        <div class="ag-lbl">Mohammed S.</div>
+      </div>
+    </div>
+    <!-- Agent cards -->
+    <div class="st">Agent Status</div>
+    <div class="gps-card">
+      <div class="gps-av" style="background:rgba(139,32,53,.1);">🚚</div>
+      <div class="gps-info">
+        <div class="gps-name">Rajesh K. · KL-07 AB 1234</div>
+        <div class="gps-det">En route → Focus Bakers · 1.2 km away</div>
+      </div>
+      <div class="gps-eta" style="color:var(--bu);">ETA<br>12:30</div>
+    </div>
+    <div class="gps-card">
+      <div class="gps-av" style="background:rgba(30,107,60,.1);">✅</div>
+      <div class="gps-info">
+        <div class="gps-name">Anuj M. · KL-11 CD 5678</div>
+        <div class="gps-det">Delivered at Lulu Mart · Heading back</div>
+      </div>
+      <div class="gps-eta" style="color:var(--su);">Done</div>
+    </div>
+    <div class="gps-card">
+      <div class="gps-av" style="background:rgba(28,10,15,.05);">🏭</div>
+      <div class="gps-info">
+        <div class="gps-name">Mohammed S. · KL-14 EF 9012</div>
+        <div class="gps-det">Idle at warehouse · Next pickup 2:00 PM</div>
+      </div>
+      <div class="gps-eta" style="color:var(--mu);">Idle</div>
+    </div>
+    <button class="big-btn btn-sec" style="margin-top:4px;" onclick="showToast('🔄','Agent positions refreshed!')">Refresh Positions</button>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast-con" id="toastCon"></div>
-
-<!-- PROFILE DRILL-DOWN MODAL -->
-<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
-  <div class="modal-sheet" id="modalSheet"></div>
-</div>
 
 </div><!-- /screen-wrap -->
 
@@ -807,20 +978,89 @@ select.fsel option{background:#FAF3E3;color:#3A1420;}
 <script>
 // ═══ CONFIG ═══
 const ROLES = {
-  seller:  { name:'Arjun V.', tabs:['Home','New Order','Analytics','Profile'], icons:['🏠','📦','📈','👤'], pages:['seller-home','seller-new-order','seller-analytics','seller-profile'] },
-  agent:   { name:'Rajesh K.', tabs:['Pickups','Dropoff','Summary','Profile'], icons:['📋','✅','💰','👤'], pages:['agent-pickups','agent-dropoff','agent-summary','agent-profile'] },
-  store:   { name:'Focus Bakers', tabs:['Incoming','Stock','Log Sales','Profile'], icons:['🚚','📦','🧾','👤'], pages:['store-incoming','store-stock','store-logsales','store-profile'] },
-  analyst: { name:'Priya M.', tabs:['Dashboard','Stores','Jiya AI','Profile'], icons:['📊','🏪','🤖','👤'], pages:['analyst-dashboard','analyst-stores','analyst-jiya','analyst-profile'] }
+  seller:  {tabs:['Home','New Order','Analytics','Profile'],icons:['🏠','📦','📈','👤'],pages:['seller-home','seller-new-order','seller-analytics','seller-profile']},
+  agent:   {tabs:['Pickups','Dropoff','Summary','Profile'],icons:['📋','✅','💰','👤'],pages:['agent-pickups','agent-dropoff','agent-summary','agent-profile']},
+  store:   {tabs:['Incoming','Stock','Log Sales','Profile'],icons:['🚚','📦','🧾','👤'],pages:['store-incoming','store-stock','store-logsales','store-profile']},
+  analyst: {tabs:['Dashboard','Stores','Jiya AI','Profile'],icons:['📊','🏪','🤖','👤'],pages:['analyst-dashboard','analyst-stores','analyst-jiya','analyst-profile']}
 };
-const SKU_PRICES = { pb30:30, pb60:55, wpc:899, oats:25 };
-const SKU_NAMES  = { pb30:'Protein Bar 30g', pb60:'Protein Bar 60g', wpc:'Whey Protein 500g', oats:'Oats Bar 40g' };
-const STORE_NAMES = { lulu:'Lulu Mart', focus:'Focus Bakers', kudumba:'Kudumbashree', nilgiris:'Nilgiris Express', heritage:'Heritage Foods' };
-let role=null, tab=0, qty=60, dq=60, shortageOn=false, chartsInit=false, jiyaHistory=[];
-let togState = { 'tog-intro':false, 'tog-disp':false, 'tog-prio':false };
-let modalTogState = { 'notif-orders':true, 'notif-agents':false, 'alert-critical':true, 'alert-weekly':true, 'alert-anomaly':true };
+const SKU_PRICES={pb30:30,pb60:55,wpc:899,oats:25};
+const SKU_NAMES={pb30:'Protein Bar 30g',pb60:'Protein Bar 60g',wpc:'Whey Protein 500g',oats:'Oats Bar 40g'};
+const STORE_NAMES={lulu:'Lulu Mart',focus:'Focus Bakers',kudumba:'Kudumbashree',nilgiris:'Nilgiris Express',heritage:'Heritage Foods'};
 
-// ═══ SPLASH / LOGIN ═══
-function showLogin(){ document.getElementById('splash').classList.add('out'); document.getElementById('loginPage').classList.remove('hidden'); }
+// AI Agent data per store (sorted by value = cheapest for distance)
+const AGENT_DATA={
+  lulu:[
+    {id:'raj',name:'Rajesh K.',vehicle:'KL-07 AB 1234',dist:'2.1 km',price:120,rating:4.8,rec:true},
+    {id:'anu',name:'Anuj M.',vehicle:'KL-11 CD 5678',dist:'5.2 km',price:150,rating:4.6,rec:false},
+    {id:'moh',name:'Mohammed S.',vehicle:'KL-14 EF 9012',dist:'8.1 km',price:130,rating:4.9,rec:false}
+  ],
+  focus:[
+    {id:'anu',name:'Anuj M.',vehicle:'KL-11 CD 5678',dist:'1.4 km',price:110,rating:4.6,rec:true},
+    {id:'raj',name:'Rajesh K.',vehicle:'KL-07 AB 1234',dist:'3.8 km',price:120,rating:4.8,rec:false},
+    {id:'moh',name:'Mohammed S.',vehicle:'KL-14 EF 9012',dist:'6.1 km',price:130,rating:4.9,rec:false}
+  ],
+  kudumba:[
+    {id:'moh',name:'Mohammed S.',vehicle:'KL-14 EF 9012',dist:'1.8 km',price:115,rating:4.9,rec:true},
+    {id:'raj',name:'Rajesh K.',vehicle:'KL-07 AB 1234',dist:'4.2 km',price:120,rating:4.8,rec:false},
+    {id:'anu',name:'Anuj M.',vehicle:'KL-11 CD 5678',dist:'5.6 km',price:150,rating:4.6,rec:false}
+  ],
+  nilgiris:[
+    {id:'raj',name:'Rajesh K.',vehicle:'KL-07 AB 1234',dist:'3.2 km',price:120,rating:4.8,rec:true},
+    {id:'moh',name:'Mohammed S.',vehicle:'KL-14 EF 9012',dist:'4.5 km',price:115,rating:4.9,rec:false},
+    {id:'anu',name:'Anuj M.',vehicle:'KL-11 CD 5678',dist:'7.8 km',price:150,rating:4.6,rec:false}
+  ],
+  heritage:[
+    {id:'moh',name:'Mohammed S.',vehicle:'KL-14 EF 9012',dist:'2.4 km',price:115,rating:4.9,rec:true},
+    {id:'anu',name:'Anuj M.',vehicle:'KL-11 CD 5678',dist:'5.1 km',price:140,rating:4.6,rec:false},
+    {id:'raj',name:'Rajesh K.',vehicle:'KL-07 AB 1234',dist:'8.2 km',price:120,rating:4.8,rec:false}
+  ]
+};
+
+// Heatmap data [store][sku]: [PB30g, PB60g, Oats, Whey]
+const HEATMAP_DATA=[
+  {store:'Lulu Mart',vals:[82,75,70,60]},
+  {store:'Focus Bakers',vals:[40,35,38,20]},
+  {store:'Kudumbashree',vals:[80,72,78,65]},
+  {store:'Nilgiris Express',vals:[85,82,80,70]},
+  {store:'Heritage Foods',vals:[null,null,null,null]}
+];
+
+let role=null,tab=0,qty=60,dq=60,dmgQty=5,shortageOn=false,chartsInit=false,jiyaHistory=[],selectedAgent='raj',preGpsTab=0;
+let togState={'tog-intro':false,'tog-disp':false,'tog-prio':false};
+let damages=[];
+
+// ═══ AUTH (demo) ═══
+let authMode='signin';
+function setAuthMode(mode){
+  authMode=mode;
+  document.getElementById('tab-signin').classList.toggle('on',mode==='signin');
+  document.getElementById('tab-signup').classList.toggle('on',mode==='signup');
+  document.getElementById('fg-name').style.display=mode==='signup'?'block':'none';
+  document.getElementById('fg-confirm').style.display=mode==='signup'?'block':'none';
+  document.getElementById('auth-submit-btn').textContent=mode==='signup'?'Create Account →':'Sign In →';
+}
+
+function submitAuth(){
+  var email=document.getElementById('auth-email').value.trim();
+  var pass=document.getElementById('auth-pass').value.trim();
+  if(!email||!pass){showToast('⚠️','Enter an email and password to continue (demo).');return;}
+  if(authMode==='signup'){
+    var name=document.getElementById('auth-name').value.trim()||'Demo User';
+    var pass2=document.getElementById('auth-pass2').value.trim();
+    if(pass!==pass2){showToast('⚠️','Passwords don\'t match.');return;}
+    showToast('✅','Demo account created for '+name+'! Pick a role below to continue.');
+  }else{
+    showToast('✅','Signed in as '+email+' (demo). Pick a role below to continue.');
+  }
+  document.querySelector('.lg-sub2').style.color='var(--bu)';
+  document.querySelectorAll('.rc').forEach(function(c){c.style.borderColor='rgba(139,32,53,.4)';});
+}
+
+// ═══ FLOW ═══
+function showLogin(){
+  document.getElementById('splash').classList.add('out');
+  document.getElementById('loginPage').classList.remove('hidden');
+}
 
 function login(r){
   role=r; tab=0;
@@ -836,519 +1076,325 @@ function login(r){
 
 function logout(){
   role=null; tab=0;
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.getElementById('bnav').classList.add('hidden');
-  chartsInit=false; jiyaHistory=[];
-  closeModal();
-  ['_anaChart','_trendChart','_sellerChart','_forecastChart'].forEach(function(k){if(window[k]){window[k].destroy();window[k]=null;}});
+  chartsInit=false; jiyaHistory=[]; damages=[];
+  ['_anaChart','_trendChart','_sellerChart','_fcChart'].forEach(function(k){if(window[k]){window[k].destroy();window[k]=null;}});
   var jc=document.getElementById('jiya-chat');
   if(jc) jc.innerHTML='<div class="jb ai">Hi! I\'m Jiya. Sign in as Analyst to begin.</div>';
   document.getElementById('loginPage').classList.remove('hidden');
   document.getElementById('splash').classList.add('out');
 }
 
-// ═══ NAVIGATION ═══
 function navTo(i){
   tab=i;
   var pages=ROLES[role].pages;
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   var pg=document.getElementById(pages[i]);
-  if(pg){ pg.classList.add('active'); pg.scrollTop=0; }
+  if(pg){pg.classList.add('active'); pg.scrollTop=0;}
   document.querySelectorAll('.ni').forEach(function(n,j){n.classList.toggle('active',j===i);});
-  if(role==='analyst'&&i===0) setTimeout(function(){initCharts();initForecastChart();initGapChart();renderHealthScores();renderAnomalies();renderSegments();},350);
-  if(role==='analyst'&&i===2) setTimeout(function(){document.getElementById('jiya-inp')&&document.getElementById('jiya-inp').focus();},300);
-  if(role==='seller'&&i===2) setTimeout(function(){initSellerChart();initForecastSeller();},350);
-  if(role==='store'&&i===1) setTimeout(initStoreForecast,200);
+  if(role==='analyst'&&i===0) setTimeout(initCharts,350);
+  if(role==='seller'&&i===1){setTimeout(function(){renderAgentPicker('lulu');updateSummary();},100);}
+  if(role==='seller'&&i===2) setTimeout(initSellerChart,350);
 }
 
-function goTo(page){ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active')); const pg=document.getElementById(page); if(pg) pg.classList.add('active'); }
+function goTo(page){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  var pg=document.getElementById(page);
+  if(pg){pg.classList.add('active'); pg.scrollTop=0;}
+}
+
+function openDamageReports(){
+  if(damages.length===0){
+    showToast('✅','No damage reports filed yet — this list fills in when a store flags an issue.');
+    return;
+  }
+  navTo(0);
+  setTimeout(function(){
+    var el=document.getElementById('dmg-alert-seller');
+    if(el) el.scrollIntoView({behavior:'smooth',block:'center'});
+  },150);
+}
+
+function openGPS(){
+  preGpsTab=tab;
+  goTo('gps-tracking');
+}
+
+function backFromGPS(){
+  navTo(preGpsTab);
+}
+
+// ═══ AI AGENT PICKER ═══
+function renderAgentPicker(storeKey){
+  var agents=AGENT_DATA[storeKey]||AGENT_DATA.lulu;
+  var html='';
+  agents.forEach(function(a,i){
+    var isSel=(i===0);
+    if(i===0) selectedAgent=a.id;
+    html+='<div class="ap-card'+(isSel?' ap-sel ap-rec':'')+'" onclick="selectAgent(\''+a.id+'\',this)">';
+    if(a.rec) html+='<div class="ap-ai-badge">🤖 AI Recommended · Lowest Cost for Route</div>';
+    html+='<div class="ap-main">';
+    html+='<div class="ap-info">';
+    html+='<div class="ap-name">'+a.name+'</div>';
+    html+='<div class="ap-det">'+a.vehicle+' · '+a.dist+' away</div>';
+    html+='<div class="ap-stars">';
+    for(var s=0;s<Math.floor(a.rating);s++) html+='★';
+    html+=' '+a.rating+'</div></div>';
+    html+='<div style="text-align:right;"><div class="ap-price">₹'+a.price+'</div><div style="font-size:9px;color:var(--mu);margin-top:2px;">per delivery</div></div>';
+    html+='<div class="ap-chk">'+(isSel?'✓':'')+'</div>';
+    html+='</div></div>';
+  });
+  var el=document.getElementById('agentPicker');
+  if(el) el.innerHTML=html;
+}
+
+function selectAgent(id,el){
+  selectedAgent=id;
+  document.querySelectorAll('.ap-card').forEach(function(c){
+    c.classList.remove('ap-sel');
+    var chk=c.querySelector('.ap-chk');
+    if(chk) chk.textContent='';
+  });
+  if(el){
+    el.classList.add('ap-sel');
+    var chk=el.querySelector('.ap-chk');
+    if(chk) chk.textContent='✓';
+  }
+  updateSummary();
+}
+
+function onStoreChange(){
+  var storeKey=document.getElementById('ord-store').value;
+  renderAgentPicker(storeKey);
+  updateSummary();
+}
 
 // ═══ ORDER FORM ═══
-function adjQty(d){ qty=Math.max(10,qty+d); document.getElementById('qty-disp').textContent=qty; updateSummary(); }
+function adjQty(d){qty=Math.max(10,qty+d);document.getElementById('qty-disp').textContent=qty;updateSummary();}
 
 function updateSummary(){
-  const storeKey=document.getElementById('ord-store')?.value||'lulu';
-  const skuKey=document.getElementById('ord-sku')?.value||'pb30';
-  document.getElementById('summ-store').textContent=STORE_NAMES[storeKey]||'—';
-  document.getElementById('summ-sku').textContent=SKU_NAMES[skuKey]||'—';
-  document.getElementById('summ-qty').textContent=qty+' units';
-  document.getElementById('summ-val').textContent='₹'+(qty*SKU_PRICES[skuKey]).toLocaleString('en-IN');
+  var storeEl=document.getElementById('ord-store');
+  var skuEl=document.getElementById('ord-sku');
+  if(!storeEl||!skuEl) return;
+  var storeKey=storeEl.value;
+  var skuKey=skuEl.value;
+  var agents=AGENT_DATA[storeKey]||AGENT_DATA.lulu;
+  var agentName='—';
+  agents.forEach(function(a){if(a.id===selectedAgent) agentName=a.name;});
+  if(!agentName||agentName==='—') agentName=agents[0].name;
+  var el=document.getElementById('summ-store'); if(el) el.textContent=STORE_NAMES[storeKey]||'—';
+  var el2=document.getElementById('summ-sku'); if(el2) el2.textContent=SKU_NAMES[skuKey]||'—';
+  var el3=document.getElementById('summ-qty'); if(el3) el3.textContent=qty+' units';
+  var el4=document.getElementById('summ-agent'); if(el4) el4.textContent=agentName;
+  var el5=document.getElementById('summ-val'); if(el5) el5.textContent='₹'+(qty*(SKU_PRICES[skuKey]||30)).toLocaleString('en-IN');
 }
 
-// event listeners moved to DOMContentLoaded
-
-function toggleTog(id){ togState[id]=!togState[id]; const el=document.getElementById(id); el.classList.toggle('on',togState[id]); }
+function toggleTog(id){togState[id]=!togState[id];var el=document.getElementById(id);if(el) el.classList.toggle('on',togState[id]);}
 
 function placeOrder(){
-  const storeKey=document.getElementById('ord-store').value;
-  const skuKey=document.getElementById('ord-sku').value;
-  const val=qty*SKU_PRICES[skuKey];
-  showToast('✅','Order placed! '+qty+' units of '+SKU_NAMES[skuKey]+' → '+STORE_NAMES[storeKey]+' · ₹'+val.toLocaleString('en-IN'));
+  var storeKey=document.getElementById('ord-store').value;
+  var skuKey=document.getElementById('ord-sku').value;
+  var agents=AGENT_DATA[storeKey]||AGENT_DATA.lulu;
+  var agentName=agents[0].name;
+  agents.forEach(function(a){if(a.id===selectedAgent) agentName=a.name;});
+  var val=qty*(SKU_PRICES[skuKey]||30);
+  showToast('✅','Order placed! '+qty+' × '+SKU_NAMES[skuKey]+' → '+STORE_NAMES[storeKey]+' via '+agentName+' · ₹'+val.toLocaleString('en-IN'));
   navTo(0);
 }
 
 // ═══ AGENT ═══
-function adjDQ(d){ dq=Math.max(0,dq+d); document.getElementById('dq-disp').textContent=dq; const s=dq<60; document.getElementById('short-row').style.borderColor=s?'rgba(224,92,110,.4)':'rgba(224,92,110,.22)'; }
-function toggleShortage(){ shortageOn=!shortageOn; const el=document.getElementById('sch-box'); el.classList.toggle('on',shortageOn); el.textContent=shortageOn?'✓':''; }
-function confirmPickup(id,store){ showToast('🚚','Picked up '+id+' from '+store+'! En route to store.'); navTo(1); }
-function confirmDropoff(){ showToast('✅','Delivery confirmed! '+dq+' units delivered'+(shortageOn?' · Shortage flagged':'')); navTo(0); }
+function adjDQ(d){dq=Math.max(0,dq+d);document.getElementById('dq-disp').textContent=dq;}
+function toggleShortage(){shortageOn=!shortageOn;var el=document.getElementById('sch-box');if(el){el.style.background=shortageOn?'var(--da)':'none';el.textContent=shortageOn?'✓':'';};}
+function confirmPickup(id,store){showToast('🚚','Picked up '+id+' from '+store+'! En route.');navTo(1);}
+function confirmDropoff(){showToast('✅','Delivered! '+dq+' units'+(shortageOn?' · Shortage flagged':''));navTo(0);}
 
-// ═══ STORE SALES LOG ═══
-function updateLogTotal(){
-  const pb30=parseInt(document.getElementById('log-pb30').value)||0;
-  const oats=parseInt(document.getElementById('log-oats').value)||0;
-  const wpc=parseInt(document.getElementById('log-wpc').value)||0;
-  const total=pb30*30+oats*25+wpc*899;
-  document.getElementById('log-total').textContent='₹'+total.toLocaleString('en-IN');
+// ═══ DAMAGE WORKFLOW ═══
+function adjDmgQty(d){dmgQty=Math.max(1,dmgQty+d);var el=document.getElementById('dmg-qty-disp');if(el) el.textContent=dmgQty;}
+
+function submitDamage(){
+  var sku=document.getElementById('dmg-sku').value;
+  var reason=document.getElementById('dmg-reason').value;
+  var entry={sku:sku,qty:dmgQty,reason:reason,order:'#V-1041',store:'Focus Bakers',time:'Today '+new Date().getHours()+':'+String(new Date().getMinutes()).padStart(2,'0')};
+  damages.push(entry);
+  // Show in seller home
+  var alertEl=document.getElementById('dmg-alert-seller');
+  var listEl=document.getElementById('dmg-list-seller');
+  if(alertEl&&listEl){
+    alertEl.style.display='block';
+    listEl.innerHTML+=('<div class="dmg-row">'+entry.order+' · <strong>'+entry.sku+'</strong> · '+entry.qty+' units · <strong>'+entry.reason+'</strong> · '+entry.time+'</div>');
+  }
+  showToast('⚠️','Damage report filed! Arjun V. has been alerted. Billing paused for '+dmgQty+' units.');
+  goTo('store-incoming');
 }
-function submitSales(){ showToast('🧾','Sales logged! Data synced to Velora dashboard.'); }
 
-// ═══ ANALYST CHARTS ═══
+// ═══ STORE LOG ═══
+function updateLogTotal(){
+  var pb30=parseInt(document.getElementById('log-pb30').value)||0;
+  var oats=parseInt(document.getElementById('log-oats').value)||0;
+  var wpc=parseInt(document.getElementById('log-wpc').value)||0;
+  var total=pb30*30+oats*25+wpc*899;
+  var el=document.getElementById('log-total'); if(el) el.textContent='₹'+total.toLocaleString('en-IN');
+}
+
+// ═══ HEATMAP ═══
+function buildHeatmap(){
+  var tbody=document.getElementById('heatmapBody');
+  if(!tbody) return;
+  var colors=[
+    function(v){if(v===null) return 'rgba(28,10,15,.04)';if(v>=80) return 'rgba(30,107,60,.15)';if(v>=60) return 'rgba(196,144,26,.15)';if(v>=40) return 'rgba(196,100,20,.16)';return 'rgba(196,42,62,.16)';},
+    function(v){if(v===null) return 'var(--mu)';if(v>=80) return 'var(--su)';if(v>=60) return 'var(--am)';if(v>=40) return '#B85010';return 'var(--da)';}
+  ];
+  var html='';
+  HEATMAP_DATA.forEach(function(row){
+    html+='<tr><td class="hm-store">'+row.store+'</td>';
+    row.vals.forEach(function(v){
+      html+='<td class="hm-cell" style="background:'+colors[0](v)+';color:'+colors[1](v)+';">'+(v===null?'<span class="hm-empty">—</span>':v+'%')+'</td>';
+    });
+    html+='</tr>';
+  });
+  tbody.innerHTML=html;
+}
+
+// ═══ CHARTS ═══
 function initCharts(){
   if(chartsInit) return;
   chartsInit=true;
-  const labels=['Lulu Mart','Focus Bakers','Kudumbashree','Nilgiris'];
-  const shortLabels=['Lulu','Focus','Kudumba','Nilgiris'];
-  const tCol='rgba(58,20,32,.65)'; const gCol='rgba(139,32,53,.14)';
+  buildHeatmap();
+  var tCol='rgba(28,10,15,.35)';var gCol='rgba(139,32,53,.08)';
 
-  const ctx1=document.getElementById('anaChart');
-  if(!ctx1) return;
-  window._anaChart=new Chart(ctx1,{
-    type:'bar',
-    data:{
-      labels:shortLabels,
-      datasets:[
-        {label:'Sell-in',data:[240,180,120,160],backgroundColor:'#8B2035',borderRadius:4},
-        {label:'Sell-out',data:[198,72,96,136],backgroundColor:'#9C7A2E',borderRadius:4}
-      ]
-    },
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:tCol,font:{size:9,family:'Inter'}},grid:{color:gCol}},y:{ticks:{color:tCol,font:{size:9}},grid:{color:gCol}}}}
-  });
+  // Sell-in vs Sell-out bar chart
+  var ctx1=document.getElementById('anaChart');
+  if(ctx1&&!window._anaChart){
+    window._anaChart=new Chart(ctx1,{
+      type:'bar',
+      data:{
+        labels:['Lulu Mart','Focus Bakers','Kudumbashree','Nilgiris'],
+        datasets:[
+          {label:'Sell-in',data:[240,180,120,160],backgroundColor:'#8B2035',borderRadius:4,borderSkipped:false},
+          {label:'Sell-out',data:[198,72,96,136],backgroundColor:'#C4901A',borderRadius:4,borderSkipped:false}
+        ]
+      },
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:tCol,font:{size:9,family:'Inter'}},grid:{color:gCol}},y:{ticks:{color:tCol,font:{size:9}},grid:{color:gCol}}}}
+    });
+  }
 
-  // Trend legend
-  const trendColors=['#A8324A','#C23B4A','#9C7A2E','#2E8B5B'];
-  const trendNames=['Lulu Mart','Focus Bakers','Kudumbashree','Nilgiris'];
-  const legEl=document.getElementById('trend-leg');
-  if(legEl) legEl.innerHTML=trendNames.map((n,i)=>`<div class="leg-i"><div class="leg-dot" style="background:${trendColors[i]};border-radius:50%;"></div>${n}</div>`).join('');
+  // Demand forecast chart (W1-W4 actual + W5 predicted)
+  var fcColors=['#A8293E','#C42A3E','#C4901A','#1E6B3C'];
+  var fcNames=['Lulu Mart','Focus Bakers','Kudumbashree','Nilgiris'];
+  var fcActual=[[85,80,78,82.5],[72,65,55,40],[75,82,78,80],[80,82,84,85]];
+  var fcPred=[84,30,82,88];
+  var legEl=document.getElementById('fc-leg');
+  if(legEl) legEl.innerHTML=fcNames.map(function(n,i){return '<div class="leg-i"><div class="leg-dot" style="background:'+fcColors[i]+';border-radius:50%;"></div>'+n+'</div>';}).join('');
 
-  const ctx2=document.getElementById('trendChart');
-  if(!ctx2) return;
-  window._trendChart=new Chart(ctx2,{
-    type:'line',
-    data:{
-      labels:['W1','W2','W3','W4'],
-      datasets:[
-        {label:'Lulu Mart',data:[85,80,78,82.5],borderColor:'#A8324A',tension:.4,pointRadius:4,pointBackgroundColor:'#A8324A',fill:false},
-        {label:'Focus Bakers',data:[72,65,55,40],borderColor:'#C23B4A',tension:.4,pointRadius:4,pointBackgroundColor:'#C23B4A',fill:false,borderDash:[4,3]},
-        {label:'Kudumbashree',data:[75,82,78,80],borderColor:'#9C7A2E',tension:.4,pointRadius:4,pointBackgroundColor:'#9C7A2E',fill:false},
-        {label:'Nilgiris',data:[80,82,84,85],borderColor:'#2E8B5B',tension:.4,pointRadius:4,pointBackgroundColor:'#2E8B5B',fill:false}
-      ]
-    },
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:tCol,font:{size:9}},grid:{display:false}},y:{min:30,max:100,ticks:{color:tCol,font:{size:9},callback:v=>v+'%'},grid:{color:gCol}}}}
-  });
+  var ctx2=document.getElementById('forecastChart');
+  if(ctx2&&!window._fcChart){
+    var fcDatasets=[];
+    fcActual.forEach(function(data,i){
+      // Actual line
+      fcDatasets.push({label:fcNames[i],data:data,borderColor:fcColors[i],backgroundColor:'transparent',tension:.4,pointRadius:3,pointBackgroundColor:fcColors[i],fill:false,borderWidth:2});
+      // Predicted segment (W4 → W5)
+      var predData=[null,null,null,data[3],fcPred[i]];
+      fcDatasets.push({label:'',data:predData,borderColor:fcColors[i],backgroundColor:'transparent',tension:.4,pointRadius:[0,0,0,0,5],fill:false,borderDash:[5,4],borderWidth:2});
+    });
+    window._fcChart=new Chart(ctx2,{
+      type:'line',
+      data:{labels:['W1','W2','W3','W4','W5 ✦'],datasets:fcDatasets},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{filter:function(item){return item.datasetIndex%2===0;}}},scales:{x:{ticks:{color:tCol,font:{size:9}},grid:{display:false}},y:{min:20,max:100,ticks:{color:tCol,font:{size:9},callback:function(v){return v+'%';}},grid:{color:gCol}}}}
+    });
+  }
+
+  // Trend chart
+  var trendNames=['Lulu Mart','Focus Bakers','Kudumbashree','Nilgiris'];
+  var trendColors=['#A8293E','#C42A3E','#C4901A','#1E6B3C'];
+  var trendEl=document.getElementById('trend-leg');
+  if(trendEl) trendEl.innerHTML=trendNames.map(function(n,i){return '<div class="leg-i"><div class="leg-dot" style="background:'+trendColors[i]+';border-radius:50%;"></div>'+n+'</div>';}).join('');
+
+  var ctx3=document.getElementById('trendChart');
+  if(ctx3&&!window._trendChart){
+    window._trendChart=new Chart(ctx3,{
+      type:'line',
+      data:{
+        labels:['W1','W2','W3','W4'],
+        datasets:[
+          {label:'Lulu',data:[85,80,78,82.5],borderColor:'#A8293E',tension:.4,pointRadius:4,pointBackgroundColor:'#A8293E',fill:false},
+          {label:'Focus',data:[72,65,55,40],borderColor:'#C42A3E',tension:.4,pointRadius:4,pointBackgroundColor:'#C42A3E',fill:false,borderDash:[5,3]},
+          {label:'Kudumba',data:[75,82,78,80],borderColor:'#C4901A',tension:.4,pointRadius:4,pointBackgroundColor:'#C4901A',fill:false},
+          {label:'Nilgiris',data:[80,82,84,85],borderColor:'#1E6B3C',tension:.4,pointRadius:4,pointBackgroundColor:'#1E6B3C',fill:false}
+        ]
+      },
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:tCol,font:{size:9}},grid:{display:false}},y:{min:30,max:100,ticks:{color:tCol,font:{size:9},callback:function(v){return v+'%';}},grid:{color:gCol}}}}
+    });
+  }
 }
 
 function initSellerChart(){
   if(window._sellerChart) return;
-  const ctx=document.getElementById('sellerChart');
+  var ctx=document.getElementById('sellerChart');
   if(!ctx) return;
-  const tCol='rgba(58,20,32,.65)'; const gCol='rgba(139,32,53,.14)';
+  var tCol='rgba(28,10,15,.35)';var gCol='rgba(139,32,53,.08)';
   window._sellerChart=new Chart(ctx,{
     type:'bar',
-    data:{labels:['Lulu','Focus','Kudumba','Nilgiris'],datasets:[{label:'Sell-through %',data:[82.5,40,80,85],backgroundColor:['#2E8B5B','#C23B4A','#9C7A2E','#2E8B5B'],borderRadius:6}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:tCol,font:{size:9}},grid:{color:gCol}},y:{min:0,max:100,ticks:{color:tCol,font:{size:9},callback:v=>v+'%'},grid:{color:gCol}}}}
+    data:{labels:['Lulu','Focus','Kudumba','Nilgiris'],datasets:[{data:[82.5,40,80,85],backgroundColor:['#1E6B3C','#C42A3E','#C4901A','#1E6B3C'],borderRadius:8}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:tCol,font:{size:9}},grid:{color:gCol}},y:{min:0,max:100,ticks:{color:tCol,font:{size:9},callback:function(v){return v+'%';}},grid:{color:gCol}}}}
   });
 }
 
 // ═══ RECOMMENDATIONS ═══
-function approveRec(id,msg){
-  var el=document.getElementById(id);
-  el.classList.add('gone');
-  el.querySelector('.rec-acts').innerHTML='<div style="font-size:11px;color:var(--su);font-weight:600;padding:6px 0;">✓ Approved</div>';
-  showToast('✅',msg);
-}
-function dismissRec(id){
-  var el=document.getElementById(id);
-  el.classList.add('gone');
-  el.querySelector('.rec-acts').innerHTML='<div style="font-size:11px;color:var(--mu);padding:6px 0;">✕ Dismissed</div>';
-  showToast('✕','Recommendation dismissed.');
-}
+function approveRec(id,msg){var el=document.getElementById(id);if(el){el.classList.add('gone');var acts=el.querySelector('.rec-acts');if(acts) acts.innerHTML='<div style="font-size:11px;color:var(--su);font-weight:600;padding:6px 0;">✓ Approved</div>';}showToast('✅',msg);}
+function dismissRec(id){var el=document.getElementById(id);if(el){el.classList.add('gone');var acts=el.querySelector('.rec-acts');if(acts) acts.innerHTML='<div style="font-size:11px;color:var(--mu);padding:6px 0;">✕ Dismissed</div>';}showToast('✕','Recommendation dismissed.');}
 
 // ═══ JIYA AI ═══
-const JIYA_SYSTEM = "You are Jiya, Velora\'s advanced Brand Intelligence AI. You are concise, analytical, and decisive.\n\nLIVE DATA THIS WEEK:\nStore | Sell-in | Sell-out | Sell-through | 4-week trend\nLulu Mart (Calicut) | 240 | 198 | 82.5% | 85→80→78→82.5 (stable, W3 dip recovered)\nFocus Bakers (Palayam) | 180 | 72 | 40% CRITICAL | 72→65→55→40 (declining 4 straight weeks)\nKudumbashree (Kannur) | 120 | 96 | 80% | 75→82→78→80 (stable healthy)\nNilgiris Express (Kozhikode) | 160 | 136 | 85% | 80→82→84→85 (growing, best trajectory)\nHeritage Foods (Malappuram) | 0 | 0 | — | New store, not yet onboarded\n\nBRAND TOTALS: Sell-in 700 | Sell-out 502 | Overall sell-through 71.7% (target 80%+, gap 8.3%)\nDeadstock risk: 198 units worth approx ₹5,940 (@ ₹30 avg)\nSell-out revenue: ₹15,060 (Protein Bar 30g primary SKU)\n\nSKU MIX: Protein Bar 30g @₹30 (70% of volume) | Protein Bar 60g @₹55 (20%) | Oats Bar 40g @₹25 (7%) | Whey Protein 500g @₹899 (3%)\n\nACTIVE ORDERS TODAY:\n#V-1042 Lulu Mart 120×Protein Bar 30g ₹3,600 — Delivered ✓\n#V-1041 Focus Bakers 60×Protein Bar 60g ₹3,300 — In Transit\n#V-1040 Kudumbashree 80×Oats Bar 40g ₹2,000 — Pending\n\nKEY INTELLIGENCE:\n- Focus Bakers is in critical decline — 4 consecutive weeks of falling sell-through. Root causes to investigate: shelf placement, competitor pricing, store staff motivation, local demand mismatch. Immediate recommendation: pause new shipments until sell-through recovers above 65%.\n- Nilgiris Express is the star — growing every week, highest margin efficiency. Should increase allocation by 20-30%.\n- Kudumbashree is stable but has headroom. A BOGO (buy-one-get-one) or branded display stand could push it from 80% to 90%+.\n- Lulu Mart had a W3 dip (80%→78%) but recovered to 82.5%. No action needed, monitor.\n- Heritage Foods in Malappuram is an untapped market — no Velora-distributed product present. Pilot with 60 units Protein Bar 30g.\n\nADVANCED ANALYTICS (computed live in the dashboard — cite these when relevant):\n- Store Health Score (composite of current sell-through, 4-week momentum, and deadstock risk, 0-100): Nilgiris Express 79 | Kudumbashree 75 | Lulu Mart 73 | Focus Bakers 30.\n- Retailer Segments (RFM-lite): Star = Nilgiris Express | Stable = Lulu Mart, Kudumbashree | At Risk = Focus Bakers | New = Heritage Foods.\n- Sell-in vs Sell-out Gap (% unsold): Lulu Mart 17.5% | Focus Bakers 60% (critical) | Kudumbashree 20% | Nilgiris Express 15%.\n- Anomaly Detection flagged: Focus Bakers had a 15-point single-week decline (55%→40%, Week 3 to Week 4) — the sharpest drop anywhere in the network, plus a second flagged drop the week before (65%→55%). Also flagged for deadstock: unsold % over 50%.\n- Market Coverage: 4 of 5 mapped stores actively distributing (80% network coverage); Malappuram (Heritage Foods) is the one open gap.\n\nResponse style: sharp, numbered where helpful, cite exact numbers, under 160 words unless asked for deep analysis. Call the user \'you\'. Be decisive — say what to DO, not just what the data shows.";
+const JIYA_SYSTEM="You are Jiya, Velora's Advanced Brand Intelligence AI. Be concise, data-driven and decisive.\n\nLIVE DATA THIS WEEK:\nLulu Mart (Calicut): Sell-in 240, Sell-out 198, Sell-through 82.5%, Trend W1-W4: 85→80→78→82.5 (recovered)\nFocus Bakers (Palayam): Sell-in 180, Sell-out 72, Sell-through 40% CRITICAL, Trend: 72→65→55→40 (declining 4 weeks)\nKudumbashree (Kannur): Sell-in 120, Sell-out 96, Sell-through 80%, Trend: 75→82→78→80 (stable)\nNilgiris Express (Kozhikode): Sell-in 160, Sell-out 136, Sell-through 85%, Trend: 80→82→84→85 (growing)\nHeritage Foods (Malappuram): Not yet onboarded\n\nBRAND TOTALS: Sell-in 700, Sell-out 502, Overall sell-through 71.7% (target 80%+), Gap 8.3%\nDeadstock: 198 units, approx Rs 5,940 at risk\nSell-out revenue: Rs 15,060 (Protein Bar 30g primary)\n\nDEMAND FORECAST (Week 5 AI prediction):\nLulu Mart: 84% (recovering), Focus Bakers: 30% (still declining - HOLD), Kudumbashree: 82% (stable), Nilgiris: 88% (growing)\n\nSKU VELOCITY HEATMAP (sell-through %):\nLulu: PB30g 82%, PB60g 75%, Oats 70%, Whey 60%\nFocus: PB30g 40%, PB60g 35%, Oats 38%, Whey 20% (all critical)\nKudumbashree: PB30g 80%, PB60g 72%, Oats 78%, Whey 65%\nNilgiris: PB30g 85%, PB60g 82%, Oats 80%, Whey 70%\n\nAGENT BARGAIN AI: Routes and pricing are AI-optimised per store. Cheapest for Lulu: Rajesh Rs120. Focus: Anuj Rs110. Kudumbashree: Mohammed Rs115. Nilgiris: Rajesh Rs120.\n\nSKUs: Protein Bar 30g Rs30 (70% volume), Protein Bar 60g Rs55, Whey Protein 500g Rs899, Oats Bar 40g Rs25\n\nACTIVE ORDERS: #V-1042 Lulu Mart Rs3600 Delivered, #V-1041 Focus Bakers Rs3300 In Transit, #V-1040 Kudumbashree Rs2000 Pending\n\nKey actions: Pause Focus Bakers shipments immediately. Increase Nilgiris by 25%. Run promo at Kudumbashree. Onboard Heritage Foods pilot. Address Focus Bakers shelf placement - 40% across all SKUs suggests a store-level issue not a product issue.\n\nBe sharp, use numbers, give numbered actions. Max 160 words unless asked for detail.";
 
 async function sendJiya(){
   var inp=document.getElementById('jiya-inp');
+  if(!inp||inp.disabled) return;
   var q=inp.value.trim();
-  if(!q||inp.disabled) return;
+  if(!q) return;
   inp.value='';
   await askJiya(q);
 }
 
 async function askJiya(q){
   var chat=document.getElementById('jiya-chat');
-  var userBubble=document.createElement('div');
-  userBubble.className='jb usr';
-  userBubble.textContent=q;
-  chat.appendChild(userBubble);
-  var think=document.createElement('div');
-  think.className='jb think';
-  think.innerHTML='<span style="letter-spacing:2px;">● ● ●</span>';
-  chat.appendChild(think);
+  var ub=document.createElement('div'); ub.className='jb usr'; ub.textContent=q; chat.appendChild(ub);
+  var think=document.createElement('div'); think.className='jb think'; think.innerHTML='<span style="letter-spacing:3px;">● ● ●</span>'; chat.appendChild(think);
   chat.scrollTop=chat.scrollHeight;
-  var inp=document.getElementById('jiya-inp');
-  var send=document.querySelector('.jsend');
-  if(inp) inp.disabled=true;
-  if(send) send.style.opacity='.4';
+  var inp=document.getElementById('jiya-inp'); var snd=document.querySelector('.jsend');
+  if(inp) inp.disabled=true; if(snd) snd.style.opacity='.4';
   jiyaHistory.push({role:'user',content:q});
   try{
     var res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
+      method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:JIYA_SYSTEM,messages:jiyaHistory})
     });
     var data=await res.json();
-    var reply=data.content&&data.content[0]?data.content[0].text:'Unable to reach Jiya right now. Check your connection.';
+    var reply=data.content&&data.content[0]?data.content[0].text:'Unable to reach Jiya. Check connection.';
     jiyaHistory.push({role:'assistant',content:reply});
     think.remove();
-    var aiBubble=document.createElement('div');
-    aiBubble.className='jb ai';
-    aiBubble.innerHTML=reply.replace(/\n/g,'<br>');
-    chat.appendChild(aiBubble);
-  }catch(e){
-    think.className='jb think';
-    think.textContent='Connection error — make sure you are online and try again.';
-  }
-  if(inp){ inp.disabled=false; inp.focus(); }
-  if(send) send.style.opacity='1';
+    var ab=document.createElement('div'); ab.className='jb ai'; ab.innerHTML=reply.replace(/\n/g,'<br>'); chat.appendChild(ab);
+  }catch(e){think.className='jb think'; think.textContent='Connection error. Try again.';}
+  if(inp){inp.disabled=false; inp.focus();} if(snd) snd.style.opacity='1';
   chat.scrollTop=chat.scrollHeight;
 }
 
 // ═══ TOAST ═══
-function showToast(ic,msg,dur=3000){
-  const con=document.getElementById('toastCon');
-  const el=document.createElement('div'); el.className='toast';
-  el.innerHTML=`<div class="ti">${ic}</div><div class="tm">${msg}</div>`;
+function showToast(ic,msg,dur){
+  dur=dur||3200;
+  var con=document.getElementById('toastCon');
+  var el=document.createElement('div'); el.className='toast';
+  el.innerHTML='<div class="ti">'+ic+'</div><div class="tm">'+msg+'</div>';
   con.appendChild(el);
-  requestAnimationFrame(()=>{ requestAnimationFrame(()=>el.classList.add('show')); });
-  setTimeout(()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(),350); },dur);
-}
-
-// ═══ LIVE DEMAND FORECAST ═══
-const STORE_TREND = {
-  'Lulu Mart':{data:[85,80,78,82.5],color:'#A8324A',action:'Monitor — stable performer'},
-  'Focus Bakers':{data:[72,65,55,40],color:'#C23B4A',action:'Hold shipments — declining 4 weeks'},
-  'Kudumbashree':{data:[75,82,78,80],color:'#9C7A2E',action:'Run promo to push above 90%'},
-  'Nilgiris Express':{data:[80,82,84,85],color:'#2E8B5B',action:'Increase allocation +20-30%'}
-};
-function forecastNext(arr){
-  const d1=arr[3]-arr[2], d2=arr[2]-arr[1];
-  const delta=d1*0.7+d2*0.3;
-  return Math.max(5,Math.min(98,arr[3]+delta));
-}
-function forecastConfidence(arr){
-  const deltas=[arr[1]-arr[0],arr[2]-arr[1],arr[3]-arr[2]];
-  const sameSign=deltas.every(function(d){return d>=0;})||deltas.every(function(d){return d<=0;});
-  const variance=Math.max.apply(null,deltas)-Math.min.apply(null,deltas);
-  if(sameSign&&variance<=8) return {cls:'conf-hi',lbl:'High'};
-  if(variance<=15) return {cls:'conf-med',lbl:'Medium'};
-  return {cls:'conf-lo',lbl:'Low'};
-}
-function buildForecastRows(container){
-  if(!container) return;
-  container.innerHTML='';
-  Object.keys(STORE_TREND).forEach(function(name){
-    const s=STORE_TREND[name];
-    const next=forecastNext(s.data);
-    const conf=forecastConfidence(s.data);
-    const arrow=next>=s.data[3]?'↑':'↓';
-    const row=document.createElement('div');
-    row.className='fc-row';
-    row.innerHTML='<div><div style="font-size:12px;font-weight:600;">'+name+'</div><div style="font-size:10px;color:var(--mu);margin-top:1px;">'+s.action+'</div></div><div style="text-align:right;"><div style="font-family:\'Syne\',sans-serif;font-size:14px;font-weight:800;color:'+s.color+';">'+next.toFixed(1)+'% '+arrow+'</div><span class="fc-conf '+conf.cls+'">'+conf.lbl+'</span></div>';
-    container.appendChild(row);
-  });
-}
-window._forecastChart=null;
-function initForecastChart(){
-  buildForecastRows(document.getElementById('forecastList'));
-  if(window._forecastChart) return;
-  const ctx=document.getElementById('forecastChart');
-  if(!ctx || typeof Chart==='undefined') return;
-  const tCol='rgba(58,20,32,.65)', gCol='rgba(139,32,53,.14)';
-  const datasets=[];
-  Object.keys(STORE_TREND).forEach(function(name){
-    const s=STORE_TREND[name];
-    const next=forecastNext(s.data);
-    datasets.push({label:name,data:s.data.concat([null]),borderColor:s.color,backgroundColor:s.color,tension:.4,pointRadius:4,pointBackgroundColor:s.color,fill:false});
-    datasets.push({label:name+' forecast',data:[null,null,null,s.data[3],next],borderColor:s.color,borderDash:[5,3],pointRadius:[0,0,0,0,6],pointStyle:'rectRot',pointBackgroundColor:s.color,tension:0,fill:false});
-  });
-  window._forecastChart=new Chart(ctx,{type:'line',data:{labels:['W1','W2','W3','W4','W5 (Fcst)'],datasets:datasets},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{ticks:{color:tCol,font:{size:9}},grid:{display:false}},y:{min:20,max:100,ticks:{color:tCol,font:{size:9},callback:function(v){return v+'%';}},grid:{color:gCol}}}}});
-}
-function initForecastSeller(){
-  buildForecastRows(document.getElementById('forecastListSeller'));
-}
-const STOCK_FORECAST=[
-  {name:'Protein Bar 30g',stock:72,weeklySold:48},
-  {name:'Oats Bar 40g',stock:48,weeklySold:32},
-  {name:'Whey Protein 500g',stock:8,weeklySold:4}
-];
-function initStoreForecast(){
-  const el=document.getElementById('storeForecastList');
-  if(!el) return;
-  el.innerHTML='';
-  STOCK_FORECAST.forEach(function(item){
-    const dailyRate=item.weeklySold/7;
-    const days=dailyRate>0?Math.round(item.stock/dailyRate):99;
-    const urgent=days<=7;
-    const row=document.createElement('div');
-    row.className='fc-row';
-    row.innerHTML='<div><div style="font-size:12px;font-weight:600;">'+item.name+'</div><div style="font-size:10px;color:var(--mu);margin-top:1px;">'+item.stock+' units left · ~'+dailyRate.toFixed(1)+'/day</div></div><div style="text-align:right;"><div style="font-family:\'Syne\',sans-serif;font-size:14px;font-weight:800;color:'+(urgent?'var(--da)':'var(--su)')+';">'+days+'d</div><span class="fc-conf '+(urgent?'conf-lo':'conf-hi')+'">'+(urgent?'Reorder soon':'Healthy')+'</span></div>';
-    el.appendChild(row);
-  });
-}
-let _fcSeconds=0;
-setInterval(function(){
-  _fcSeconds+=6;
-  const a=document.getElementById('forecastUpdated'); if(a) a.textContent='Updated '+_fcSeconds+'s ago · Next 7 days';
-  const b=document.getElementById('forecastUpdatedSeller'); if(b) b.textContent='Updated '+_fcSeconds+'s ago';
-},6000);
-
-// ═══ ADVANCED ANALYTICS ENGINE ═══
-const STORE_ANALYTICS = [
-  { name:'Lulu Mart',        sellin:240, sellout:198, trend:[85,80,78,82.5], color:'#A8324A' },
-  { name:'Focus Bakers',     sellin:180, sellout:72,  trend:[72,65,55,40],   color:'#C23B4A' },
-  { name:'Kudumbashree',     sellin:120, sellout:96,  trend:[75,82,78,80],   color:'#9C7A2E' },
-  { name:'Nilgiris Express', sellin:160, sellout:136, trend:[80,82,84,85],   color:'#2E8B5B' },
-  { name:'Heritage Foods',   sellin:0,   sellout:0,   trend:null,           color:'#8B2035', isNew:true }
-];
-
-function gapPct(s){ return s.sellin>0 ? Math.round((1-s.sellout/s.sellin)*1000)/10 : null; }
-function momentum(s){ return s.trend ? Math.round((s.trend[3]-s.trend[0])*10)/10 : null; }
-
-function healthScore(s){
-  if(s.isNew || !s.trend) return null;
-  var current=s.trend[3];
-  var mom=momentum(s);
-  var momScore=Math.max(0,Math.min(100,50+mom*2));
-  var gap=gapPct(s);
-  var riskScore=Math.max(0,100-gap);
-  var score=current*0.5+momScore*0.25+riskScore*0.25;
-  return Math.round(Math.max(0,Math.min(100,score)));
-}
-
-function segment(s){
-  if(s.isNew || !s.trend) return 'New';
-  var mom=momentum(s), cur=s.trend[3];
-  if(cur>=83 && mom>0) return 'Star';
-  if(cur<65 || mom<=-8) return 'At Risk';
-  return 'Stable';
-}
-
-function detectAnomalies(){
-  var alerts=[];
-  STORE_ANALYTICS.forEach(function(s){
-    if(s.trend){
-      for(var i=1;i<s.trend.length;i++){
-        var d=Math.round((s.trend[i]-s.trend[i-1])*10)/10;
-        if(d<=-10) alerts.push({ name:s.name, week:i+1, delta:d, type:'drop' });
-      }
-    }
-    var g=gapPct(s);
-    if(g!==null && g>=50) alerts.push({ name:s.name, gap:g, type:'deadstock' });
-  });
-  return alerts;
-}
-
-function initGapChart(){
-  if(window._gapChart) return;
-  var ctx=document.getElementById('gapChart');
-  if(!ctx || typeof Chart==='undefined') return;
-  var stores=STORE_ANALYTICS.filter(function(s){ return !s.isNew; });
-  var tCol='rgba(58,20,32,.65)', gCol='rgba(139,32,53,.14)';
-  window._gapChart=new Chart(ctx,{
-    type:'bar',
-    data:{
-      labels:stores.map(function(s){ return s.name.split(' ')[0]; }),
-      datasets:[{
-        label:'Unsold %',
-        data:stores.map(gapPct),
-        backgroundColor:stores.map(function(s){ var g=gapPct(s); return g>=50?'#C23B4A':g>=25?'#B8721F':'#2E8B5B'; }),
-        borderRadius:6
-      }]
-    },
-    options:{
-      indexAxis:'y', responsive:true, maintainAspectRatio:false,
-      plugins:{legend:{display:false}},
-      scales:{
-        x:{min:0,max:100,ticks:{color:tCol,font:{size:9},callback:function(v){return v+'%';}},grid:{color:gCol}},
-        y:{ticks:{color:tCol,font:{size:10}},grid:{display:false}}
-      }
-    }
-  });
-}
-
-function renderHealthScores(){
-  var el=document.getElementById('healthScoreList');
-  if(!el) return;
-  el.innerHTML='';
-  STORE_ANALYTICS.slice().sort(function(a,b){
-    var sa=healthScore(a), sb=healthScore(b);
-    if(sa===null) return 1; if(sb===null) return -1;
-    return sb-sa;
-  }).forEach(function(s){
-    var score=healthScore(s);
-    var color=score===null?'var(--mu)':score>=70?'var(--su)':score>=50?'var(--am)':'var(--da)';
-    var sub=s.isNew?'New store · not yet scored':'Momentum '+(momentum(s)>=0?'+':'')+momentum(s)+'pts · Gap '+gapPct(s)+'%';
-    var row=document.createElement('div');
-    row.className='rk-row';
-    row.innerHTML='<div class="rk-info"><div class="rk-nm">'+s.name+'</div><div class="rk-sb">'+sub+'</div></div>'
-      +'<div class="rk-rt"><div class="rk-pct" style="color:'+color+';">'+(score===null?'—':score)+'</div>'
-      +(score!==null?'<div class="rk-bar" style="width:60px;background:rgba(139,32,53,.1);"><div style="height:4px;width:'+score+'%;background:'+color+';border-radius:2px;"></div></div>':'')
-      +'</div>';
-    el.appendChild(row);
-  });
-}
-
-function renderAnomalies(){
-  var el=document.getElementById('anomalyList');
-  if(!el) return;
-  var alerts=detectAnomalies();
-  if(alerts.length===0){ el.innerHTML='<div style="font-size:12px;color:var(--mu);padding:8px 0;">No anomalies detected this week.</div>'; return; }
-  el.innerHTML='';
-  alerts.forEach(function(a){
-    var msg = a.type==='deadstock'
-      ? a.name+' has '+a.gap+'% unsold stock — high deadstock risk'
-      : a.name+' dropped '+Math.abs(a.delta)+' pts in Week '+a.week+' — sharpest single-week decline';
-    var row=document.createElement('div');
-    row.style.cssText='display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--bo);';
-    row.innerHTML='<div style="font-size:16px;">⚠️</div><div style="font-size:12px;color:var(--tx);flex:1;line-height:1.5;">'+msg+'</div>';
-    el.appendChild(row);
-  });
-  var last=el.lastElementChild; if(last) last.style.borderBottom='none';
-}
-
-function renderSegments(){
-  var el=document.getElementById('segmentGrid');
-  if(!el) return;
-  var groups={ Star:[], Stable:[], 'At Risk':[], New:[] };
-  STORE_ANALYTICS.forEach(function(s){ groups[segment(s)].push(s.name); });
-  var colors={ Star:'#2E8B5B', Stable:'#9C7A2E', 'At Risk':'#C23B4A', New:'#8B2035' };
-  var icons={ Star:'⭐', Stable:'🟡', 'At Risk':'🔴', New:'🆕' };
-  el.innerHTML='';
-  Object.keys(groups).forEach(function(g){
-    var box=document.createElement('div');
-    box.style.cssText='background:rgba(139,32,53,.06);border:1px solid var(--bo);border-radius:12px;padding:12px;';
-    box.innerHTML='<div style="font-size:11px;font-weight:700;color:'+colors[g]+';margin-bottom:4px;">'+icons[g]+' '+g+' ('+groups[g].length+')</div><div style="font-size:10px;color:var(--mu);line-height:1.6;">'+(groups[g].join(', ')||'—')+'</div>';
-    el.appendChild(box);
-  });
-}
-
-// ═══ PROFILE DRILL-DOWN MODALS ═══
-const MODAL_CONTENT = {
-  'seller-skus': { title:'My SKUs', build:function(){
-    var skus=[
-      {ic:'🍫',nm:'Protein Bar 30g',sb:'₹30/pc · fastest mover',rt:'70% of volume'},
-      {ic:'🍫',nm:'Protein Bar 60g',sb:'₹55/pc · steady demand',rt:'20% of volume'},
-      {ic:'🥣',nm:'Oats Bar 40g',sb:'₹25/pc · growing',rt:'7% of volume'},
-      {ic:'🥤',nm:'Whey Protein 500g',sb:'₹899/unit · premium',rt:'3% of volume'}
-    ];
-    return skus.map(function(s){ return modalRow(s.ic,s.nm,s.sb,s.rt); }).join('');
-  }},
-  'seller-agents': { title:'My Agents', build:function(){
-    var agents=[
-      {ic:'🚚',nm:'Rajesh K.',sb:'KL-07 AB 1234 · 14 deliveries this week',rt:'100% on-time'},
-      {ic:'🚚',nm:'Anuj M.',sb:'KL-11 CD 5678 · 11 deliveries this week',rt:'96% on-time'},
-      {ic:'🚚',nm:'Mohammed S.',sb:'KL-14 EF 9012 · 9 deliveries this week',rt:'94% on-time'}
-    ];
-    return agents.map(function(a){ return modalRow(a.ic,a.nm,a.sb,a.rt); }).join('');
-  }},
-  'seller-stores': { title:'My Stores', build:function(){
-    var stores=[
-      {ic:'🛒',nm:'Lulu Mart',sb:'Calicut · 82.5% sell-through',rt:'Healthy'},
-      {ic:'🍞',nm:'Focus Bakers',sb:'Palayam · 40% sell-through',rt:'Hold'},
-      {ic:'🌿',nm:'Kudumbashree',sb:'Kannur · 80% sell-through',rt:'Stable'},
-      {ic:'🍃',nm:'Nilgiris Express',sb:'Kozhikode · 85% sell-through',rt:'Star'},
-      {ic:'🏠',nm:'Heritage Foods',sb:'Malappuram · not onboarded',rt:'New'}
-    ];
-    return stores.map(function(s){ return modalRow(s.ic,s.nm,s.sb,s.rt); }).join('');
-  }},
-  'seller-billing': { title:'Billing & Payouts', build:function(){
-    return modalRow('💳','This Week\'s Revenue','From 4 orders','₹12,900')
-      + modalRow('📤','Pending Payout Transfer','Processes every Friday','₹9,300')
-      + modalRow('✅','Last Payout','Transferred Sep 5','₹18,400');
-  }},
-  'agent-payouts': { title:'Payout History', build:function(){
-    return modalRow('📅','This Week','14 deliveries','₹2,100')
-      + modalRow('📅','Last Week','16 deliveries','₹2,400')
-      + modalRow('📅','2 Weeks Ago','12 deliveries','₹1,800')
-      + modalRow('💰','Total This Month','42 deliveries','₹6,300');
-  }},
-  'agent-route': { title:"Today's Route", build:function(){
-    return modalRow('🍞','Focus Bakers','Palayam · 2.1 km','En route')
-      + modalRow('🌿','Kudumbashree','Kannur Road · 8.4 km','2:00 PM')
-      + modalRow('🍃','Nilgiris Express','Kozhikode Beach Rd · 12 km','4:30 PM');
-  }},
-  'store-orders': { title:'Order History', build:function(){
-    return modalRow('✅','#V-1039','Protein Bar 30g × 100','Delivered')
-      + modalRow('🚚','#V-1041','Protein Bar 60g × 60','In Transit')
-      + modalRow('⏳','#V-1040','Oats Bar 40g × 80','Pending');
-  }},
-  'store-reports': { title:'Sales Reports', build:function(){
-    return modalRow('📈','This Week','84 units sold','40% avg sell-through')
-      + modalRow('📉','Last Week','96 units sold','55% avg sell-through')
-      + modalRow('📊','4-Week Trend','Declining','72%→65%→55%→40%');
-  }},
-  'analyst-export': { title:'Export Weekly Report', build:function(){
-    return modalRow('📄','Full Brand Report','PDF · Sell-in, sell-out, trends','Ready')
-      + modalRow('📊','Store Rankings','CSV · all 5 stores','Ready')
-      + modalRow('🔮','Forecast Summary','PDF · next 7 days','Ready');
-  }, actionLabel:'Export All', action:function(){ showToast('📤','Weekly report exported — check your downloads.'); closeModal(); } },
-  'analyst-alerts': { title:'Alert Settings', build:function(){
-    return modalToggleRow('alert-critical','Critical Sell-through Drops','Notify when a store falls below 50%')
-      + modalToggleRow('alert-weekly','Weekly Summary','Every Monday at 9 AM')
-      + modalToggleRow('alert-anomaly','Anomaly Detection','Sharp single-week declines');
-  }},
-  'analyst-history': { title:'Historical Data (8 Weeks)', build:function(){
-    return modalRow('📅','Week 1-4','Baseline period','Archived')
-      + modalRow('📅','Week 5-8','Current tracking window','Active')
-      + modalRow('📥','Full Export','All 8 weeks, all stores','CSV / JSON');
-  }, actionLabel:'Download Full History', action:function(){ showToast('🗂️','Historical dataset (8 weeks) downloading...'); closeModal(); } }
-};
-
-function modalRow(icon,name,sub,right){
-  return '<div class="modal-row"><div class="modal-row-lft"><span>'+icon+'</span><div><div>'+name+'</div><div class="modal-sb">'+sub+'</div></div></div><strong style="font-family:\'Syne\',sans-serif;font-size:12px;">'+right+'</strong></div>';
-}
-function modalToggleRow(key,name,sub){
-  var on=!!modalTogState[key];
-  return '<div class="modal-row"><div class="modal-row-lft"><div><div>'+name+'</div><div class="modal-sb">'+sub+'</div></div></div><button class="tog-mini'+(on?' on':'')+'" onclick="toggleModalTog(this,\''+key+'\')"></button></div>';
-}
-function toggleModalTog(el,key){
-  modalTogState[key]=!modalTogState[key];
-  el.classList.toggle('on',modalTogState[key]);
-}
-
-function openModal(key){
-  var cfg=MODAL_CONTENT[key];
-  if(!cfg) return;
-  var sheet=document.getElementById('modalSheet');
-  var actionBtn = cfg.action ? '<button class="big-btn" onclick="MODAL_CONTENT[\''+key+'\'].action()">'+(cfg.actionLabel||'Confirm')+'</button>' : '';
-  sheet.innerHTML = '<div class="modal-hd"><div class="modal-ttl">'+cfg.title+'</div><button class="modal-x" onclick="closeModal()">✕</button></div>'
-    + '<div class="card" style="background:transparent;border:none;padding:0;margin-bottom:'+(cfg.action?'14px':'0')+';">'+cfg.build()+'</div>'
-    + actionBtn;
-  document.getElementById('modalOverlay').classList.add('show');
-}
-function closeModal(){
-  document.getElementById('modalOverlay').classList.remove('show');
+  requestAnimationFrame(function(){requestAnimationFrame(function(){el.classList.add('show');});});
+  setTimeout(function(){el.classList.remove('show');setTimeout(function(){el.remove();},350);},dur);
 }
 
 // ═══ INIT ═══
-document.addEventListener('DOMContentLoaded', function(){
+document.addEventListener('DOMContentLoaded',function(){
+  buildHeatmap();
+  renderAgentPicker('lulu');
   updateSummary();
-  // wire live updates on order form
-  var storeEl = document.getElementById('ord-store');
-  var skuEl   = document.getElementById('ord-sku');
-  if(storeEl) storeEl.addEventListener('change', updateSummary);
-  if(skuEl)   skuEl.addEventListener('change', updateSummary);
 });
 </script>
 </body>
